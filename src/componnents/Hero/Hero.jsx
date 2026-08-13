@@ -5,15 +5,27 @@ import { motion } from 'framer-motion';
 const Hero = () => {
   const navigate = useNavigate();
 
+  // Define the coordinates and delays for the "shooting sparks" coming from the brain
+  const sparks = [
+    { id: 1, x: -250, y: -150, delay: 0 },
+    { id: 2, x: 200, y: -200, delay: 0.4 },
+    { id: 3, x: -150, y: 250, delay: 0.8 },
+    { id: 4, x: 250, y: 100, delay: 1.2 },
+    { id: 5, x: 50, y: -300, delay: 1.6 },
+    { id: 6, x: 150, y: 250, delay: 0.2 },
+    { id: 7, x: -280, y: 50, delay: 0.6 },
+    { id: 8, x: -100, y: -250, delay: 1.0 },
+  ];
+
   return (
-    <div className="relative min-h-screen bg-[#0a0f16] flex items-center overflow-hidden">
+    <div className="relative min-h-screen bg-[#0a0f16] flex flex-col justify-center overflow-hidden">
       
-      {/* 3D Background Image Layer with Slow Zoom Animation */}
+      {/* Background Image Layer */}
       <motion.div 
-        initial={{ scale: 1.15 }}
+        initial={{ scale: 1.05 }}
         animate={{ scale: 1 }}
-        transition={{ duration: 10, ease: "easeOut" }}
-        className="absolute inset-0 z-0 opacity-30 bg-fixed"
+        transition={{ duration: 1.5, ease: "easeOut" }}
+        className="absolute inset-0 z-0 opacity-40 bg-fixed"
         style={{
           backgroundImage: "url('https://res.cloudinary.com/kpuio2i4/image/upload/v1786613825/Abstract_mind_with_neural_pathways_202608131529_w0zxgn.jpg')",
           backgroundSize: 'cover',
@@ -22,17 +34,56 @@ const Hero = () => {
         }}
       />
 
-      {/* Sophisticated Ambient Background Effects (Muted Slate and Soft Teal instead of Neon Blue) */}
-      <div className="absolute top-0 left-0 w-[700px] h-[700px] bg-slate-800/30 rounded-full blur-[150px] pointer-events-none z-0"></div>
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-teal-900/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
-
-      {/* Main Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full -mt-10">
+      {/* NEURAL BRAIN EFFECTS CONTAINER */}
+      <div className="hidden lg:flex absolute inset-y-0 right-[10%] w-125 items-center justify-center pointer-events-none z-0">
         
-        {/* Wrapper to keep text aligned left */}
-        <div className="max-w-3xl text-left">
+        {/* Expanding Neural Rings */}
+        {[0, 1, 2].map((i) => (
+          <motion.div
+            key={`ring-${i}`}
+            initial={{ scale: 0.2, opacity: 0 }}
+            animate={{ scale: 2, opacity: [0, 0.4, 0] }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              delay: i * 1.3,
+              ease: "easeOut",
+            }}
+            className="absolute w-48 h-48 rounded-full border border-teal-500/30"
+          />
+        ))}
+
+        {/* Shooting Neural Sparks */}
+        {sparks.map((spark) => (
+          <motion.div
+            key={spark.id}
+            initial={{ x: 0, y: 0, scale: 0, opacity: 0 }}
+            animate={{ 
+              x: spark.x, 
+              y: spark.y, 
+              scale: [0, 1.5, 0], 
+              opacity: [0, 1, 0] 
+            }}
+            transition={{ 
+              duration: 2.5, 
+              repeat: Infinity, 
+              delay: spark.delay,
+              ease: "easeOut" 
+            }}
+            className="absolute w-1.5 h-1.5 bg-teal-400 rounded-full shadow-[0_0_15px_2px_rgba(45,212,191,0.8)]"
+          />
+        ))}
+      </div>
+
+      {/* Subtle Lighting */}
+      <div className="absolute top-0 left-0 w-175 h-175 bg-slate-800/30 rounded-full blur-[150px] pointer-events-none z-0"></div>
+      
+      {/* Main Content Container */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Strict Left-Aligned Content Wrapper */}
+        <div className="w-full max-w-4xl flex flex-col items-start text-left pt-20">
           
-          {/* Animated Headline - Removed heavy drop shadow, using a softer off-white and elegant teal */}
           <motion.h1 
             initial={{ opacity: 0, x: -150 }}
             animate={{ opacity: 1, x: 0 }}
@@ -43,17 +94,15 @@ const Hero = () => {
             were <span className="text-teal-400 font-medium">meant for.</span>
           </motion.h1>
 
-          {/* Animated Subtext - Using a cleaner slate gray */}
           <motion.p 
             initial={{ opacity: 0, x: -150 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
-            className="text-lg sm:text-xl text-slate-400 mb-10 leading-relaxed max-w-2xl"
+            className="text-lg sm:text-xl text-slate-400 mb-10 leading-relaxed w-full lg:w-4/5"
           >
             Stop guessing about your future. Answer our structured psychological assessment and get a personalized career roadmap analyzed by two professional doctors.
           </motion.p>
 
-          {/* Animated CTA Button - Changed to a crisp, solid premium white button */}
           <motion.button 
             initial={{ opacity: 0, x: -150 }}
             animate={{ opacity: 1, x: 0 }}
