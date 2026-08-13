@@ -1,22 +1,16 @@
-// src/routes/AllRoutes.jsx
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-
-
+// Ensure your folder name spelling matches here!
+import Hero from '../componnents/Hero/Hero';
 
 const AllRoutes = () => {
   return (
     <Routes>
       {/* Public Routes */}
-      <Route path="/" element={<Home />} />
-      <Route path="/assessment" element={<Assessment />} />
-      <Route path="/checkout" element={<Checkout />} />
+      <Route path="/" element={<Hero />} />
       
-      {/* Private/Protected Routes (To be locked behind authentication later) */}
-      <Route path="/dashboard" element={<Dashboard />} />
-      
-      {/* 404 Catch-All Route */}
-      <Route path="*" element={<NotFound />} />
+      {/* Commented out until you create a NotFound.jsx file and import it */}
+      {/* <Route path="*" element={<NotFound />} /> */}
     </Routes>
   );
 };

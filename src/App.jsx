@@ -1,7 +1,7 @@
 // src/App.jsx
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Navbar from './components/layout/Navbar';
+import Navbar from './componnents/navbar/Navbar';
 import AllRoutes from './routes/AllRoutes';
 
 const App = () => {
@@ -12,7 +12,7 @@ const App = () => {
         <Navbar />
 
         {/* Main content area expands to fill available space */}
-        <main className="flex-grow">
+        <main className="grow">
           <AllRoutes />
         </main>
 
