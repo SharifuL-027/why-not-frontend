@@ -18,6 +18,7 @@ const Hero = () => {
   ];
 
   return (
+    // Removed mt-20 and restored min-h-screen so it starts at the very top of the browser, behind the navbar
     <div className="relative min-h-screen bg-[#0a0f16] flex flex-col justify-center overflow-hidden">
       
       {/* Background Image Layer */}
@@ -25,17 +26,16 @@ const Hero = () => {
         initial={{ scale: 1.05 }}
         animate={{ scale: 1 }}
         transition={{ duration: 1.5, ease: "easeOut" }}
-        className="absolute inset-0 z-0 opacity-40 bg-fixed"
+        className="absolute inset-0 z-0 opacity-40" 
         style={{
           backgroundImage: "url('https://res.cloudinary.com/kpuio2i4/image/upload/v1786613825/Abstract_mind_with_neural_pathways_202608131529_w0zxgn.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundAttachment: 'fixed', 
         }}
       />
 
       {/* NEURAL BRAIN EFFECTS CONTAINER */}
-      <div className="hidden lg:flex absolute inset-y-0 right-[10%] w-125 items-center justify-center pointer-events-none z-0">
+      <div className="hidden lg:flex absolute inset-y-0 right-[5%] xl:right-[10%] w-[500px] items-center justify-center pointer-events-none z-0">
         
         {/* Expanding Neural Rings */}
         {[0, 1, 2].map((i) => (
@@ -76,17 +76,16 @@ const Hero = () => {
       </div>
 
       {/* Subtle Lighting */}
-      <div className="absolute top-0 left-0 w-175 h-175 bg-slate-800/30 rounded-full blur-[150px] pointer-events-none z-0"></div>
+      <div className="absolute top-0 left-0 w-[700px] h-[700px] bg-slate-800/30 rounded-full blur-[150px] pointer-events-none z-0"></div>
       
-      {/* Main Content Container */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Main Content Container - Pinned to the Left Edge */}
+      <div className="relative z-10 w-full px-6 md:px-12 lg:px-20 xl:px-32">
         
-        {/* Strict Left-Aligned Content Wrapper */}
-        <div className="w-full max-w-4xl flex flex-col items-start text-left pt-20">
+        <div className="w-full max-w-4xl flex flex-col items-start text-left">
           
           <motion.h1 
-            initial={{ opacity: 0, x: -150 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: -80 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: "easeOut" }}
             className="text-5xl sm:text-6xl lg:text-7xl font-bold text-[#f8fafc] tracking-tight mb-6"
           >
@@ -95,23 +94,26 @@ const Hero = () => {
           </motion.h1>
 
           <motion.p 
-            initial={{ opacity: 0, x: -150 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: -80 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
             className="text-lg sm:text-xl text-slate-400 mb-10 leading-relaxed w-full lg:w-4/5"
           >
             Stop guessing about your future. Answer our structured psychological assessment and get a personalized career roadmap analyzed by two professional doctors.
           </motion.p>
 
-          <motion.button 
-            initial={{ opacity: 0, x: -150 }}
-            animate={{ opacity: 1, x: 0 }}
+          <motion.div
+            initial={{ opacity: 0, y: -80 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.4, ease: "easeOut" }}
-            onClick={() => navigate('/assessment')}
-            className="bg-white text-slate-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-sm"
           >
-            Start Your Assessment
-          </motion.button>
+            <button 
+              onClick={() => navigate('/assessment')}
+              className="bg-white text-slate-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-sm"
+            >
+              Start Your Assessment
+            </button>
+          </motion.div>
           
         </div>
       </div>

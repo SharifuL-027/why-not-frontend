@@ -1,0 +1,138 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+
+// --- Reusable Animated Circle Component (Darkened for light background) ---
+const LoadingStepCircle = ({ number }) => {
+  return (
+    <div className="relative w-16 h-16 flex items-center justify-center mx-auto mb-6">
+      {/* Spinning Dashed Ring */}
+      <svg 
+        className="absolute inset-0 w-full h-full text-slate-800 animate-[spin_8s_linear_infinite]" 
+        viewBox="0 0 50 50"
+      >
+        <circle 
+          cx="25" 
+          cy="25" 
+          r="22" 
+          stroke="currentColor" 
+          strokeWidth="3" 
+          fill="none" 
+          strokeDasharray="4 6" 
+          strokeLinecap="round"
+        />
+      </svg>
+      {/* Static Number in Center */}
+      <span className="relative z-10 text-slate-900 font-bold text-xl font-serif">
+        {number}
+      </span>
+    </div>
+  );
+};
+
+const HowItWorks = () => {
+  const navigate = useNavigate();
+
+  const steps = [
+    {
+      id: 1,
+      title: "Free Consultation",
+      description: "Connect with us to explore your goals and see if our assessment is a good fit."
+    },
+    {
+      id: 2,
+      title: "Individualized Care",
+      description: "We create a psychological approach tailored specifically to your career needs."
+    },
+    {
+      id: 3,
+      title: "Schedule Your Session",
+      description: "Choose an online or in-person evaluation that fits your schedule."
+    },
+    {
+      id: 4,
+      title: "Start Therapy",
+      description: "Begin a thoughtful, collaborative process toward lasting professional change."
+    }
+  ];
+
+  return (
+    // Changed to a premium off-white cream color: bg-[#FDFBF7]
+    <section className="bg-[#FDFBF7] py-24 relative overflow-hidden">
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Header Section */}
+        <div className="text-center mb-20">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-4xl md:text-5xl text-slate-900 mb-4 tracking-tight font-serif"
+          >
+            How to <span className="italic font-light text-slate-600">start</span> therapy with me
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-xs uppercase tracking-[0.25em] text-slate-500 font-bold"
+          >
+            YOUR PATH TO HEALING BEGINS HERE
+          </motion.p>
+        </div>
+
+        {/* Steps Grid with Dividers (Changed to subtle gray dividers) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-12 divide-y md:divide-y-0 md:divide-x divide-slate-200 mb-20">
+          {steps.map((step, index) => (
+            <motion.div 
+              key={step.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.15 }}
+              className="text-center px-6 pt-8 md:pt-0"
+            >
+              <LoadingStepCircle number={step.id} />
+              <h3 className="text-xl font-medium text-slate-800 mb-3 font-serif">
+                {step.title}
+              </h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                {step.description}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Call to Action Button (Inverted to Dark Button with Light Icon) */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="flex justify-center"
+        >
+          <button 
+            onClick={() => navigate('/assessment')}
+            className="group flex items-center justify-between gap-4 bg-[#312B3B] p-2 pl-6 rounded-full hover:bg-slate-800 hover:scale-105 transition-all duration-300 shadow-md"
+          >
+            <span className="text-white font-semibold text-sm">
+              Book a consultation
+            </span>
+            {/* White Circle with Arrow inside the button */}
+            <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-[#312B3B]">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </button>
+        </motion.div>
+
+      </div>
+    </section>
+  );
+};
+
+export default HowItWorks;
