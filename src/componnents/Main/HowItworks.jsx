@@ -6,9 +6,9 @@ import { motion } from 'framer-motion';
 const LoadingStepCircle = ({ number }) => {
   return (
     <div className="relative w-16 h-16 flex items-center justify-center mx-auto mb-6">
-      {/* Spinning Dashed Ring */}
+      {/* Spinning Dashed Ring (Using Primary Dusty Rose) */}
       <svg 
-        className="absolute inset-0 w-full h-full text-slate-800 animate-[spin_8s_linear_infinite]" 
+        className="absolute inset-0 w-full h-full text-[#B98286] animate-[spin_8s_linear_infinite]" 
         viewBox="0 0 50 50"
       >
         <circle 
@@ -22,8 +22,8 @@ const LoadingStepCircle = ({ number }) => {
           strokeLinecap="round"
         />
       </svg>
-      {/* Static Number in Center */}
-      <span className="relative z-10 text-slate-900 font-bold text-xl font-serif">
+      {/* Static Number in Center (Using Theme Text Color) */}
+      <span className="relative z-10 text-[#352B2D] font-bold text-xl font-serif">
         {number}
       </span>
     </div>
@@ -57,7 +57,8 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section className="bg-[#FDFBF7] py-24 relative overflow-hidden">
+    // Background using the warm creamy off-white
+    <section className="bg-[#ffffff] py-24 relative overflow-hidden">
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -68,7 +69,7 @@ const HowItWorks = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl text-slate-600 mb-4 tracking-tight playfair-display-bold"
+            className="text-4xl md:text-5xl text-[#352B2D] mb-4 tracking-tight playfair-display-bold"
           >
             How to discover your ideal career
           </motion.h2>
@@ -77,14 +78,14 @@ const HowItWorks = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xs uppercase tracking-[0.25em] text-slate-500 font-bold"
+            className="text-xs uppercase tracking-[0.25em] text-[#633F45]/80 playfair-display-bold"
           >
             YOUR JOURNEY TO PROFESSIONAL CLARITY
           </motion.p>
         </div>
 
-        {/* Steps Grid with Dividers */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-12 divide-y md:divide-y-0 md:divide-x divide-slate-200 mb-20">
+        {/* Steps Grid with Dividers (Using Accent Color for Dividers) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-12 divide-y md:divide-y-0 md:divide-x divide-[#E8D4D0] mb-20">
           {steps.map((step, index) => (
             <motion.div 
               key={step.id}
@@ -95,10 +96,10 @@ const HowItWorks = () => {
               className="text-center px-6 pt-8 md:pt-0"
             >
               <LoadingStepCircle number={step.id} />
-              <h3 className="text-xl font-medium text-slate-800 mb-3 font-serif">
+              <h3 className="text-xl loto-medium text-[#352B2D] mb-3 font-serif">
                 {step.title}
               </h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
+              <p className="text-sm lato-regular text-[#633F45]/80 leading-relaxed">
                 {step.description}
               </p>
             </motion.div>
@@ -113,15 +114,16 @@ const HowItWorks = () => {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="flex justify-center"
         >
+          {/* Button styled exactly like the Hero CTA */}
           <button 
             onClick={() => navigate('/assessment')}
-            className="group flex items-center justify-between gap-4 bg-[#312B3B] p-2 pl-6 rounded-full hover:bg-slate-800 hover:scale-105 transition-all duration-300 shadow-md"
+            className="group flex items-center justify-between gap-4 bg-[#633F45] p-2 pl-6 rounded-full hover:bg-[#B98286] hover:scale-105 transition-all duration-300 shadow-[0_8px_20px_rgba(99,63,69,0.15)] hover:shadow-[0_12px_25px_rgba(185,130,134,0.3)]"
           >
-            <span className="text-white font-semibold text-sm">
+            <span className="text-[#FBF6F4] font-semibold text-sm">
               Unlock Your Assessment
             </span>
-            {/* White Circle with Arrow inside the button */}
-            <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-[#312B3B]">
+            {/* Light Circle with Arrow inside the button */}
+            <div className="w-8 h-8 bg-[#FBF6F4] rounded-full flex items-center justify-center text-[#633F45] group-hover:text-[#B98286] transition-colors">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
               </svg>

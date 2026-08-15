@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Hero = () => {
   const navigate = useNavigate();
+
+  // 1. Array of words to cycle through
+  const phrases = ["meant for", "built for", "destined for", "wired for"];
+  const [index, setIndex] = useState(0);
+
+  // 2. Set interval to change the word every 3 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % phrases.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
 
   // Define the coordinates and delays for the "shooting sparks" coming from the brain
   const sparks = [
@@ -22,20 +34,20 @@ const Hero = () => {
       
       {/* 
         Background Image Layer 
-        - Increased opacity to 50%
-        - Added a maskImage to make it visible on the right and faded on the left
+        - Increased opacity to 90% so the image is much more visible
+        - Adjusted gradient mask to reveal more of the right side
       */}
       <motion.div 
         initial={{ scale: 1.05 }}
         animate={{ scale: 1 }}
         transition={{ duration: 1.5, ease: "easeOut" }}
-        className="absolute inset-0 z-0 opacity-50 mix-blend-multiply" 
+        className="absolute inset-0 z-0 opacity-90 mix-blend-multiply" 
         style={{
-          backgroundImage: "url('https://res.cloudinary.com/kpuio2i4/image/upload/v1786613825/Abstract_mind_with_neural_pathways_202608131529_w0zxgn.jpg')",
+          backgroundImage: "url('https://res.cloudinary.com/wtbwxhmc/image/upload/v1786785619/Gemini_Generated_Image_25ye6q25ye6q25ye_hxuhjj.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'right center',
-          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, transparent 30%, black 80%)',
-          maskImage: 'linear-gradient(to right, transparent 0%, transparent 30%, black 80%)',
+          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, transparent 15%, black 75%)',
+          maskImage: 'linear-gradient(to right, transparent 0%, transparent 15%, black 75%)',
         }}
       />
 
@@ -58,7 +70,7 @@ const Hero = () => {
           />
         ))}
 
-        {/* Shooting Neural Sparks */}
+        {/* Shooting Neural Sparks - Increased scale to [0, 2, 0] for higher visibility */}
         {sparks.map((spark) => (
           <motion.div
             key={spark.id}
@@ -66,7 +78,7 @@ const Hero = () => {
             animate={{ 
               x: spark.x, 
               y: spark.y, 
-              scale: [0, 1.5, 0], 
+              scale: [0, 2, 0], 
               opacity: [0, 1, 0] 
             }}
             transition={{ 
@@ -75,7 +87,7 @@ const Hero = () => {
               delay: spark.delay,
               ease: "circOut" 
             }}
-            className="absolute w-1.5 h-1.5 bg-[#B98286] rounded-full shadow-[0_0_12px_2px_rgba(185,130,134,0.6)]"
+            className="absolute w-1.5 h-1.5 bg-[#B98286] rounded-full shadow-[0_0_12px_3px_rgba(185,130,134,0.8)]"
           />
         ))}
       </div>
@@ -95,7 +107,22 @@ const Hero = () => {
             className="text-4xl sm:text-5xl lg:text-7xl playfair-display-bold text-[#352B2D] tracking-tight mb-6"
           >
             Discover the career you <br className="hidden sm:block" />
-            were <span className="text-[#B98286]">meant for</span>
+            were{' '}
+            {/* Animated Word Cycler */}
+            <span className="text-[#B98286] inline-block min-w-70">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={index}
+                  initial={{ opacity: 0, y: 25 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -25 }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                  className="inline-block"
+                >
+                  {phrases[index]}
+                </motion.span>
+              </AnimatePresence>
+            </span>
           </motion.h1>
 
           <motion.p 

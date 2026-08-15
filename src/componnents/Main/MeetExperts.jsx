@@ -38,7 +38,8 @@ const itemVariants = {
 
 const MeetExperts = () => {
   return (
-    <section className="bg-white py-32 relative overflow-hidden">
+    
+    <section className="bg-[#FBF6F4] py-32 relative overflow-hidden">
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -50,12 +51,10 @@ const MeetExperts = () => {
           transition={{ duration: 1, ease: "easeOut" }}
           className="text-center mb-32"
         >
-          <p className="text-slate-400 font-bold tracking-[0.2em] text-xs uppercase mb-6">
-            Clinical Excellence
-          </p>
-          <h2 className="text-4xl md:text-6xl font-bold text-slate-900 tracking-tight font-serif">
+          
+          <h2 className="text-4xl md:text-5xl playfair-display-bold text-[#352B2D] tracking-tight font-serif">
             Meet the minds behind <br className="hidden md:block" />
-            <span className="italic font-light text-slate-500">the science.</span>
+            <span className=" text-[#633F45]">the science.</span>
           </h2>
         </motion.div>
 
@@ -80,11 +79,11 @@ const MeetExperts = () => {
                   transition={{ duration: 1.2, ease: "easeOut" }}
                   className="w-full lg:w-1/2 relative group"
                 >
-                  {/* Subtle decorative background offset */}
-                  <div className={`absolute top-6 bottom-6 -z-10 bg-slate-50 rounded-3xl w-full ${isEven ? '-left-6' : '-right-6'}`}></div>
+                  {/* Subtle decorative background offset (Using the Accent color) */}
+                  <div className={`absolute top-6 bottom-6 -z-10 bg-[#E8D4D0]/60 rounded-3xl w-full ${isEven ? '-left-6' : '-right-6'} transition-transform duration-700 group-hover:scale-[1.02]`}></div>
                   
                   {/* Main Image Container */}
-                  <div className="relative aspect-4/5 sm:aspect-square lg:aspect-4/5 rounded-2xl overflow-hidden shadow-2xl shadow-slate-200/50">
+                  <div className="relative aspect-4/5 sm:aspect-square lg:aspect-4/5 rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(99,63,69,0.15)] border border-[#E8D4D0]/30">
                     <motion.img 
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 1.5, ease: "easeOut" }}
@@ -92,6 +91,8 @@ const MeetExperts = () => {
                       alt={expert.name}
                       className="w-full h-full object-cover"
                     />
+                    {/* Soft warm overlay to blend image with theme */}
+                    <div className="absolute inset-0 bg-[#B98286]/10 mix-blend-overlay pointer-events-none group-hover:opacity-0 transition-opacity duration-700"></div>
                   </div>
                 </motion.div>
 
@@ -104,22 +105,22 @@ const MeetExperts = () => {
                   className="w-full lg:w-1/2 flex flex-col justify-center"
                 >
                   <motion.div variants={itemVariants} className="flex items-center gap-4 mb-6">
-                    <div className="h-px w-12 bg-teal-600"></div>
-                    <span className="text-teal-700 font-semibold tracking-wider text-sm uppercase">
+                    <div className="h-px w-12 bg-[#B98286]"></div>
+                    <span className="text-[#B98286] font-semibold tracking-wider text-sm uppercase">
                       {expert.role}
                     </span>
                   </motion.div>
                   
                   <motion.h3 
                     variants={itemVariants}
-                    className="text-4xl sm:text-5xl font-bold text-slate-900 mb-6 font-serif"
+                    className="text-4xl sm:text-5xl font-bold text-[#352B2D] mb-6 font-serif"
                   >
                     {expert.name}
                   </motion.h3>
                   
                   <motion.p 
                     variants={itemVariants}
-                    className="text-lg text-slate-600 leading-relaxed mb-8"
+                    className="text-lg text-[#633F45]/80 leading-relaxed mb-8"
                   >
                     {expert.description}
                   </motion.p>

@@ -39,7 +39,8 @@ const Navbar = () => {
             : 'bg-transparent py-6'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* MATCHED HERO PADDING: w-full px-6 md:px-12 lg:px-20 xl:px-32 */}
+        <div className="w-full px-6 md:px-12 lg:px-20 xl:px-32">
           <div className="flex justify-between items-center">
             
             {/* Logo Section */}
@@ -109,10 +110,10 @@ const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed inset-0 z-60 bg-[#FBF6F4] flex flex-col"
+            className="fixed inset-0 z-[60] bg-[#FBF6F4] flex flex-col"
           >
-            {/* Mobile Menu Header (Matches Navbar position) */}
-            <div className="flex justify-between items-center px-4 sm:px-6 py-6 border-b border-[#E8D4D0]">
+            {/* Mobile Menu Header (Matches Navbar position & Padding) */}
+            <div className="flex justify-between items-center w-full px-6 md:px-12 lg:px-20 xl:px-32 py-6 border-b border-[#E8D4D0]">
               <Link 
                 to="/" 
                 className="font-sans font-bold text-2xl tracking-tight text-[#352B2D]"
@@ -169,7 +170,7 @@ const Navbar = () => {
             </div>
             
             {/* Faint background glow inside the mobile menu */}
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-100 h-100 bg-[#B98286]/15 rounded-full blur-[100px] pointer-events-none z-[-1]"></div>
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-[#B98286]/15 rounded-full blur-[100px] pointer-events-none z-[-1]"></div>
           </motion.div>
         )}
       </AnimatePresence>
