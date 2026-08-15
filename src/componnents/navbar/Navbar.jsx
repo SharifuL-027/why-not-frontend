@@ -35,7 +35,7 @@ const Navbar = () => {
       <nav 
         className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out ${
           isScrolled 
-            ? 'bg-[#0a0f16]/90 backdrop-blur-md border-b border-white/5 shadow-lg py-4' 
+            ? 'bg-[#FBF6F4]/90 backdrop-blur-md border-b border-[#E8D4D0] shadow-sm py-4' 
             : 'bg-transparent py-6'
         }`}
       >
@@ -46,10 +46,10 @@ const Navbar = () => {
             <div className="shrink-0 flex items-center cursor-pointer">
               <Link 
                 to="/" 
-                className="font-sans font-bold text-2xl tracking-tight text-white transition-colors hover:opacity-80"
+                className="font-sans font-bold text-2xl tracking-tight text-[#352B2D] transition-colors hover:opacity-80"
                 onClick={() => setIsOpen(false)}
               >
-                Why not <span className="text-teal-400 font-medium">you</span>
+                Why not <span className="text-[#B98286] font-medium">you</span>
               </Link>
             </div>
 
@@ -57,13 +57,13 @@ const Navbar = () => {
             <div className="hidden md:flex space-x-8 items-center">
               <Link 
                 to="/how-it-works" 
-                className="font-medium text-slate-300 hover:text-teal-400 transition-colors"
+                className="font-medium text-[#633F45] hover:text-[#B98286] transition-colors"
               >
                 How it Works
               </Link>
               <Link 
                 to="/our-doctors" 
-                className="font-medium text-slate-300 hover:text-teal-400 transition-colors"
+                className="font-medium text-[#633F45] hover:text-[#B98286] transition-colors"
               >
                 Our Doctors
               </Link>
@@ -73,13 +73,13 @@ const Navbar = () => {
             <div className="hidden md:flex items-center space-x-6">
               <Link 
                 to="/login" 
-                className="font-medium text-slate-300 hover:text-white transition-colors"
+                className="font-medium text-[#633F45] hover:text-[#B98286] transition-colors"
               >
                 Log in
               </Link>
               <button 
                 onClick={() => navigate('/assessment')}
-                className="bg-white text-slate-900 px-6 py-2.5 rounded-full font-semibold hover:bg-gray-200 hover:scale-105 transition-all duration-300 shadow-sm"
+                className="bg-[#633F45] text-[#FBF6F4] px-6 py-2.5 rounded-full font-semibold hover:bg-[#B98286] hover:scale-105 transition-all duration-300 shadow-[0_4px_10px_rgba(99,63,69,0.15)]"
               >
                 Start Assessment
               </button>
@@ -89,7 +89,7 @@ const Navbar = () => {
             <div className="md:hidden flex items-center">
               <button 
                 onClick={() => setIsOpen(true)}
-                className="p-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-slate-300 hover:text-white transition-all backdrop-blur-sm focus:outline-none"
+                className="p-2.5 bg-[#E8D4D0]/40 hover:bg-[#E8D4D0] border border-[#E8D4D0] rounded-full text-[#352B2D] transition-all backdrop-blur-sm focus:outline-none"
                 aria-label="Open menu"
               >
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -109,20 +109,20 @@ const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed inset-0 z-[60] bg-[#0a0f16] flex flex-col"
+            className="fixed inset-0 z-60 bg-[#FBF6F4] flex flex-col"
           >
             {/* Mobile Menu Header (Matches Navbar position) */}
-            <div className="flex justify-between items-center px-4 sm:px-6 py-6 border-b border-white/5">
+            <div className="flex justify-between items-center px-4 sm:px-6 py-6 border-b border-[#E8D4D0]">
               <Link 
                 to="/" 
-                className="font-sans font-bold text-2xl tracking-tight text-white"
+                className="font-sans font-bold text-2xl tracking-tight text-[#352B2D]"
                 onClick={() => setIsOpen(false)}
               >
-                Why not <span className="text-teal-400 font-medium">you</span>
+                Why not <span className="text-[#B98286] font-medium">you</span>
               </Link>
               <button 
                 onClick={() => setIsOpen(false)}
-                className="p-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-slate-300 hover:text-white transition-all focus:outline-none"
+                className="p-2.5 bg-[#E8D4D0]/40 hover:bg-[#E8D4D0] border border-[#E8D4D0] rounded-full text-[#352B2D] transition-all focus:outline-none"
                 aria-label="Close menu"
               >
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -136,40 +136,40 @@ const Navbar = () => {
               <Link 
                 to="/how-it-works" 
                 onClick={() => setIsOpen(false)}
-                className="text-3xl font-serif text-slate-300 hover:text-teal-400 transition-colors"
+                className="text-3xl font-serif text-[#633F45] hover:text-[#B98286] transition-colors"
               >
                 How it Works
               </Link>
               <Link 
                 to="/our-doctors" 
                 onClick={() => setIsOpen(false)}
-                className="text-3xl font-serif text-slate-300 hover:text-teal-400 transition-colors"
+                className="text-3xl font-serif text-[#633F45] hover:text-[#B98286] transition-colors"
               >
                 Our Doctors
               </Link>
               <Link 
                 to="/login" 
                 onClick={() => setIsOpen(false)}
-                className="text-3xl font-serif text-slate-300 hover:text-white transition-colors"
+                className="text-3xl font-serif text-[#633F45] hover:text-[#B98286] transition-colors"
               >
                 Log in
               </Link>
 
-              <div className="w-24 h-px bg-white/10 my-4"></div>
+              <div className="w-24 h-px bg-[#E8D4D0] my-4"></div>
 
               <button 
                 onClick={() => {
                   setIsOpen(false);
                   navigate('/assessment');
                 }}
-                className="w-full max-w-xs bg-teal-500 text-slate-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-teal-400 transition-all duration-300 shadow-[0_0_20px_rgba(45,212,191,0.3)]"
+                className="w-full max-w-xs bg-[#633F45] text-[#FBF6F4] px-8 py-4 rounded-full font-bold text-lg hover:bg-[#B98286] transition-all duration-300 shadow-[0_8px_20px_rgba(99,63,69,0.15)]"
               >
                 Start Assessment
               </button>
             </div>
             
             {/* Faint background glow inside the mobile menu */}
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-100 h-100 bg-teal-900/20 rounded-full blur-[100px] pointer-events-none z-[-1]"></div>
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-100 h-100 bg-[#B98286]/15 rounded-full blur-[100px] pointer-events-none z-[-1]"></div>
           </motion.div>
         )}
       </AnimatePresence>
