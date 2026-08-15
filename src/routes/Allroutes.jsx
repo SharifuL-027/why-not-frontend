@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Hero from '../componnents/Main/Hero';
 import HowItWorks from '../componnents/Main/HowItworks';
+import WhyItMatters from '../componnents/Main/WhyItMatters';
 
 const AllRoutes = () => {
   return (
@@ -13,6 +14,7 @@ const AllRoutes = () => {
           <>
             <Hero />
             <HowItWorks />
+            <WhyItMatters/>
           </>
         } 
       />
