@@ -5,14 +5,12 @@ const experts = [
   {
     id: 1,
     name: "Dr. Sarah Jenkins, Ph.D.",
-    role: "Lead Cognitive Psychologist",
     description: "Specializes in behavioral assessments and cognitive alignment. Dr. Jenkins spent 12 years researching career dissatisfaction before developing the foundational profiling matrix used in our assessments today.",
     image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop"
   },
   {
     id: 2,
     name: "Dr. Marcus Chen, Psy.D.",
-    role: "Organizational Behaviorist",
     description: "An industry-leading expert in workplace dynamics and human potential. Dr. Chen's expertise lies in mapping your raw psychological traits directly to high-performing industry roles and environments.",
     image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=800&auto=format&fit=crop"
   }
@@ -39,7 +37,7 @@ const itemVariants = {
 const MeetExperts = () => {
   return (
     
-    <section className="bg-[#FBF6F4] py-32 relative overflow-hidden">
+    <section className="bg-[#ffffff] py-32 relative overflow-hidden">
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -52,9 +50,9 @@ const MeetExperts = () => {
           className="text-center mb-32"
         >
           
-          <h2 className="text-4xl md:text-5xl playfair-display-bold text-[#352B2D] tracking-tight font-serif">
+          <h2 className="text-4xl md:text-5xl playfair-display-bold text-slate-600 tracking-tight">
             Meet the minds behind <br className="hidden md:block" />
-            <span className=" text-[#633F45]">the science.</span>
+            <span className=" text-[#633F45]">the science</span>
           </h2>
         </motion.div>
 
@@ -105,15 +103,12 @@ const MeetExperts = () => {
                   className="w-full lg:w-1/2 flex flex-col justify-center"
                 >
                   <motion.div variants={itemVariants} className="flex items-center gap-4 mb-6">
-                    <div className="h-px w-12 bg-[#B98286]"></div>
-                    <span className="text-[#B98286] font-semibold tracking-wider text-sm uppercase">
-                      {expert.role}
-                    </span>
+                    
                   </motion.div>
                   
                   <motion.h3 
                     variants={itemVariants}
-                    className="text-4xl sm:text-5xl font-bold text-[#352B2D] mb-6 font-serif"
+                    className="text-4xl sm:text-5xl playfair-display-bold text-[#352B2D] mb-6 font-serif"
                   >
                     {expert.name}
                   </motion.h3>

@@ -47,7 +47,7 @@ const deliverables = [
 const WhatYouGet = () => {
   return (
     // Creamy off-white background matching your request
-    <section className="bg-[#FDFBF7] py-24 relative overflow-hidden">
+    <section className="bg-[#ffffff] py-10 relative overflow-hidden">
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
