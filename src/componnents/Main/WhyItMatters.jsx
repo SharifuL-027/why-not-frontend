@@ -59,16 +59,6 @@ const WhyItMatters = () => {
           
           {/* Left Column: Heading & Context (Wrapped in Perspective for 3D Text) */}
           <div className="max-w-xl" style={{ perspective: '1000px' }}>
-            <motion.p 
-              initial={{ opacity: 0, rotateX: -90, y: 20 }}
-              whileInView={{ opacity: 1, rotateX: 0, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              style={{ transformOrigin: "top" }}
-              className="text-cyan-400 font-bold tracking-widest text-xs uppercase mb-4 drop-shadow-md"
-            >
-              The Cost of Guessing
-            </motion.p>
             
             <motion.h2 
               initial={{ opacity: 0, rotateX: 45, z: -50 }}
