@@ -39,7 +39,7 @@ const FAQ = () => {
   return (
     <section className="bg-[#FCFBF9] py-32 relative overflow-hidden">
       
-      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#1A6BBA]/10 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute top-0 right-1/4 w-125 h-125 bg-[#1A6BBA]/10 rounded-full blur-[120px] pointer-events-none"></div>
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
