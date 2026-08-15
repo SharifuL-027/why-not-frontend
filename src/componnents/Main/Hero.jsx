@@ -35,7 +35,7 @@ const Hero = () => {
       />
 
       {/* NEURAL BRAIN EFFECTS CONTAINER */}
-      <div className="hidden lg:flex absolute inset-y-0 right-[5%] xl:right-[10%] w-[500px] items-center justify-center pointer-events-none z-0">
+      <div className="hidden lg:flex absolute inset-y-0 right-[5%] xl:right-[10%] w-125 items-center justify-center pointer-events-none z-0">
         
         {/* Expanding Neural Rings */}
         {[0, 1, 2].map((i) => (
@@ -76,7 +76,7 @@ const Hero = () => {
       </div>
 
       {/* Subtle Lighting */}
-      <div className="absolute top-0 left-0 w-[700px] h-[700px] bg-slate-800/30 rounded-full blur-[150px] pointer-events-none z-0"></div>
+      <div className="absolute top-0 left-0 w-175 h-175 bg-slate-800/30 rounded-full blur-[150px] pointer-events-none z-0"></div>
       
       {/* Main Content Container - Pinned to the Left Edge */}
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-20 xl:px-32">
@@ -87,17 +87,17 @@ const Hero = () => {
             initial={{ opacity: 0, y: -80 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: "easeOut" }}
-            className="text-5xl sm:text-6xl lg:text-7xl font-bold text-[#f8fafc] tracking-tight mb-6"
+            className="text-4xl sm:text-4xl lg:text-6xl playfair-bold text-[#f8fafc] tracking-tight mb-6"
           >
-            Discover the career you <br/>
-            were <span className="text-teal-400 font-medium">meant for.</span>
+            Discover the career you
+            were <span className="text-teal-400">meant for</span>
           </motion.h1>
 
           <motion.p 
             initial={{ opacity: 0, y: -80 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
-            className="text-lg sm:text-xl text-slate-400 mb-10 leading-relaxed w-full lg:w-4/5"
+            className="text-lg sm:text-xl lato-regular text-slate-400 mb-10 leading-relaxed w-full lg:w-4/5"
           >
             Stop guessing about your future. Answer our structured psychological assessment and get a personalized career roadmap analyzed by two professional doctors.
           </motion.p>

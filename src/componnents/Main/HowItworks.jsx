@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-// --- Reusable Animated Circle Component (Darkened for light background) ---
+// --- Reusable Animated Circle Component ---
 const LoadingStepCircle = ({ number }) => {
   return (
     <div className="relative w-16 h-16 flex items-center justify-center mx-auto mb-6">
@@ -36,28 +36,27 @@ const HowItWorks = () => {
   const steps = [
     {
       id: 1,
-      title: "Free Consultation",
-      description: "Connect with us to explore your goals and see if our assessment is a good fit."
+      title: "Unlock Access",
+      description: "Secure your entry with a one-time payment to access our exclusive psychological career evaluation."
     },
     {
       id: 2,
-      title: "Individualized Care",
-      description: "We create a psychological approach tailored specifically to your career needs."
+      title: "The Assessment",
+      description: "Answer a structured series of deep, psychology-based questions to reveal your true professional traits."
     },
     {
       id: 3,
-      title: "Schedule Your Session",
-      description: "Choose an online or in-person evaluation that fits your schedule."
+      title: "Doctor Analysis",
+      description: "Two professional doctors will carefully review your unique response patterns and psychological profile."
     },
     {
       id: 4,
-      title: "Start Therapy",
-      description: "Begin a thoughtful, collaborative process toward lasting professional change."
+      title: "Your Roadmap",
+      description: "Receive a highly personalized, actionable guide detailing the exact career paths you were meant for."
     }
   ];
 
   return (
-    // Changed to a premium off-white cream color: bg-[#FDFBF7]
     <section className="bg-[#FDFBF7] py-24 relative overflow-hidden">
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -71,7 +70,7 @@ const HowItWorks = () => {
             transition={{ duration: 0.6 }}
             className="text-4xl md:text-5xl text-slate-900 mb-4 tracking-tight font-serif"
           >
-            How to <span className="italic font-light text-slate-600">start</span> therapy with me
+            How to <span className="italic font-light text-slate-600">discover</span> your ideal career
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -80,11 +79,11 @@ const HowItWorks = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xs uppercase tracking-[0.25em] text-slate-500 font-bold"
           >
-            YOUR PATH TO HEALING BEGINS HERE
+            YOUR JOURNEY TO PROFESSIONAL CLARITY
           </motion.p>
         </div>
 
-        {/* Steps Grid with Dividers (Changed to subtle gray dividers) */}
+        {/* Steps Grid with Dividers */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-12 divide-y md:divide-y-0 md:divide-x divide-slate-200 mb-20">
           {steps.map((step, index) => (
             <motion.div 
@@ -106,7 +105,7 @@ const HowItWorks = () => {
           ))}
         </div>
 
-        {/* Call to Action Button (Inverted to Dark Button with Light Icon) */}
+        {/* Call to Action Button */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -119,7 +118,7 @@ const HowItWorks = () => {
             className="group flex items-center justify-between gap-4 bg-[#312B3B] p-2 pl-6 rounded-full hover:bg-slate-800 hover:scale-105 transition-all duration-300 shadow-md"
           >
             <span className="text-white font-semibold text-sm">
-              Book a consultation
+              Unlock Your Assessment
             </span>
             {/* White Circle with Arrow inside the button */}
             <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-[#312B3B]">
