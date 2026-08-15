@@ -19,7 +19,6 @@ const AllRoutes = () => {
             <HowItWorks />
             <WhyItMatters/>
             <WhatYouGet/>
-            <MeetExperts/>
             <FAQ/>
           </>
         } 
