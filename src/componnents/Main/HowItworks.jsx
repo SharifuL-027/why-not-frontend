@@ -64,7 +64,7 @@ const HowItWorks = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl text-[#0A1930] mb-4 tracking-tight playfair-display-bold"
+            className="text-4xl md:text-5xl text-[#2c2f33] mb-4 tracking-tight playfair-display-bold"
           >
             How to discover your ideal career
           </motion.h2>
