@@ -6,9 +6,9 @@ import { motion } from 'framer-motion';
 const LoadingStepCircle = ({ number }) => {
   return (
     <div className="relative w-16 h-16 flex items-center justify-center mx-auto mb-6">
-      {/* Spinning Dashed Ring (Using Primary Dusty Rose) */}
+      {/* Spinning Dashed Ring (Using Ocean Blue) */}
       <svg 
-        className="absolute inset-0 w-full h-full text-[#B98286] animate-[spin_8s_linear_infinite]" 
+        className="absolute inset-0 w-full h-full text-[#1A6BBA] animate-[spin_8s_linear_infinite]" 
         viewBox="0 0 50 50"
       >
         <circle 
@@ -22,8 +22,8 @@ const LoadingStepCircle = ({ number }) => {
           strokeLinecap="round"
         />
       </svg>
-      {/* Static Number in Center (Using Theme Text Color) */}
-      <span className="relative z-10 text-[#352B2D] font-bold text-xl font-serif">
+      {/* Static Number in Center (Using Deep Navy) */}
+      <span className="relative z-10 text-[#0A1930] font-bold text-xl font-serif">
         {number}
       </span>
     </div>
@@ -33,32 +33,33 @@ const LoadingStepCircle = ({ number }) => {
 const HowItWorks = () => {
   const navigate = useNavigate();
 
+  // Updated Data for RIASEC & Instant Algorithm Model
   const steps = [
     {
       id: 1,
       title: "Unlock Access",
-      description: "Secure your entry with a one-time payment to access our exclusive psychological career evaluation."
+      description: "Secure your entry to access our exclusive, scientifically-backed RIASEC career evaluation platform."
     },
     {
       id: 2,
-      title: "The Assessment",
-      description: "Answer a structured series of deep, psychology-based questions to reveal your true professional traits."
+      title: "The RIASEC Assessment",
+      description: "Answer a targeted series of questions to map your traits across the Holland Codes: Realistic, Investigative, Artistic, Social, Enterprising, and Conventional."
     },
     {
       id: 3,
-      title: "Doctor Analysis",
-      description: "Two professional doctors will carefully review your unique response patterns and psychological profile."
+      title: "Instant Analysis",
+      description: "Our advanced expert algorithm instantly processes your unique response patterns to determine your dominant psychological working style."
     },
     {
       id: 4,
       title: "Your Roadmap",
-      description: "Receive a highly personalized, actionable guide detailing the exact career paths you were meant for."
+      description: "Instantly receive a personalized, actionable guide detailing the exact roles and industries you are naturally wired for."
     }
   ];
 
   return (
-    // Background using the warm creamy off-white
-    <section className="bg-[#ffffff] py-24 relative overflow-hidden">
+    // Background using the watercolor cream to match the logo canvas
+    <section className="bg-[#FCFBF9] py-24 relative overflow-hidden">
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -69,7 +70,7 @@ const HowItWorks = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl text-[#352B2D] mb-4 tracking-tight playfair-display-bold"
+            className="text-4xl md:text-5xl text-[#0A1930] mb-4 tracking-tight playfair-display-bold"
           >
             How to discover your ideal career
           </motion.h2>
@@ -78,14 +79,14 @@ const HowItWorks = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xs uppercase tracking-[0.25em] text-[#633F45]/80 playfair-display-bold"
+            className="text-xs uppercase tracking-[0.25em] text-[#1A6BBA] playfair-display-bold"
           >
             YOUR JOURNEY TO PROFESSIONAL CLARITY
           </motion.p>
         </div>
 
-        {/* Steps Grid with Dividers (Using Accent Color for Dividers) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-12 divide-y md:divide-y-0 md:divide-x divide-[#E8D4D0] mb-20">
+        {/* Steps Grid with Dividers */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-12 divide-y md:divide-y-0 md:divide-x divide-[#1A6BBA]/15 mb-20">
           {steps.map((step, index) => (
             <motion.div 
               key={step.id}
@@ -96,10 +97,10 @@ const HowItWorks = () => {
               className="text-center px-6 pt-8 md:pt-0"
             >
               <LoadingStepCircle number={step.id} />
-              <h3 className="text-xl loto-medium text-[#352B2D] mb-3 font-serif">
+              <h3 className="text-xl loto-medium text-[#0A1930] mb-3 font-serif">
                 {step.title}
               </h3>
-              <p className="text-sm lato-regular text-[#633F45]/80 leading-relaxed">
+              <p className="text-sm lato-regular text-[#0A1930]/70 leading-relaxed">
                 {step.description}
               </p>
             </motion.div>
@@ -114,16 +115,16 @@ const HowItWorks = () => {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="flex justify-center"
         >
-          {/* Button styled exactly like the Hero CTA */}
+          {/* Button utilizing the Blue-to-Green Logo Gradient */}
           <button 
             onClick={() => navigate('/assessment')}
-            className="group flex items-center justify-between gap-4 bg-[#633F45] p-2 pl-6 rounded-full hover:bg-[#B98286] hover:scale-105 transition-all duration-300 shadow-[0_8px_20px_rgba(99,63,69,0.15)] hover:shadow-[0_12px_25px_rgba(185,130,134,0.3)]"
+            className="group flex items-center justify-between gap-4 bg-linear-to-r from-[#1A6BBA] to-[#5DBB4D] p-2 pl-6 rounded-full hover:scale-105 transition-all duration-300 shadow-[0_8px_20px_rgba(26,107,186,0.2)] hover:shadow-[0_12px_25px_rgba(93,187,77,0.3)]"
           >
-            <span className="text-[#FBF6F4] font-semibold text-sm">
+            <span className="text-white font-semibold text-sm">
               Unlock Your Assessment
             </span>
-            {/* Light Circle with Arrow inside the button */}
-            <div className="w-8 h-8 bg-[#FBF6F4] rounded-full flex items-center justify-center text-[#633F45] group-hover:text-[#B98286] transition-colors">
+            {/* White Circle with Arrow inside the button */}
+            <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-[#1A6BBA] group-hover:text-[#5DBB4D] transition-colors">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
               </svg>

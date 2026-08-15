@@ -115,7 +115,7 @@ const MeetExperts = () => {
                   
                   <motion.p 
                     variants={itemVariants}
-                    className="text-lg text-[#633F45]/80 leading-relaxed mb-8"
+                    className="text-lg text-[#633F45]/80 leading-relaxed playfair-display-regular mb-8"
                   >
                     {expert.description}
                   </motion.p>

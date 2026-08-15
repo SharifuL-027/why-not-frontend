@@ -63,10 +63,16 @@ const Navbar = () => {
                 How it Works
               </Link>
               <Link 
-                to="/our-doctors" 
+                to="/about" 
                 className="font-medium text-[#633F45] hover:text-[#B98286] transition-colors"
               >
-                Our Doctors
+                About Us
+              </Link>
+              <Link 
+                to="/blog" 
+                className="font-medium text-[#633F45] hover:text-[#B98286] transition-colors"
+              >
+                Blog
               </Link>
             </div>
 
@@ -170,7 +176,7 @@ const Navbar = () => {
             </div>
             
             {/* Faint background glow inside the mobile menu */}
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-[#B98286]/15 rounded-full blur-[100px] pointer-events-none z-[-1]"></div>
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-100 h-100 bg-[#B98286]/15 rounded-full blur-[100px] pointer-events-none z-[-1]"></div>
           </motion.div>
         )}
       </AnimatePresence>

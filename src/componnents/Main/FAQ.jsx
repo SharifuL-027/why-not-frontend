@@ -5,27 +5,27 @@ const faqs = [
   {
     id: 1,
     question: "How long does the psychological assessment take?",
-    answer: "The assessment typically takes 20 to 30 minutes to complete. It consists of deep, scientifically-backed questions designed to evaluate your cognitive strengths, behavioral tendencies, and stress triggers. We recommend taking it in a quiet environment where you can focus entirely on your responses."
+    answer: "The assessment typically takes 15 to 20 minutes to complete. It consists of deep, scientifically-backed questions designed to evaluate your cognitive strengths, behavioral tendencies, and stress triggers. We recommend taking it in a quiet environment where you can focus entirely on your responses."
   },
   {
     id: 2,
     question: "Why is there an upfront cost?",
-    answer: "Unlike free quizzes that use automated, generic algorithms, your results are manually reviewed by board-certified doctors. The fee covers the clinical analysis, the development of your customized career roadmap, and the personalized doctor's notes you receive."
+    answer: "Your fee grants you access to our highly advanced, doctor-trained clinical algorithm. Unlike generic free quizzes, our system performs an instant, expert-level analysis of your psychological profile, cross-referencing your traits against thousands of real-world career data points to generate your precise roadmap."
   },
   {
     id: 3,
     question: "I'm already mid-career. Is this still useful for me?",
-    answer: "Absolutely. A large portion of our clients are professionals experiencing burnout or seeking a meaningful career pivot. The assessment will help you understand if your current dissatisfaction is due to the industry, the specific role, or a misalignment with your natural psychological traits."
+    answer: "Absolutely. A large portion of our clients are professionals experiencing burnout or seeking a meaningful career pivot. The assessment will instantly help you understand if your current dissatisfaction is due to the industry, the specific role, or a misalignment with your natural psychological traits."
   },
   {
     id: 4,
     question: "What exactly is included in the final roadmap?",
-    answer: "You will receive a comprehensive breakdown of your psychological profile, your top 3 statistically optimal career matches, a step-by-step action plan on how to enter those fields, and exclusive notes from our doctors addressing any specific challenges detected in your profile."
+    answer: "You will receive a comprehensive breakdown of your psychological profile and your statistically optimal career matches across various industries. It also includes a tailored, step-by-step action plan detailing exactly how to transition into those fields based on your unique strengths."
   },
   {
     id: 5,
     question: "How long will it take to receive my results?",
-    answer: "Because our clinical team manually reviews every assessment to ensure absolute accuracy and personalized advice, please allow 48 to 72 hours to receive your comprehensive career roadmap in your inbox."
+    answer: "Your results are delivered instantly. The moment you submit your final answer, our expert system processes your data and immediately generates your complete, personalized career roadmap right on your screen."
   }
 ];
 
@@ -38,11 +38,7 @@ const FAQ = () => {
   };
 
   return (
-    <section className="bg-[#FBF6F4] py-32 relative overflow-hidden">
-      
-      {/* Subtle Background Glows */}
-      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#E8D4D0]/40 rounded-full blur-[120px] pointer-events-none"></div>
-      
+    <section className="bg-[#ffffff] py-32 relative overflow-hidden">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header Section */}
@@ -53,13 +49,13 @@ const FAQ = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center mb-20"
         >
-          <p className="text-[#B98286] font-bold tracking-[0.2em] text-xs uppercase mb-6">
+          <p className="text-[#5c3b3d] font-bold tracking-[0.2em] text-xs uppercase mb-6">
             Clear Your Doubts
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-[#352B2D] tracking-tight font-serif mb-6">
-            Frequently Asked <span className="italic font-light text-[#633F45]">Questions</span>
+          <h2 className="text-4xl md:text-5xl playfair-display-bold text-[#352B2D] tracking-tight font-serif mb-6">
+            Frequently Asked Questions
           </h2>
-          <p className="text-lg text-[#633F45]/80 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-lg text-[#633F45]/80 lato-regular leading-relaxed max-w-2xl mx-auto">
             Everything you need to know about the assessment, our clinical process, and the roadmap you will receive.
           </p>
         </motion.div>
@@ -85,7 +81,7 @@ const FAQ = () => {
                   onClick={() => toggleFAQ(faq.id)}
                   className="w-full flex items-center justify-between p-6 sm:p-8 text-left focus:outline-none group"
                 >
-                  <span className={`font-serif text-lg sm:text-xl font-medium transition-colors duration-300 ${
+                  <span className={`font-serif text-lg sm:text-xl playfair-display-semibold transition-colors duration-300 ${
                     isOpen ? 'text-[#B98286]' : 'text-[#352B2D] group-hover:text-[#633F45]'
                   }`}>
                     {faq.question}
@@ -117,7 +113,7 @@ const FAQ = () => {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.4, ease: "easeInOut" }}
                     >
-                      <div className="px-6 sm:px-8 pb-8 text-[#633F45]/80 leading-relaxed border-t border-[#E8D4D0]/50 mt-2 pt-6">
+                      <div className="px-6 sm:px-8 pb-8 text-[#633F45]/80 leading-relaxed border-t border-[#E8D4D0]/50 mt-2 pt-6 lato-regular">
                         {faq.answer}
                       </div>
                     </motion.div>
