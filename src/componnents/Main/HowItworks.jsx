@@ -68,9 +68,9 @@ const HowItWorks = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl text-slate-900 mb-4 tracking-tight font-serif"
+            className="text-4xl md:text-5xl text-slate-900 mb-4 tracking-tight playfair-display-bold"
           >
-            How to <span className="italic font-light text-slate-600">discover</span> your ideal career
+            How to discover your ideal career
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}

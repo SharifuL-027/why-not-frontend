@@ -87,7 +87,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: -80 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: "easeOut" }}
-            className="text-4xl sm:text-4xl lg:text-6xl playfair-bold text-[#f8fafc] tracking-tight mb-6"
+            className="text-4xl sm:text-4xl lg:text-6xl playfair-display-bold text-[#f8fafc] tracking-tight mb-6"
           >
             Discover the career you
             were <span className="text-teal-400">meant for</span>

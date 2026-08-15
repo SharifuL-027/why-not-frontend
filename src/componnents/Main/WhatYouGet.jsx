@@ -59,7 +59,7 @@ const WhatYouGet = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-5xl playfair-medium text-slate-900 mb-6 tracking-tight font-serif"
+            className="text-4xl md:text-5xl playfair-display-bold text-slate-600 mb-6 tracking-tight font-serif"
           >
             Inside your personalized roadmap
           </motion.h2>
@@ -94,7 +94,7 @@ const WhatYouGet = () => {
                 
                 {/* Text Content */}
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-3 playfair-bold">
+                  <h3 className="text-xl playfair-display-bold text-slate-900 mb-3 playfair-bold">
                     {item.title}
                   </h3>
                   <p className="text-slate-600 leading-relaxed lato-regular text-sm sm:text-base">

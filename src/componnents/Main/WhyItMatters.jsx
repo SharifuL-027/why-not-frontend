@@ -65,9 +65,9 @@ const WhyItMatters = () => {
               whileInView={{ opacity: 1, rotateX: 0, z: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-              className="text-4xl sm:text-5xl font-bold text-white mb-6 tracking-tight leading-tight"
+              className="text-4xl sm:text-5xl playfair-display-bold text-white mb-6 tracking-tight leading-tight"
             >
-              Your future is too important to leave to <span className="font-serif italic text-slate-300 font-light">chance.</span>
+              Your future is too important to leave to chance
             </motion.h2>
 
             <motion.p 
@@ -75,7 +75,7 @@ const WhyItMatters = () => {
               whileInView={{ opacity: 1, rotateX: 0, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              className="text-lg text-slate-400 mb-8 leading-relaxed"
+              className="text-lg text-slate-400 mb-8 lato-regular leading-relaxed"
             >
               Most students and professionals choose their careers based on societal pressure, passing trends, or sheer guesswork. This leads to the "Sunday Scaries," burnout, and mid-life career crises. 
               <br/><br/>
