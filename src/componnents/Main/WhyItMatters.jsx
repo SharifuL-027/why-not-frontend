@@ -5,8 +5,7 @@ const benefits = [
   {
     id: 1,
     icon: (
-      // Changed to Dusty Rose (#B98286)
-      <svg className="w-6 h-6 text-[#B98286]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg className="w-6 h-6 text-[#1A6BBA]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
@@ -16,7 +15,7 @@ const benefits = [
   {
     id: 2,
     icon: (
-      <svg className="w-6 h-6 text-[#B98286]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg className="w-6 h-6 text-[#5DBB4D]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
       </svg>
     ),
@@ -26,7 +25,7 @@ const benefits = [
   {
     id: 3,
     icon: (
-      <svg className="w-6 h-6 text-[#B98286]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg className="w-6 h-6 text-[#1A6BBA]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
       </svg>
     ),
@@ -36,7 +35,7 @@ const benefits = [
   {
     id: 4,
     icon: (
-      <svg className="w-6 h-6 text-[#B98286]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg className="w-6 h-6 text-[#5DBB4D]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
@@ -47,21 +46,17 @@ const benefits = [
 
 const WhyItMatters = () => {
   return (
-    // Kept your original dark background!
-    <section className="bg-[#0a0f16] py-24 relative overflow-hidden">
+    <section className="bg-[#0A1930] py-24 relative overflow-hidden">
       
-      {/* Abstract Ambient Background (Updated to match the Rose/Burgundy theme) */}
-      <div className="absolute top-0 right-0 w-150 h-150 bg-[#B98286]/10 rounded-full blur-[150px] pointer-events-none"></div>
-      <div className="absolute bottom-0 left-0 w-125 h-125 bg-[#633F45]/20 rounded-full blur-[150px] pointer-events-none"></div>
+      {/* Abstract Ambient Background */}
+      <div className="absolute top-0 right-0 w-150 h-150 bg-[#1A6BBA]/20 rounded-full blur-[150px] pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 w-125 h-125 bg-[#5DBB4D]/15 rounded-full blur-[150px] pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Split Layout: Text on Left, Cards on Right */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           
-          {/* Left Column: Heading & Context (Wrapped in Perspective for 3D Text) */}
           <div className="max-w-xl" style={{ perspective: '1000px' }}>
-            
             <motion.h2 
               initial={{ opacity: 0, rotateX: 45, z: -50 }}
               whileInView={{ opacity: 1, rotateX: 0, z: 0 }}
@@ -77,7 +72,7 @@ const WhyItMatters = () => {
               whileInView={{ opacity: 1, rotateX: 0, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              className="text-lg text-slate-400 mb-8 lato-regular leading-relaxed"
+              className="text-lg text-slate-300 mb-8 lato-regular leading-relaxed"
             >
               Most students and professionals choose their careers based on societal pressure, passing trends, or sheer guesswork. This leads to the "Sunday Scaries," burnout, and mid-life career crises. 
               <br/><br/>
@@ -85,42 +80,37 @@ const WhyItMatters = () => {
             </motion.p>
           </div>
 
-          {/* Right Column: Benefit Cards (Wrapped in Perspective for 3D Cards) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6" style={{ perspective: '1200px' }}>
-            {benefits.map((benefit, index) => (
-              <motion.div
-                key={benefit.id}
-                // 3D Entrance Animation
-                initial={{ opacity: 0, rotateY: 45, x: 50, scale: 0.8 }}
-                whileInView={{ opacity: 1, rotateY: 0, x: 0, scale: 1 }}
-                // 3D Hover Animation
-                whileHover={{ 
-                  scale: 1.05, 
-                  rotateX: 5, 
-                  rotateY: -5,
-                  z: 30,
-                  boxShadow: "0px 20px 40px rgba(0,0,0,0.4)" 
-                }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ 
-                  duration: 0.6, 
-                  delay: index * 0.15,
-                  ease: "easeOut"
-                }}
-                className="bg-white/5 border border-white/10 backdrop-blur-sm p-8 rounded-3xl transform-gpu cursor-pointer"
-              >
-                {/* Updated Icon Container Background & Glow to match Dusty Rose */}
-                <div className="w-12 h-12 bg-[#B98286]/15 rounded-2xl flex items-center justify-center mb-6 shadow-[0_0_15px_rgba(185,130,134,0.15)]">
-                  {benefit.icon}
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-3 drop-shadow-sm">
-                  {benefit.title}
-                </h3>
-                <p className="text-sm text-slate-400 leading-relaxed">
-                  {benefit.description}
-                </p>
-              </motion.div>
-            ))}
+            {benefits.map((benefit, index) => {
+              const isEven = index % 2 === 0;
+              return (
+                <motion.div
+                  key={benefit.id}
+                  initial={{ opacity: 0, rotateY: 45, x: 50, scale: 0.8 }}
+                  whileInView={{ opacity: 1, rotateY: 0, x: 0, scale: 1 }}
+                  whileHover={{ 
+                    scale: 1.05, 
+                    rotateX: 5, 
+                    rotateY: -5,
+                    z: 30,
+                    boxShadow: "0px 20px 40px rgba(0,0,0,0.5)" 
+                  }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
+                  className="bg-white/5 border border-white/10 backdrop-blur-sm p-8 rounded-3xl transform-gpu cursor-pointer group"
+                >
+                  <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 shadow-lg transition-colors duration-300 ${isEven ? 'bg-[#1A6BBA]/20 group-hover:bg-[#1A6BBA]/30' : 'bg-[#5DBB4D]/20 group-hover:bg-[#5DBB4D]/30'}`}>
+                    {benefit.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-3 drop-shadow-sm">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-sm text-slate-300 leading-relaxed">
+                    {benefit.description}
+                  </p>
+                </motion.div>
+              )
+            })}
           </div>
 
         </div>
