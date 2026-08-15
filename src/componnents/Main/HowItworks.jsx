@@ -109,7 +109,7 @@ const HowItWorks = () => {
         >
           <button 
             onClick={() => navigate('/assessment')}
-            className="group flex items-center justify-between gap-4 bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] p-2 pl-6 rounded-full hover:scale-105 transition-all duration-300 shadow-[0_8px_20px_rgba(26,107,186,0.2)] hover:shadow-[0_12px_25px_rgba(93,187,77,0.3)]"
+            className="group flex items-center justify-between gap-4 bg-linear-to-r from-[#1A6BBA] to-[#5DBB4D] p-2 pl-6 rounded-full hover:scale-105 transition-all duration-300 shadow-[0_8px_20px_rgba(26,107,186,0.2)] hover:shadow-[0_12px_25px_rgba(93,187,77,0.3)]"
           >
             <span className="text-white font-semibold text-sm">
               Unlock Your Assessment
