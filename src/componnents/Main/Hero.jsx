@@ -35,7 +35,7 @@ const Hero = () => {
         transition={{ duration: 1.5, ease: "easeOut" }}
         className="absolute inset-0 z-0 opacity-80 mix-blend-multiply" 
         style={{
-          backgroundImage: "url('https://res.cloudinary.com/wtbwxhmc/image/upload/v1786793235/Abstract_mind_with_neural_pathways_202608131529_h2nq0s.jpg')",
+          backgroundImage: "url('https://res.cloudinary.com/wtbwxhmc/image/upload/v1786795783/Gemini_Generated_Image_echsczechsczechs_hagud2.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'right center',
           WebkitMaskImage: 'linear-gradient(to right, transparent 0%, transparent 15%, black 75%)',
@@ -95,7 +95,7 @@ const Hero = () => {
             className="text-4xl sm:text-5xl lg:text-7xl playfair-display-bold text-[#0A1930] tracking-tight mb-6 flex flex-wrap items-center gap-x-3"
           >
             <span>Discover the career you</span>
-            <br className="hidden sm:block w-full" />
+            <br className="sm:block w-full" />
             <span>were</span>
             
             <span className="inline-block min-w-[280px]">

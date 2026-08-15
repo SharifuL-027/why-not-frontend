@@ -4,7 +4,6 @@ import Hero from '../componnents/Main/Hero';
 import HowItWorks from '../componnents/Main/HowItworks';
 import WhyItMatters from '../componnents/Main/WhyItMatters';
 import WhatYouGet from '../componnents/Main/WhatYouGet';
-import MeetExperts from '../componnents/Main/MeetExperts';
 import FAQ from '../componnents/Main/FAQ';
 
 const AllRoutes = () => {
