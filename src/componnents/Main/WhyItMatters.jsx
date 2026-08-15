@@ -49,8 +49,8 @@ const WhyItMatters = () => {
     <section className="bg-[#0a0f16] py-24 relative overflow-hidden">
       
       {/* Abstract Ambient Background */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-teal-900/10 rounded-full blur-[150px] pointer-events-none"></div>
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-900/10 rounded-full blur-[150px] pointer-events-none"></div>
+      <div className="absolute top-0 right-0 w-150 h-150 bg-teal-900/10 rounded-full blur-[150px] pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 w-125 h-125 bg-blue-900/10 rounded-full blur-[150px] pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -101,7 +101,7 @@ const WhyItMatters = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.15 }}
-                className="bg-white/[0.03] border border-white/10 backdrop-blur-sm p-8 rounded-3xl hover:bg-white/[0.05] transition-colors duration-300"
+                className="bg-white/3 border border-white/10 backdrop-blur-sm p-8 rounded-3xl hover:bg-white/5 transition-colors duration-300"
               >
                 <div className="w-12 h-12 bg-teal-500/10 rounded-2xl flex items-center justify-center mb-6">
                   {benefit.icon}
