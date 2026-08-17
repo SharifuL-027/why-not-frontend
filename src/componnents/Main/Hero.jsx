@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -92,7 +92,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: -80 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: "easeOut" }}
-            className="text-4xl sm:text-5xl lg:text-7xl playfair-display-bold text-[#0A1930] tracking-tight mb-6 flex flex-wrap items-center gap-x-3"
+            className="font-semibold text-4xl sm:text-5xl lg:text-7xl playfair-display-bold text-[#0A1930] tracking-tight mb-6 flex flex-wrap items-center gap-x-3"
           >
             <span>Discover the career you</span>
             <br className="sm:block w-full" />
