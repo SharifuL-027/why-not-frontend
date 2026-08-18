@@ -98,7 +98,7 @@ const Hero = () => {
             <br className="sm:block w-full" />
             <span>were</span>
             
-            <span className="inline-block min-w-[280px]">
+            <span className="inline-block min-w-70">
               <AnimatePresence mode="wait">
                 <motion.span
                   key={index}
@@ -106,7 +106,7 @@ const Hero = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -25 }}
                   transition={{ duration: 0.4, ease: "easeInOut" }}
-                  className="inline-block bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text text-transparent pb-2"
+                  className="inline-block bg-linear-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text text-transparent pb-2"
                 >
                   {phrases[index]}
                 </motion.span>
