@@ -29,12 +29,14 @@ export async function submitAnswers(
   slug: string,
   answers: Record<string, any>,
   consentAck?: boolean,
-  consentVersion?: string
+  consentVersion?: string,
+  personalInfo?: Record<string, any>
 ): Promise<SubmitResponseResult> {
   const res = await api.post(`/instruments/${slug}/submit`, {
     answers,
     consentAck,
     consentVersion,
+    personalInfo,
   });
   return res.data;
 }
