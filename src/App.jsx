@@ -1,5 +1,5 @@
 // src/App.jsx
-import React from 'react';
+
 import { BrowserRouter as Router } from 'react-router-dom';
 import Navbar from './componnents/navbar/Navbar';
 import AllRoutes from './routes/AllRoutes';

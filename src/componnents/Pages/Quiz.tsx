@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { QuizInstrument } from "../types/instrument";
 import { fetchQuizConfig, submitAnswers } from "../api/instruments";
-import type { QuizInstrument } from "../types/instrument";
 
 interface NormalizedQuestion {
   id: string;
@@ -44,6 +44,13 @@ function normalizeQuestions(instrument: QuizInstrument): NormalizedQuestion[] {
       const it = data.items.find((x: any) => x.id === code);
       if (it) list.push({ id: it.id, text_bn: it.text_bn || it.text_en, scale: "likert5" });
     });
+  }
+
+  if (scoringType === "mcrrs_triage") {
+    // MCRRS-BD: MVP-তে শুধু Form M, ১-৫ Likert
+    data.forms.M.items.forEach((it: any) =>
+      list.push({ id: it.id, text_bn: it.text_bn || it.text_en, scale: "likert5" })
+    );
   }
 
   return list;
@@ -151,6 +158,10 @@ export default function Quiz() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [consentAck, setConsentAck] = useState(false);
+  const [ageConfirmed, setAgeConfirmed] = useState(false);
+  const [routeChosen, setRouteChosen] = useState<string | null>(null);
+  const [careAnswers, setCareAnswers] = useState<Record<string, string>>({});
+  const [careDone, setCareDone] = useState(false);
 
   useEffect(() => {
     if (!slug) return;
@@ -163,6 +174,32 @@ export default function Quiz() {
 
   if (loading || !instrument)
     return <div className="p-16 text-center text-slate-500">লোড হচ্ছে...</div>;
+
+  // ধাপ ০: Age gate (শুধু mcrrs_triage — বাধ্যতামূলক, consent-এরও আগে)
+  const isMcrrs = instrument.scoringType === "mcrrs_triage";
+  if (isMcrrs && !ageConfirmed) {
+    return (
+      <div className="max-w-xl mx-auto my-10 p-6 bg-white rounded-2xl border border-slate-200 text-center">
+        <h2 className="text-lg font-bold text-slate-800 mb-4">
+          {instrument.data.ageGate.question_bn}
+        </h2>
+        <div className="flex gap-3">
+          <button
+            onClick={() => setAgeConfirmed(true)}
+            className="flex-1 bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 rounded-xl"
+          >
+            হ্যাঁ, ১৮+
+          </button>
+          <button
+            onClick={() => (window.location.href = "/")}
+            className="flex-1 bg-slate-100 text-slate-500 font-bold py-3 rounded-xl"
+          >
+            না
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   // ধাপ ১: সম্মতি (যদি লাগে)
   const consentRequired = instrument.data.consent?.required;
@@ -183,8 +220,34 @@ export default function Quiz() {
     );
   }
 
-  // ধাপ ২: ব্যক্তিগত তথ্য (শুধু PCS-BD এর মতো instrument এ লাগবে, config এ personalInfoFields থাকলেই)
-  const personalInfoFields = instrument.data.personalInfoFields;
+  // ধাপ ২ক: রাউটিং প্রশ্ন (শুধু mcrrs — কোন ফর্ম, এখন শুধু M চালু)
+  if (isMcrrs && routeChosen === null) {
+    const rq = instrument.data.routingQuestion;
+    return (
+      <div className="max-w-xl mx-auto my-10 p-6 bg-white rounded-2xl border border-slate-200">
+        <h2 className="text-lg font-bold text-slate-800 mb-4">{rq.text_bn}</h2>
+        <div className="flex flex-col gap-2">
+          {rq.options.map((opt: any) => (
+            <button
+              key={opt.value}
+              disabled={!opt.enabled}
+              onClick={() => setRouteChosen(opt.value)}
+              className={`text-left px-4 py-3 rounded-xl border-2 text-sm ${
+                opt.enabled
+                  ? "border-slate-200 hover:border-emerald-400 text-slate-700"
+                  : "border-slate-100 text-slate-300 cursor-not-allowed"
+              }`}
+            >
+              {opt.label_bn} {opt.note ? `(${opt.note})` : ""}
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // ধাপ ২খ: ব্যক্তিগত তথ্য / ডেমোগ্রাফিক্স
+  const personalInfoFields = instrument.data.personalInfoFields || instrument.data.demographics;
   if (personalInfoFields && personalInfoFields.length > 0 && personalInfo === null) {
     return <PersonalInfoForm fields={personalInfoFields} onDone={setPersonalInfo} />;
   }
@@ -196,27 +259,81 @@ export default function Quiz() {
     setAnswers((prev) => ({ ...prev, [q.id]: value }));
   };
 
-  const next = async () => {
-    if (cursor < questions.length - 1) {
-      setCursor((c) => c + 1);
-      return;
-    }
+  const careItems = isMcrrs ? instrument.data.careModule.items : [];
+  const careAllAnswered = careItems.every((c: any) => careAnswers[c.id] !== undefined);
+
+  const submitFinal = async () => {
     setSubmitting(true);
+    const finalAnswers = isMcrrs
+      ? { ...answers, ...careAnswers, _form: routeChosen }
+      : answers;
     const result = await submitAnswers(
       slug!,
-      answers,
+      finalAnswers,
       consentAck,
       instrument.data.consent?.version,
       personalInfo ?? undefined
     );
     setSubmitting(false);
-
     if (result.paymentRequired) {
       navigate(`/tests/${slug}/payment/${result.responseId}?amount=${result.amount}`);
     } else {
       navigate(`/tests/${slug}/result/${result.responseId}`);
     }
   };
+
+  const next = async () => {
+    if (cursor < questions.length - 1) {
+      setCursor((c) => c + 1);
+      return;
+    }
+    // MCRRS এ শেষ প্রশ্নের পর Care module দেখাতে হবে, সরাসরি submit না
+    if (isMcrrs && !careDone) {
+      setCareDone(true);
+      return;
+    }
+    await submitFinal();
+  };
+
+  // ধাপ ৪: Care module স্ক্রিন (শুধু mcrrs, ২৪ প্রশ্নের পর, submit-এর আগে)
+  if (isMcrrs && careDone) {
+    return (
+      <div className="max-w-xl mx-auto p-5">
+        <p className="text-xs text-slate-500 mb-4 bg-slate-50 rounded-lg p-3">
+          {instrument.data.careModule.note_bn}
+        </p>
+        <div className="flex flex-col gap-4">
+          {careItems.map((c: any) => (
+            <div key={c.id} className="bg-white border border-slate-200 rounded-2xl p-5">
+              <div className="text-sm font-medium text-slate-800 mb-3">{c.text_bn}</div>
+              <div className="flex gap-2">
+                {instrument.data.careModule.answerOptions.map((opt: any) => (
+                  <button
+                    key={opt.value}
+                    onClick={() => setCareAnswers((prev) => ({ ...prev, [c.id]: opt.value }))}
+                    className={`flex-1 py-2 rounded-lg border-2 text-xs font-semibold ${
+                      careAnswers[c.id] === opt.value
+                        ? "bg-slate-800 text-white border-slate-800"
+                        : "border-slate-200 text-slate-600"
+                    }`}
+                  >
+                    {opt.label_bn}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        <button
+          disabled={!careAllAnswered || submitting}
+          onClick={submitFinal}
+          className="w-full bg-slate-800 hover:bg-slate-900 text-white font-bold text-sm py-3.5 rounded-xl mt-5 disabled:opacity-30"
+        >
+          {submitting ? "জমা হচ্ছে..." : "শেষ করুন →"}
+        </button>
+      </div>
+    );
+  }
 
   const prev = () => cursor > 0 && setCursor((c) => c - 1);
 

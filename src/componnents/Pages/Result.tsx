@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchResult } from "../api/instruments";
 
+
 const bandColor: Record<string, string> = {
   strong: "bg-emerald-50 text-emerald-700",
   good: "bg-blue-50 text-blue-700",
@@ -48,6 +49,7 @@ export default function Result() {
   if (result.scoringType === "sum_and_band") return <FadssReport r={result} />;
   if (result.scoringType === "domain_pomp_composite") return <PcsReport r={result} />;
   if (result.scoringType === "domain_mean_average") return <RrsReport r={result} />;
+  if (result.scoringType === "mcrrs_triage") return <McrrsReport r={result} />;
 
   return <div className="p-16 text-center text-slate-500">অজানা রিপোর্ট ধরন।</div>;
 }
@@ -533,6 +535,150 @@ function Section({ title, children }: { title: string; children: React.ReactNode
     <div className="bg-white border border-slate-200 rounded-2xl p-5 mt-4">
       <div className="text-xs font-bold text-slate-800 uppercase tracking-wide mb-3">{title}</div>
       {children}
+    </div>
+  );
+}
+
+/* ================= MCRRS-BD REPORT ================= */
+function McrrsReport({ r }: { r: Record<string, any> }) {
+  const bandColorMap: Record<string, string> = {
+    red: "bg-red-50 text-red-700",
+    orange: "bg-orange-50 text-orange-700",
+    amber: "bg-amber-50 text-amber-700",
+    lightgreen: "bg-emerald-50 text-emerald-700",
+    green: "bg-emerald-100 text-emerald-800",
+  };
+
+  // Tier 4 — Care flag ফায়ার করলে পুরো রিপোর্ট বদলে যাবে, celebration ভাষা বাদ
+  if (r.careFlag) {
+    return (
+      <div className="max-w-xl mx-auto px-5 pb-16">
+        <div className="mt-6 bg-red-50 border border-red-200 rounded-2xl p-5">
+          <h2 className="text-lg font-bold text-red-800 mb-2">নিরাপত্তা আগে</h2>
+          <p className="text-sm text-red-700 leading-relaxed">{r.tier4Message_bn}</p>
+        </div>
+
+        <Section title="সহায়তার জন্য যোগাযোগ">
+          {r.referralResources.map((res: any, i: number) => (
+            <div key={i} className="flex justify-between text-xs py-2 border-t border-slate-100 first:border-0">
+              <div>
+                <div className="text-slate-700 font-medium">{res.need_bn}</div>
+                <div className="text-slate-400">{res.service}</div>
+              </div>
+              <div className="text-right">
+                <div className="font-mono font-bold text-slate-800">{res.number}</div>
+                <div className="text-slate-400">{res.hours_bn}</div>
+              </div>
+            </div>
+          ))}
+        </Section>
+
+        <div className="text-xs text-slate-400 mt-6 text-center">
+          স্কোর নিচে দেখানো হলো, কোনো celebratory ভাষা ছাড়া।
+        </div>
+        {r.total && (
+          <div className="text-center mt-3">
+            <span className="font-mono text-2xl text-slate-500">{r.total.index}</span>
+            <span className="text-xs text-slate-400"> / 100</span>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-xl mx-auto px-5 pb-16">
+      <div className="mt-6 text-center">
+        {r.total ? (
+          <>
+            <div className="text-5xl font-bold text-slate-800 font-mono">{r.total.index}</div>
+            <div
+              className={`inline-block mt-2 px-4 py-1.5 rounded-full text-sm font-bold ${
+                bandColorMap[r.total.band.color]
+              }`}
+            >
+              {r.total.band.label_bn}
+            </div>
+            {r.total.note && <p className="text-xs text-amber-600 mt-2">{r.total.note}</p>}
+          </>
+        ) : (
+          <div className="bg-amber-50 border border-amber-100 text-amber-800 rounded-xl p-4 text-sm">
+            পর্যাপ্ত ক্ষেত্র স্কোর করা যায়নি — সার্বিক ইনডেক্স দেখানো যাচ্ছে না।
+          </div>
+        )}
+      </div>
+
+      {r.pri && (
+        <Section title="সামাজিক চাপ সহনশীলতা সূচক (Provisional)">
+          <div className="text-center">
+            <div className="text-3xl font-bold font-mono text-slate-800">{r.pri.index}</div>
+            <span className={`inline-block mt-1 text-xs font-bold px-2 py-0.5 rounded-full ${bandColorMap[r.pri.band.color]}`}>
+              {r.pri.band.label_bn}
+            </span>
+            <p className="text-xs text-slate-500 mt-2">
+              বাইরে থেকে আসা চাপ আজকের অবস্থায় কতটা ভালোভাবে সামলানো যাচ্ছে — এটা কোনো ভবিষ্যদ্বাণী না।
+            </p>
+          </div>
+        </Section>
+      )}
+
+      <Section title="ছয়টি ক্ষেত্রে আপনার প্রোফাইল">
+        <div className="flex flex-col gap-3">
+          {Object.keys(r.domainResults).map((d) => {
+            const dr = r.domainResults[d];
+            if (!dr.scored) {
+              return (
+                <div key={d} className="text-xs text-slate-400">
+                  {dr.name_bn} — পর্যাপ্ত উত্তর নেই
+                </div>
+              );
+            }
+            return (
+              <div key={d}>
+                <div className="flex justify-between text-sm mb-1">
+                  <span className="font-semibold text-slate-800">{dr.name_bn}</span>
+                  <span className="font-mono text-slate-500">{dr.index}</span>
+                </div>
+                <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                  <div className="h-full bg-emerald-600 rounded-full" style={{ width: `${dr.index}%` }} />
+                </div>
+                <span className={`inline-block mt-1 text-[10px] font-bold px-2 py-0.5 rounded-full ${bandColorMap[dr.band.color]}`}>
+                  {dr.band.label_bn}
+                </span>
+                {dr.prorated && <span className="text-[10px] text-slate-400 ml-2">(আংশিক উত্তর থেকে)</span>}
+              </div>
+            );
+          })}
+        </div>
+      </Section>
+
+      <Section title="কোথায় মনোযোগ দিলে সবচেয়ে বেশি লাভ">
+        {r.focusAreas.map((d: string) => (
+          <div key={d} className="mb-3 last:mb-0">
+            <div className="text-sm font-semibold text-slate-800">{r.domainResults[d].name_bn}</div>
+            <p className="text-xs text-slate-500 mt-1">{r.domainModalityMap[d]}</p>
+          </div>
+        ))}
+      </Section>
+
+      <Section title="সহায়তার জন্য যোগাযোগ">
+        {r.referralResources.map((res: any, i: number) => (
+          <div key={i} className="flex justify-between text-xs py-2 border-t border-slate-100 first:border-0">
+            <div>
+              <div className="text-slate-700 font-medium">{res.need_bn}</div>
+              <div className="text-slate-400">{res.service}</div>
+            </div>
+            <div className="text-right">
+              <div className="font-mono font-bold text-slate-800">{res.number}</div>
+              <div className="text-slate-400">{res.hours_bn}</div>
+            </div>
+          </div>
+        ))}
+      </Section>
+
+      <div className="bg-amber-50 border border-amber-100 text-amber-800 rounded-xl p-4 text-xs leading-relaxed mt-6">
+        ⚠ {r.disclaimer_bn}
+      </div>
     </div>
   );
 }
