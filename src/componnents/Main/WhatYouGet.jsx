@@ -132,10 +132,10 @@ const WhatYouGet = () => {
                   className="bg-[#132644]/90 p-8 border border-[#3c5685]/40 shadow-lg relative overflow-hidden group hover:border-[#5DBB4D]/50 transition-colors duration-300"
                 >
                   {/* Left Accent border line (Blue-Green Gradient) */}
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#1A6BBA] to-[#5DBB4D]"></div>
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-linear-to-b from-[#1A6BBA] to-[#5DBB4D]"></div>
                   
                   {/* Subtle inner hover glow */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#1A6BBA]/0 to-[#5DBB4D]/0 group-hover:from-[#1A6BBA]/5 group-hover:to-[#5DBB4D]/5 transition-colors duration-500"></div>
+                  <div className="absolute inset-0 bg-linear-to-br from-[#1A6BBA]/0 to-[#5DBB4D]/0 group-hover:from-[#1A6BBA]/5 group-hover:to-[#5DBB4D]/5 transition-colors duration-500"></div>
 
                   <div className="flex gap-6 relative z-10">
                     {/* Square Icon Container */}

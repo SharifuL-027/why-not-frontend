@@ -103,18 +103,27 @@ const Navbar = () => {
           <div className="flex justify-between items-center">
             
             {/* Logo Section */}
-            <div className="shrink-0 flex items-center cursor-pointer">
-              <Link 
-                to="/" 
-                className="font-serif font-bold text-2xl tracking-tight text-white transition-opacity hover:opacity-80 flex flex-col"
-                onClick={() => setIsOpen(false)}
-              >
-                <span>WHY NOT YOU?</span>
-                <span className="text-[0.6rem] uppercase tracking-[0.2em] text-[#3c5685] font-sans -mt-1 font-normal">
-                  Know Yourself • Change Yourself
-                </span>
-              </Link>
-            </div>
+<div className="shrink-0 flex items-center cursor-pointer">
+  <Link 
+    to="/" 
+    className="flex items-center gap-3 sm:gap-4 group transition-opacity hover:opacity-90"
+    onClick={() => setIsOpen(false)}
+  >
+    {/* 1. Logo Image */}
+    <img 
+      src="https://res.cloudinary.com/dsrs8hryx/image/upload/v1790161331/WhatsApp_Image_2026-08-17_at_12.05.48_AM-removebg-preview_o66w0p.png" // আপনার লোগোর লোকাল পাথ বা লিংকটি এখানে বসান
+      alt="Why Not You Logo" 
+      className="h-14 sm:h-12 w-auto object-contain shrink-0" 
+    />
+    
+    {/* 2. Text Container */}
+    <div className="flex flex-col">
+      <span className="font-serif font-bold text-xl sm:text-2xl tracking-tight text-white group-hover:text-gray-200 transition-colors">
+        WHY NOT YOU?
+      </span>
+    </div>
+  </Link>
+</div>
 
             {/* Desktop Top Links */}
             <div className="hidden md:flex space-x-10 items-center">
