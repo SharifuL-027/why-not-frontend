@@ -37,9 +37,25 @@ const FAQ = () => {
   };
 
   return (
-    <section className="bg-[#FCFBF9] py-32 relative overflow-hidden">
+    // Navy Blue Background
+    <section className="bg-[#0A1930] py-32 relative overflow-hidden">
       
-      <div className="absolute top-0 right-1/4 w-125 h-125 bg-[#1A6BBA]/10 rounded-full blur-[120px] pointer-events-none"></div>
+      {/* =========================================
+          BACKGROUND IMAGE & NAVY BLUE OVERLAY
+          ========================================= */}
+      <div 
+        className="absolute inset-0 z-0 opacity-10"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1557682250-33bd709cbe85?q=80&w=1429&auto=format&fit=crop')", // Abstract dark image
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+        }}
+      />
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0A1930] via-[#0A1930]/80 to-[#0A1930]" />
+
+      {/* Subtle glowing effect behind content */}
+      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#1A6BBA]/5 rounded-full blur-[150px] pointer-events-none z-0"></div>
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -48,13 +64,15 @@ const FAQ = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center mb-20"
+          className="text-center mb-16"
         >
-          <p className="text-[#5DBB4D] font-bold tracking-[0.2em] text-xs uppercase mb-6">
+          {/* Subtitle color updated to Gold/Yellow */}
+          <p className="text-[#ffba12] font-bold tracking-[0.2em] text-xs uppercase mb-6 drop-shadow-sm">
             Clear Your Doubts
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-[#0A1930] tracking-tight font-serif mb-6">
-            Frequently Asked <span className="italic font-light text-[#1A6BBA]">Questions</span>
+          {/* Title color updated to White and Gold */}
+          <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight font-serif mb-6">
+            Frequently Asked <span className="italic font-light text-[#ffba12]">Questions</span>
           </h2>
         </motion.div>
 
@@ -69,24 +87,27 @@ const FAQ = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`border border-[#1A6BBA]/15 rounded-2xl overflow-hidden transition-colors duration-300 ${
-                  isOpen ? 'bg-white shadow-[0_10px_30px_rgba(26,107,186,0.05)]' : 'bg-transparent hover:bg-white/50'
+                // Card backgrounds and borders updated for dark mode
+                className={`border border-[#3c5685]/40 rounded-2xl overflow-hidden transition-colors duration-300 backdrop-blur-sm ${
+                  isOpen ? 'bg-[#132644]/90 shadow-[0_10px_30px_rgba(0,0,0,0.5)] border-[#ffba12]/40' : 'bg-[#0A1930]/50 hover:bg-[#132644]/50 hover:border-[#3c5685]/80'
                 }`}
               >
                 <button
                   onClick={() => toggleFAQ(faq.id)}
                   className="w-full flex items-center justify-between p-6 sm:p-8 text-left focus:outline-none group"
                 >
-                  <span className={`font-serif text-lg sm:text-xl font-medium transition-colors duration-300 ${
-                    isOpen ? 'text-[#1A6BBA]' : 'text-[#0A1930] group-hover:text-[#5DBB4D]'
+                  {/* Question Text styling */}
+                  <span className={`font-serif text-lg sm:text-xl font-medium transition-colors duration-300 leading-snug ${
+                    isOpen ? 'text-[#ffba12]' : 'text-white/90 group-hover:text-white'
                   }`}>
                     {faq.question}
                   </span>
                   
+                  {/* Toggle Icon Styling */}
                   <div className={`shrink-0 ml-4 w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-300 ${
                     isOpen 
-                      ? 'border-[#1A6BBA] bg-[#1A6BBA] text-white' 
-                      : 'border-[#1A6BBA]/30 text-[#1A6BBA] group-hover:border-[#5DBB4D] group-hover:text-[#5DBB4D]'
+                      ? 'border-[#ffba12] bg-[#ffba12] text-[#0A1930]' 
+                      : 'border-[#3c5685] text-white/50 group-hover:border-[#ffba12] group-hover:text-[#ffba12]'
                   }`}>
                     <svg 
                       className={`w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-45' : 'rotate-0'}`} 
@@ -107,7 +128,8 @@ const FAQ = () => {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.4, ease: "easeInOut" }}
                     >
-                      <div className="px-6 sm:px-8 pb-8 text-[#0A1930]/70 leading-relaxed border-t border-[#1A6BBA]/10 mt-2 pt-6">
+                      {/* Answer Text Styling */}
+                      <div className="px-6 sm:px-8 pb-8 text-white/70 leading-relaxed border-t border-[#3c5685]/30 mt-2 pt-6 lato-regular">
                         {faq.answer}
                       </div>
                     </motion.div>

@@ -20,103 +20,136 @@ export default function InstrumentDetailsPage() {
   }, [slug]);
 
   const handleBuyNow = () => {
-    // এখন সরাসরি quiz-এ পাঠাচ্ছে। পরে পেমেন্ট গেটওয়ে বসালে
-    // এখানে প্রথমে পেমেন্ট পেজে পাঠাবেন, সফল হলে quiz-এ রিডাইরেক্ট করবেন।
+    // পেমেন্ট গেটওয়ে বা সরাসরি কুইজ পেজ
     navigate(`/tests/${slug}/quiz`);
   };
 
-  // প্রফেশনাল লোডিং স্টেট
+  // ==========================================
+  // Premium Loading State (Square Spinner)
+  // ==========================================
   if (loading) {
     return (
-      <div className="min-h-screen pt-28 pb-16 flex flex-col justify-center items-center bg-slate-50">
-        <div className="w-10 h-10 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin"></div>
-        <p className="mt-4 text-slate-500 font-medium">বিস্তারিত লোড হচ্ছে...</p>
+      <div className="min-h-screen flex flex-col justify-center items-center bg-[#0A1930] lg:pl-[320px]">
+        {/* Square Spinner */}
+        <div className="w-12 h-12 border-2 border-[#3c5685] border-t-[#ffba12] animate-[spin_1.5s_linear_infinite]"></div>
+        <p className="mt-6 text-[#ffba12] tracking-[0.2em] uppercase text-sm font-medium">লোড হচ্ছে...</p>
       </div>
     );
   }
 
-  // প্রফেশনাল এরর স্টেট
+  // ==========================================
+  // Premium Error State
+  // ==========================================
   if (error || !instrument) {
     return (
-      <div className="min-h-screen pt-28 pb-16 flex justify-center items-center bg-slate-50 px-4">
-        <div className="bg-red-50 text-red-600 px-6 py-4 rounded-xl shadow-sm border border-red-100 text-center max-w-md">
-          <svg className="w-8 h-8 mx-auto mb-2 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      <div className="min-h-screen flex justify-center items-center bg-[#0A1930] lg:pl-[320px] px-4">
+        <div className="bg-[#132644] border border-red-500/50 px-8 py-6 text-center max-w-md shadow-2xl">
+          <svg className="w-10 h-10 mx-auto mb-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <p>{error || "তথ্য পাওয়া যায়নি"}</p>
+          <p className="text-white/80 text-lg">{error || "তথ্য পাওয়া যায়নি"}</p>
         </div>
       </div>
     );
   }
 
   return (
-    // ন্যাভবারের জন্য pt-28 এবং পুরো পেজের ব্যাকগ্রাউন্ড
-    <div className="min-h-screen bg-slate-50 pt-28 pb-20 px-4 sm:px-6">
-      <div className="max-w-3xl mx-auto bg-white rounded-3xl shadow-sm border border-slate-200/60 overflow-hidden">
+    // Main Container with Sidebar Spacing
+    <div className="min-h-screen bg-[#0A1930] pt-32 pb-20 px-4 sm:px-6 lg:pl-[320px] flex flex-col relative overflow-hidden">
+      
+      {/* Subtle Background Glow */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#1A6BBA]/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
+
+      <div className="max-w-4xl mx-auto w-full relative z-10">
         
-        {/* ইমেজের অংশ */}
-        <div className="relative">
-          <img
-            src={instrument.coverImage || "/placeholder.png"}
-            alt={instrument.instrumentName.bn}
-            className="w-full h-64 sm:h-80 object-cover bg-slate-100"
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = "/placeholder.png";
-            }}
-          />
-          {/* ফ্রি ব্যাজ (যদি ফ্রি হয়) */}
-          {instrument.price === 0 && (
-            <span className="absolute top-4 right-4 bg-emerald-500/90 backdrop-blur-sm text-white text-sm font-bold px-4 py-1.5 rounded-full shadow-sm">
-              ফ্রি
-            </span>
-          )}
-        </div>
-
-        {/* কন্টেন্ট অংশ */}
-        <div className="p-6 sm:p-10">
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
-            {instrument.instrumentName.bn}
-          </h1>
-
-          {/* ট্যাগস (সময় ও প্রশ্নের সংখ্যা) */}
-          <div className="flex flex-wrap gap-3 mb-6">
-            {instrument.estimatedMinutes && (
-              <span className="inline-flex items-center gap-1.5 bg-slate-100 text-slate-600 text-sm font-medium px-3 py-1.5 rounded-lg">
-                <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                {instrument.estimatedMinutes[0]}–{instrument.estimatedMinutes[1]} মিনিট
-              </span>
-            )}
-            {instrument.itemCount && (
-              <span className="inline-flex items-center gap-1.5 bg-slate-100 text-slate-600 text-sm font-medium px-3 py-1.5 rounded-lg">
-                <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
-                {instrument.itemCount} প্রশ্ন
-              </span>
+        {/* Premium Square Card Wrapper */}
+        <div className="bg-[#132644] border border-[#3c5685]/40 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col relative">
+          
+          {/* ==========================================
+              IMAGE SECTION
+              ========================================== */}
+          <div className="relative w-full h-64 sm:h-80 md:h-[400px] overflow-hidden bg-[#0A1930]">
+            <img
+              src={instrument.coverImage || "/placeholder.png"}
+              alt={instrument.instrumentName.bn}
+              className="w-full h-full object-cover opacity-80"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = "/placeholder.png";
+              }}
+            />
+            {/* Gradient Overlay for seamless blending with content */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#132644] via-[#132644]/40 to-transparent" />
+            
+            {/* Free Badge (Square & Premium) */}
+            {instrument.price === 0 && (
+              <div className="absolute top-6 right-6 bg-[#ffba12] text-[#0A1930] text-sm font-bold px-6 py-2 tracking-[0.2em] uppercase shadow-lg">
+                ফ্রি
+              </div>
             )}
           </div>
 
-          {/* ডেসক্রিপশন */}
-          <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-8">
-            {instrument.description?.bn}
-          </p>
-
-          {/* প্রাইস এবং বাটন সেকশন */}
-          <div className="flex flex-col sm:flex-row items-center gap-6 justify-between pt-8 border-t border-slate-100">
-            <div className="text-center sm:text-left w-full sm:w-auto">
-              <p className="text-sm font-medium text-slate-500 mb-1">অ্যাসেসমেন্ট ফি</p>
-              <p className="text-3xl font-extrabold text-emerald-600">
-                {instrument.price > 0 ? `৳ ${instrument.price}` : "ফ্রি"}
-              </p>
+          {/* ==========================================
+              CONTENT SECTION
+              ========================================== */}
+          <div className="p-8 sm:p-12 relative z-10 -mt-16 md:-mt-24">
+            
+            {/* Tags (Time & Questions) - Square borders */}
+            <div className="flex flex-wrap gap-4 mb-6">
+              {instrument.estimatedMinutes && (
+                <span className="flex items-center gap-2 border border-[#3c5685]/60 bg-[#0A1930]/80 backdrop-blur-sm text-white/80 text-sm font-medium px-4 py-2">
+                  <svg className="w-4 h-4 text-[#ffba12]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  {instrument.estimatedMinutes[0]}–{instrument.estimatedMinutes[1]} মিনিট
+                </span>
+              )}
+              {instrument.itemCount && (
+                <span className="flex items-center gap-2 border border-[#3c5685]/60 bg-[#0A1930]/80 backdrop-blur-sm text-white/80 text-sm font-medium px-4 py-2">
+                  <svg className="w-4 h-4 text-[#ffba12]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                  </svg>
+                  {instrument.itemCount} প্রশ্ন
+                </span>
+              )}
             </div>
 
-            <button
-              onClick={handleBuyNow}
-              className="w-full sm:w-auto flex-1 max-w-sm bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold text-lg py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 text-center flex justify-center items-center gap-2"
-            >
-              <span>শুরু করুন</span>
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-            </button>
+            {/* Title */}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 font-serif tracking-tight leading-tight drop-shadow-md">
+              {instrument.instrumentName.bn}
+            </h1>
+
+            {/* Description */}
+            <p className="text-base sm:text-lg text-white/70 leading-relaxed mb-12 lato-regular">
+              {instrument.description?.bn}
+            </p>
+
+            {/* ==========================================
+                PRICE & ACTION BUTTON
+                ========================================== */}
+            <div className="flex flex-col sm:flex-row items-center gap-6 justify-between pt-8 border-t border-[#3c5685]/40 mt-auto">
+              
+              <div className="text-center sm:text-left w-full sm:w-auto">
+                <p className="text-xs uppercase tracking-[0.2em] font-medium text-white/50 mb-2">অ্যাসেসমেন্ট ফি</p>
+                <p className="text-4xl font-serif text-[#ffba12]">
+                  {instrument.price > 0 ? `৳ ${instrument.price}` : "ফ্রি"}
+                </p>
+              </div>
+
+              <button
+                onClick={handleBuyNow}
+                className="w-full sm:w-auto bg-[#ffba12] hover:bg-white text-[#0A1930] font-bold text-lg py-4 px-10 shadow-[0_0_20px_rgba(255,186,18,0.2)] hover:shadow-[0_0_25px_rgba(255,255,255,0.4)] transition-all duration-300 flex justify-center items-center gap-3 group uppercase tracking-wider"
+              >
+                <span>শুরু করুন</span>
+                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </button>
+              
+            </div>
+            
           </div>
         </div>
+
       </div>
     </div>
   );

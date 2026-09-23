@@ -2,27 +2,61 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-const LoadingStepCircle = ({ number }) => {
+// Premium Leaf Loading Spinner with Blue-Green Gradient
+const LoadingStepLeaf = ({ number }) => {
   return (
-    <div className="relative w-16 h-16 flex items-center justify-center mx-auto mb-6">
+    <div className="relative w-20 h-20 flex items-center justify-center mx-auto mb-6 group">
       <svg 
-        // Navy blue theme: Changed text color to gold/yellow to match the brand
-        className="absolute inset-0 w-full h-full text-[#ffba12] animate-[spin_8s_linear_infinite]" 
-        viewBox="0 0 50 50"
+        // 10s rotation for a calm, natural spinning effect
+        className="absolute inset-0 w-full h-full animate-[spin_10s_linear_infinite]" 
+        viewBox="0 0 100 100"
       >
-        <circle 
-          cx="25" 
-          cy="25" 
-          r="22" 
-          stroke="currentColor" 
-          strokeWidth="3" 
-          fill="none" 
-          strokeDasharray="4 6" 
-          strokeLinecap="round"
-        />
+        <defs>
+          {/* Blue to Green Gradient Definition */}
+          <linearGradient id={`leafGradient-${number}`} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#1A6BBA" />   {/* Blue */}
+            <stop offset="100%" stopColor="#5DBB4D" /> {/* Green */}
+          </linearGradient>
+        </defs>
+
+        <g fill={`url(#leafGradient-${number})`}>
+          {/* 4 Beautiful Leaves placed around the circle */}
+          {[0, 90, 180, 270].map((angle) => (
+            <path 
+              key={angle}
+              transform={`rotate(${angle} 50 50)`}
+              // A customized beautiful leaf shape
+              d="M 50 5 C 60 14, 60 25, 50 32 C 40 25, 40 14, 50 5 Z" 
+            />
+          ))}
+          
+          {/* Subtle connecting circular vine */}
+          <circle 
+            cx="50" cy="50" r="34" 
+            fill="none" 
+            stroke={`url(#leafGradient-${number})`} 
+            strokeWidth="1.5" 
+            strokeOpacity="0.4"
+          />
+          
+          {/* Small decorative nature dots between the leaves */}
+          {[45, 135, 225, 315].map((angle) => (
+             <circle 
+               key={angle} 
+               transform={`rotate(${angle} 50 50)`} 
+               cx="50" cy="16" r="2.5" 
+               fill={`url(#leafGradient-${number})`}
+               opacity="0.8"
+             />
+          ))}
+        </g>
       </svg>
-      {/* Navy blue theme: Text color changed to white */}
-      <span className="relative z-10 text-white font-bold text-xl font-serif">
+      
+      {/* Background glow that appears on hover */}
+      <div className="absolute inset-2 rounded-full bg-gradient-to-br from-[#1A6BBA]/5 to-[#5DBB4D]/5 group-hover:from-[#1A6BBA]/20 group-hover:to-[#5DBB4D]/20 transition-colors duration-500"></div>
+      
+      {/* Number with Blue-Green Gradient Text */}
+      <span className="relative z-10 font-bold text-2xl font-serif bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text text-transparent">
         {number}
       </span>
     </div>
@@ -32,7 +66,6 @@ const LoadingStepCircle = ({ number }) => {
 const HowItWorks = () => {
   const navigate = useNavigate();
 
-  // Updated steps data based on the theme of self-change and becoming a better version
   const steps = [
     {
       id: 1,
@@ -57,22 +90,37 @@ const HowItWorks = () => {
   ];
 
   return (
-    // Navy blue theme: Changed background to #0A1930
-    <section className="bg-[#0A1930] py-24 relative overflow-hidden">
+    <section className="bg-[#0A1930] py-32 relative overflow-hidden flex flex-col">
       
-      {/* Subtle background glow for the navy theme */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#ffba12]/5 rounded-full blur-[120px] pointer-events-none z-0"></div>
+      {/* =========================================
+          BACKGROUND IMAGE & DUAL GLOW
+          ========================================= */}
+      <div 
+        className="absolute inset-0 z-0 opacity-15"
+        style={{
+          // আপনার জেনারেট করা ব্যানার ইমেজ
+          backgroundImage: "url('/watermarked_img_2708617221946330444.jpg')", 
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed', 
+        }}
+      />
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0A1930] via-[#0A1930]/80 to-[#0A1930]" />
+      
+      {/* Blue Glow on Left, Green Glow on Right */}
+      <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-[#1A6BBA]/15 rounded-full blur-[150px] pointer-events-none z-0 -translate-x-1/2"></div>
+      <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-[#5DBB4D]/10 rounded-full blur-[150px] pointer-events-none z-0 translate-x-1/2"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        <div className="text-center mb-20">
+        {/* Header Section */}
+        <div className="text-center mb-20 flex flex-col items-center">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            // Navy blue theme: Changed text to white
-            className="text-4xl md:text-5xl text-white mb-4 tracking-tight playfair-display-bold"
+            className="text-4xl md:text-5xl lg:text-6xl text-white mb-6 tracking-tight font-serif drop-shadow-md"
           >
             Why not you?
           </motion.h2>
@@ -81,37 +129,40 @@ const HowItWorks = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            // Navy blue theme: Changed accent text to gold/yellow
-            className="text-xs uppercase tracking-[0.25em] text-[#ffba12] font-bold"
+            className="text-xs sm:text-sm uppercase tracking-[0.25em] font-bold bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text text-transparent"
           >
             Change yourself and become a better version of yours
           </motion.p>
         </div>
 
-        {/* Navy blue theme: Changed divider color to fit dark theme */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-12 divide-y md:divide-y-0 md:divide-x divide-[#3c5685]/30 mb-20">
+        {/* Steps Grid Section */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-24">
           {steps.map((step, index) => (
             <motion.div 
               key={step.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.15 }}
-              className="text-center px-6 pt-8 md:pt-0"
+              className="bg-[#132644]/90 backdrop-blur-md border border-[#3c5685]/40 p-8 shadow-xl hover:border-[#5DBB4D]/40 hover:-translate-y-2 transition-all duration-300 group flex flex-col items-center text-center relative overflow-hidden rounded-sm"
             >
-              <LoadingStepCircle number={step.id} />
-              {/* Navy blue theme: Changed heading text to white */}
-              <h3 className="text-xl font-medium text-white mb-3 font-serif">
+              {/* Subtle hover glow inside the card */}
+              <div className="absolute inset-0 bg-gradient-to-b from-[#1A6BBA]/0 to-[#5DBB4D]/0 group-hover:to-[#5DBB4D]/5 transition-colors duration-500"></div>
+
+              <LoadingStepLeaf number={step.id} />
+              
+              <h3 className="text-xl font-bold text-white mb-4 font-serif tracking-wide group-hover:text-[#5DBB4D] transition-colors relative z-10">
                 {step.title}
               </h3>
-              {/* Navy blue theme: Changed description text to light gray/blue */}
-              <p className="text-sm text-white/70 leading-relaxed">
+              
+              <p className="text-sm text-white/70 leading-relaxed lato-regular relative z-10">
                 {step.description}
               </p>
             </motion.div>
           ))}
         </div>
 
+        {/* Action Button */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -121,18 +172,19 @@ const HowItWorks = () => {
         >
           <button 
             onClick={() => navigate('/assessment')}
-            // Navy blue theme: Updated button to use the gold/yellow accent color
-            className="group flex items-center justify-between gap-4 bg-[#ffba12] p-2 pl-6 rounded-full hover:bg-white transition-all duration-300 shadow-[0_8px_20px_rgba(255,186,18,0.2)] hover:shadow-[0_12px_25px_rgba(255,186,18,0.4)]"
+            className="relative overflow-hidden bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] text-white font-bold text-base sm:text-lg py-4 px-10 shadow-[0_10px_30px_rgba(26,107,186,0.3)] hover:shadow-[0_10px_40px_rgba(93,187,77,0.5)] transition-all duration-300 flex justify-center items-center gap-4 group uppercase tracking-widest border border-transparent hover:border-white/20 rounded-sm"
           >
-            {/* Button text color adjusted for gold background */}
-            <span className="text-[#0a1930] font-bold text-sm">
-              Start Your Journey
-            </span>
-            <div className="w-8 h-8 bg-[#0a1930] rounded-full flex items-center justify-center text-[#ffba12] group-hover:bg-[#132644] transition-colors">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
+            <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300"></div>
+            
+            <span className="relative z-10">Start Your Journey</span>
+            <svg 
+              className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
           </button>
         </motion.div>
 

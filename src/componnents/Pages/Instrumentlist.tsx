@@ -17,7 +17,8 @@ export default function InstrumentList() {
 
   if (loading) {
     return (
-      <div className="relative w-full h-screen flex flex-col items-center justify-center bg-[#0A1930]">
+      // লডিং স্টেটেও lg:pl-[320px] দেওয়া হলো যাতে স্পিনার মাঝে থাকে
+      <div className="relative w-full h-screen flex flex-col items-center justify-center bg-[#0A1930] lg:pl-80">
         <div className="w-12 h-12 border-4 border-[#3c5685] border-t-[#ffba12] rounded-full animate-spin relative z-10"></div>
         <p className="mt-4 text-white/70 font-medium tracking-wide relative z-10">অ্যাসেসমেন্ট লোড হচ্ছে...</p>
       </div>
@@ -26,7 +27,8 @@ export default function InstrumentList() {
 
   if (error) {
     return (
-      <div className="relative w-full h-screen flex flex-col items-center justify-center bg-[#0A1930]">
+      // এরর স্টেটেও lg:pl-[320px] দেওয়া হলো
+      <div className="relative w-full h-screen flex flex-col items-center justify-center bg-[#0A1930] lg:pl-80">
         <div className="bg-red-500/10 border border-red-500/50 text-red-400 px-6 py-4 rounded-xl flex items-center gap-3 relative z-10">
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -42,19 +44,24 @@ export default function InstrumentList() {
       
       {/* Background Image Setup */}
       <div 
-        className="absolute inset-0 z-0 opacity-20"
+        className="absolute inset-0 z-10 opacity-20"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1472&auto=format&fit=crop')",
+          backgroundImage: "url('https://res.cloudinary.com/dsrs8hryx/image/upload/q_auto,f_auto/v1790155263/Oak_tree_and_river_conversation_2K_20260923151512_xeutzb.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
         }}
       />
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0A1930]/90 via-[#0A1930]/80 to-[#0A1930]" />
+      <div className="absolute inset-0 z-0 bg-linear-to-b from-[#0A1930]/90 via-[#0A1930]/80 to-[#0A1930]" />
 
-      {/* Main Content Area - (Padding komano hoyeche: pt-28 lg:pt-12) */}
-      <div className="relative z-10 flex-1 pt-28 lg:pt-16 pb-20 px-4 sm:px-6 md:px-8 lg:px-12 flex flex-col">
-        <div className="max-w-7xl mx-auto w-full">
+      {/* 
+        MAIN CONTENT WRAPPER
+        এখানে lg:pl-[320px] যোগ করা হয়েছে যাতে সাইডবারের জায়গা ছেড়ে কন্টেন্ট ডান দিক থেকে শুরু হয় 
+      */}
+      <div className="relative z-10 flex-1 lg:pl-80 flex flex-col">
+        
+        {/* Padding and Max Width */}
+        <div className="w-full pt-32 pb-20 px-4 sm:px-6 md:px-8 lg:px-12 max-w-7xl mx-auto flex-1">
           
           {/* Header */}
           <div className="mb-10 text-center lg:text-left border-b border-[#3c5685]/40 pb-6 backdrop-blur-sm">
@@ -66,8 +73,8 @@ export default function InstrumentList() {
             </p>
           </div>
 
-          {/* Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
+          {/* Grid - 3 Columns */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {instruments.map((inst) => (
               <Link
                 to={`/tests/${inst.instrumentSlug}`}
@@ -80,7 +87,7 @@ export default function InstrumentList() {
                     alt={inst.instrumentName.bn}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out opacity-80 group-hover:opacity-100"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#132644] via-transparent to-transparent opacity-95" />
+                  <div className="absolute inset-0 bg-linear-to-t from-[#132644] via-transparent to-transparent opacity-95" />
                 </div>
                 
                 <div className="p-6 flex-1 flex flex-col justify-between relative z-10 -mt-8">
