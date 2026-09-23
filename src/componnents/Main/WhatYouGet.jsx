@@ -91,9 +91,9 @@ const WhatYouGet = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-medium playfair-display-bold text-white mb-6 tracking-tight leading-tight"
+              className="text-3xl sm:text-4xl lg:text-5xl font-medium playfair-display-medium text-white mb-6 tracking-tight leading-tight"
             >
-              The most expensive decision a young person makes is usually made on <span className="text-[#ffba12] italic">someone else's advice.</span>
+              The most expensive decision a young person makes is usually made on <span className="text-[#ffba12]">someone else's advice.</span>
             </motion.h2>
 
             <motion.p 
