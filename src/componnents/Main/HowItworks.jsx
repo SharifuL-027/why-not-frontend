@@ -6,7 +6,8 @@ const LoadingStepCircle = ({ number }) => {
   return (
     <div className="relative w-16 h-16 flex items-center justify-center mx-auto mb-6">
       <svg 
-        className="absolute inset-0 w-full h-full text-[#1A6BBA] animate-[spin_8s_linear_infinite]" 
+        // Navy blue theme: Changed text color to gold/yellow to match the brand
+        className="absolute inset-0 w-full h-full text-[#ffba12] animate-[spin_8s_linear_infinite]" 
         viewBox="0 0 50 50"
       >
         <circle 
@@ -20,7 +21,8 @@ const LoadingStepCircle = ({ number }) => {
           strokeLinecap="round"
         />
       </svg>
-      <span className="relative z-10 text-[#0A1930] font-bold text-xl font-serif">
+      {/* Navy blue theme: Text color changed to white */}
+      <span className="relative z-10 text-white font-bold text-xl font-serif">
         {number}
       </span>
     </div>
@@ -30,31 +32,36 @@ const LoadingStepCircle = ({ number }) => {
 const HowItWorks = () => {
   const navigate = useNavigate();
 
+  // Updated steps data based on the theme of self-change and becoming a better version
   const steps = [
     {
       id: 1,
-      title: "Unlock Access",
-      description: "Secure your entry with a one-time payment to access our exclusive psychological career evaluation."
+      title: "Know Yourself",
+      description: "Begin with a deep psychological assessment to uncover your hidden strengths, traits, and true potential."
     },
     {
       id: 2,
-      title: "The Assessment",
-      description: "Answer a structured series of deep, psychology-based questions to reveal your true professional traits."
+      title: "Analyze & Reflect",
+      description: "Our advanced system evaluates your responses, providing clear insights into who you are right now."
     },
     {
       id: 3,
-      title: "Algorithm Analysis",
-      description: "Our highly advanced system instantly analyzes your unique response patterns and psychological profile."
+      title: "Chart the Path",
+      description: "Receive a personalized roadmap detailing the specific steps required to evolve and grow professionally."
     },
     {
       id: 4,
-      title: "Your Roadmap",
-      description: "Instantly receive a personalized, actionable guide detailing the exact career paths you were meant for."
+      title: "Change Yourself",
+      description: "Take actionable steps towards becoming the best version of yourself. If others can, why not you?"
     }
   ];
 
   return (
-    <section className="bg-[#FCFBF9] py-24 relative overflow-hidden">
+    // Navy blue theme: Changed background to #0A1930
+    <section className="bg-[#0A1930] py-24 relative overflow-hidden">
+      
+      {/* Subtle background glow for the navy theme */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#ffba12]/5 rounded-full blur-[120px] pointer-events-none z-0"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -64,22 +71,25 @@ const HowItWorks = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl text-[#2c2f33] mb-4 tracking-tight playfair-display-bold"
+            // Navy blue theme: Changed text to white
+            className="text-4xl md:text-5xl text-white mb-4 tracking-tight playfair-display-bold"
           >
-            How to discover your ideal career
+            Why not you?
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xs uppercase tracking-[0.25em] text-[#1A6BBA] font-bold"
+            // Navy blue theme: Changed accent text to gold/yellow
+            className="text-xs uppercase tracking-[0.25em] text-[#ffba12] font-bold"
           >
-            YOUR JOURNEY TO PROFESSIONAL CLARITY
+            Change yourself and become a better version of yours
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-12 divide-y md:divide-y-0 md:divide-x divide-[#1A6BBA]/15 mb-20">
+        {/* Navy blue theme: Changed divider color to fit dark theme */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-12 divide-y md:divide-y-0 md:divide-x divide-[#3c5685]/30 mb-20">
           {steps.map((step, index) => (
             <motion.div 
               key={step.id}
@@ -90,10 +100,12 @@ const HowItWorks = () => {
               className="text-center px-6 pt-8 md:pt-0"
             >
               <LoadingStepCircle number={step.id} />
-              <h3 className="text-xl font-medium text-[#0A1930] mb-3 font-serif">
+              {/* Navy blue theme: Changed heading text to white */}
+              <h3 className="text-xl font-medium text-white mb-3 font-serif">
                 {step.title}
               </h3>
-              <p className="text-sm text-[#0A1930]/70 leading-relaxed">
+              {/* Navy blue theme: Changed description text to light gray/blue */}
+              <p className="text-sm text-white/70 leading-relaxed">
                 {step.description}
               </p>
             </motion.div>
@@ -109,12 +121,14 @@ const HowItWorks = () => {
         >
           <button 
             onClick={() => navigate('/assessment')}
-            className="group flex items-center justify-between gap-4 bg-linear-to-r from-[#1A6BBA] to-[#5DBB4D] p-2 pl-6 rounded-full hover:scale-105 transition-all duration-300 shadow-[0_8px_20px_rgba(26,107,186,0.2)] hover:shadow-[0_12px_25px_rgba(93,187,77,0.3)]"
+            // Navy blue theme: Updated button to use the gold/yellow accent color
+            className="group flex items-center justify-between gap-4 bg-[#ffba12] p-2 pl-6 rounded-full hover:bg-white transition-all duration-300 shadow-[0_8px_20px_rgba(255,186,18,0.2)] hover:shadow-[0_12px_25px_rgba(255,186,18,0.4)]"
           >
-            <span className="text-white font-semibold text-sm">
-              Unlock Your Assessment
+            {/* Button text color adjusted for gold background */}
+            <span className="text-[#0a1930] font-bold text-sm">
+              Start Your Journey
             </span>
-            <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-[#1A6BBA] group-hover:text-[#5DBB4D] transition-colors">
+            <div className="w-8 h-8 bg-[#0a1930] rounded-full flex items-center justify-center text-[#ffba12] group-hover:bg-[#132644] transition-colors">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
               </svg>

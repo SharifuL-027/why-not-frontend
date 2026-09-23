@@ -8,7 +8,7 @@ const Hero = () => {
   // --- Sidebar Menu Data ---
   const menuItems = [
     { id: '01', label: 'Home', link: '/' }, 
-    { id: '02', label: 'Online Assessment', link: '/assessment' },
+    { id: '02', label: 'Online Assessment', link: '/tests' },
     { id: '03', label: 'Selection & Recruitment', link: '/selection' },
     { id: '04', label: 'Online Counselling', link: '/counselling' }, // Add corresponding routes if needed
     { id: '05', label: 'For Young Generation', link: '/young-generation' },
