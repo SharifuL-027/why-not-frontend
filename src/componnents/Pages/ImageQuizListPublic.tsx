@@ -84,12 +84,12 @@ export default function ImageQuizListPublic() {
       />
       
       {/* Light Overlay */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-transparent via-[#0A1930]/40 to-[#0A1930]/95" />
+      <div className="absolute inset-0 z-0 bg-linear-to-b from-transparent via-[#0A1930]/40 to-[#0A1930]/95" />
 
       {/* =========================================
           MAIN CONTENT WRAPPER (Sidebar Spacing)
           ========================================= */}
-      <div className="relative z-10 flex-1 lg:pl-[50px] flex flex-col">
+      <div className="relative z-10 flex-1 lg:pl-12.5 flex flex-col">
         
         <div className="w-full pt-32 pb-24 px-4 sm:px-6 md:px-8 lg:px-12 max-w-7xl mx-auto flex-1">
           
@@ -100,7 +100,7 @@ export default function ImageQuizListPublic() {
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="url(#leafGrad)">
                   <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M20 4C20 4 14 3 9 8C4 13 4 20 4 20C4 20 11 20 16 15C21 10 20 4 20 4ZM4 20L10 14" />
                 </svg>
-                <span className="text-transparent bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text font-bold text-sm uppercase">
+                <span className="text-transparent bg-linear-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text font-bold text-sm uppercase">
                   অ্যাসেসমেন্ট সূচিপত্র
                 </span>
               </div>
