@@ -112,7 +112,7 @@ export default function ImageQuizListPublic() {
             
             <div className="max-w-md text-center lg:text-left">
               <p className="text-white/80 text-sm sm:text-base lato-regular leading-relaxed border-l-2 border-[#5DBB4D] pl-4">
-                ছবি দেখে উত্তর দিন — Aptitude, Reasoning ও Spatial Visualisation টাইপ প্রশ্ন।
+                ছবি দেখে উত্তর দিন -যোগ্যতা, যুক্তি ও স্থানিক কল্পনা টাইপ প্রশ্ন।
               </p>
             </div>
           </div>
