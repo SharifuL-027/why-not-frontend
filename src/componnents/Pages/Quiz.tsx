@@ -436,7 +436,7 @@ export default function Quiz() {
                   onClick={() => selectAnswer(v)}
                   className={`flex-1 aspect-square border font-bold text-lg transition-all duration-300 ${
                     answers[q.id] === v
-                      ? "bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] text-[#0A1930] border-transparent scale-105 shadow-[0_0_20px_rgba(93,187,77,0.4)]"
+                      ? "bg-linear-to-r from-[#1A6BBA] to-[#5DBB4D] text-[#0A1930] border-transparent scale-105 shadow-[0_0_20px_rgba(93,187,77,0.4)]"
                       : "bg-[#0A1930] text-white/80 border-[#3c5685]/60 hover:border-[#5DBB4D]/60 hover:bg-[#5DBB4D]/10 hover:text-white"
                   }`}
                 >
@@ -455,7 +455,7 @@ export default function Quiz() {
                   onClick={() => selectAnswer(v)}
                   className={`flex-1 aspect-square border font-bold text-lg transition-all duration-300 ${
                     answers[q.id] === v
-                      ? "bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] text-[#0A1930] border-transparent scale-105 shadow-[0_0_20px_rgba(93,187,77,0.4)]"
+                      ? "bg-linear-to-r from-[#1A6BBA] to-[#5DBB4D] text-[#0A1930] border-transparent scale-105 shadow-[0_0_20px_rgba(93,187,77,0.4)]"
                       : "bg-[#0A1930] text-white/80 border-[#3c5685]/60 hover:border-[#5DBB4D]/60 hover:bg-[#5DBB4D]/10 hover:text-white"
                   }`}
                 >
@@ -475,7 +475,7 @@ export default function Quiz() {
                     onClick={() => selectAnswer(v)}
                     className={`flex-1 aspect-square border font-bold text-lg transition-all duration-300 ${
                       answers[q.id] === v
-                        ? "bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] text-[#0A1930] border-transparent scale-105 shadow-[0_0_20px_rgba(93,187,77,0.4)]"
+                        ? "bg-linear-to-r from-[#1A6BBA] to-[#5DBB4D] text-[#0A1930] border-transparent scale-105 shadow-[0_0_20px_rgba(93,187,77,0.4)]"
                         : "bg-[#0A1930] text-white/80 border-[#3c5685]/60 hover:border-[#5DBB4D]/60 hover:bg-[#5DBB4D]/10 hover:text-white"
                     }`}
                   >
