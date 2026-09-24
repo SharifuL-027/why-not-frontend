@@ -38,8 +38,8 @@ const FAQ = () => {
 
   return (
     // lg:pl-[50px] added to maintain sidebar layout spacing
-    // '-mt-1' or seamless gradient helps fix the hard line issue shown in the image
-    <section className="bg-[#0A1930] py-32 relative overflow-hidden lg:pl-[50px] w-full flex flex-col mt-0 border-t-0">
+    // '-mt-[1px]' and strict overflow hidden
+    <section className="bg-[#0A1930] py-32 relative overflow-hidden lg:pl-[50px] w-full flex flex-col -mt-[1px]">
       
       {/* SVG Definitions for Global Blue-Green Gradient */}
       <svg width="0" height="0" className="absolute">
@@ -54,20 +54,20 @@ const FAQ = () => {
       {/* =========================================
           BACKGROUND IMAGE & NAVY BLUE OVERLAY
           ========================================= */}
+      {/* 
+        এখানে absolute w-full h-full ব্যবহার করা হয়েছে যাতে এটি 
+        কোনোভাবেই সেকশনের সাইজের বাইরে না যায়। 
+      */}
       <div 
-        className="absolute inset-0 z-0 opacity-15" 
+        className="absolute top-0 left-0 w-full h-full z-0 opacity-20 pointer-events-none" 
         style={{
-          backgroundImage: "url('/watermarked_img_4680048593054709329.jpg')", 
+          backgroundImage: "url('https://res.cloudinary.com/dsrs8hryx/image/upload/q_auto,f_auto/v1790226451/Gemini_Generated_Image_1ez1ba1ez1ba1ez1_lei0b0.jpg')", 
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
         }}
       />
-      {/* 
-        ওভারলে এর অপাসিটি কমানো হয়েছে এবং টপ গ্রেডিয়েন্ট স্মুথ করা হয়েছে 
-        যাতে আগের সেকশনের সাথে কোনো হার্ড লাইন বা গ্যাপ না থাকে
-      */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0A1930] via-[#0A1930]/80 to-[#0A1930]" />
+      <div className="absolute top-0 left-0 w-full h-full z-0 bg-gradient-to-b from-[#0A1930] via-[#0A1930]/70 to-[#0A1930] pointer-events-none" />
 
       {/* Background Decorative Glows (Blue & Green Theme) */}
       <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#1A6BBA]/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
