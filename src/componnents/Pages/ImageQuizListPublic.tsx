@@ -105,12 +105,12 @@ export default function ImageQuizListPublic() {
                 </span>
               </div>
               
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white font-serif tracking-tight drop-shadow-lg">
-                Image-Based Quiz
+              <h1 className="text-3xl md:text-4xl font-bold text-white font-serif tracking-tight drop-shadow-lg">
+             ছবি ভিত্তিক কুইজ
               </h1>
             </div>
             
-            <div className="max-w-md text-center lg:text-right">
+            <div className="max-w-md text-center lg:text-left">
               <p className="text-white/80 text-sm sm:text-base lato-regular leading-relaxed border-l-2 border-[#5DBB4D] pl-4">
                 ছবি দেখে উত্তর দিন — Aptitude, Reasoning ও Spatial Visualisation টাইপ প্রশ্ন।
               </p>
