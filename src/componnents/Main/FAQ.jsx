@@ -59,7 +59,7 @@ const FAQ = () => {
         কোনোভাবেই সেকশনের সাইজের বাইরে না যায়। 
       */}
       <div 
-        className="absolute top-0 left-0 w-full h-full z-0 opacity-20 pointer-events-none" 
+        className="absolute top-0 left-0 w-full h-full z-0 opacity-40 pointer-events-none" 
         style={{
           backgroundImage: "url('https://res.cloudinary.com/dsrs8hryx/image/upload/q_auto,f_auto/v1790226451/Gemini_Generated_Image_1ez1ba1ez1ba1ez1_lei0b0.jpg')", 
           backgroundSize: 'cover',
@@ -67,11 +67,6 @@ const FAQ = () => {
           backgroundAttachment: 'fixed',
         }}
       />
-      <div className="absolute top-0 left-0 w-full h-full z-0 bg-gradient-to-b from-[#0A1930] via-[#0A1930]/70 to-[#0A1930] pointer-events-none" />
-
-      {/* Background Decorative Glows (Blue & Green Theme) */}
-      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#1A6BBA]/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
-      <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-[#5DBB4D]/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
         
@@ -83,12 +78,12 @@ const FAQ = () => {
           className="text-center mb-16"
         >
           {/* Subtitle updated to Blue-Green Gradient */}
-          <p className="font-bold tracking-[0.2em] text-xs uppercase mb-6 drop-shadow-sm bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text text-transparent">
+          <p className="font-bold tracking-[0.2em] text-xs uppercase mb-6 drop-shadow-sm bg-linear-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text text-transparent">
             Clear Your Doubts
           </p>
           {/* Title updated to White and Blue-Green Gradient */}
           <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight font-serif mb-6 drop-shadow-md">
-            Frequently Asked <span className="italic font-light bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text text-transparent">Questions</span>
+            Frequently Asked <span className="italic font-light bg-linear-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text text-transparent">Questions</span>
           </h2>
         </motion.div>
 

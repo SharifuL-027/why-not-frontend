@@ -27,7 +27,7 @@ import ImageQuizListPublic from "../componnents/Pages/ImageQuizListPublic";
 import ImageQuizDetailsPublic from "../componnents/Pages/ImageQuizDetailsPublic";
 import ImageQuizTake from "../componnents/Pages/ImageQuizTake";
 import ImageQuizResult from "../componnents/Pages/ImageQuizResult";
-import OnlineCounselling from "../componnents/Pages/OnlineCouncelling";
+import OnlineCounselling from "../componnents/Pages/OnlineCounselling";
 
 const MainLayout = () => {
   return (
