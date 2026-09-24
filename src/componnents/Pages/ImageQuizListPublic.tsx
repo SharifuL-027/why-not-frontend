@@ -76,7 +76,7 @@ export default function ImageQuizListPublic() {
       <div 
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: "url('/watermarked_img_4680048593054709329.jpg')",
+          backgroundImage: "url('https://res.cloudinary.com/dsrs8hryx/image/upload/q_auto,f_auto/v1790155263/Oak_tree_and_river_conversation_2K_20260923151512_xeutzb.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
