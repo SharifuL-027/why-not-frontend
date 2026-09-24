@@ -73,36 +73,43 @@ function PersonalInfoForm({
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
-      className="max-w-xl mx-auto my-10 p-8 bg-[#132644] border border-[#3c5685]/50 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative z-10"
+      className="max-w-xl mx-auto my-10 p-8 sm:p-12 bg-[#132644]/90 backdrop-blur-md border border-[#3c5685]/50 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative z-10"
     >
-      <h2 className="text-2xl font-serif text-white mb-6 border-b border-[#3c5685]/40 pb-4">আপনার তথ্য প্রদান করুন</h2>
-      <div className="flex flex-col gap-5">
+      <h2 className="text-2xl font-serif text-white mb-8 border-b border-[#3c5685]/40 pb-4 flex items-center gap-3">
+        <svg className="w-6 h-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke="url(#leafGrad)">
+          <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M20 4C20 4 14 3 9 8C4 13 4 20 4 20C4 20 11 20 16 15C21 10 20 4 20 4ZM4 20L10 14" />
+        </svg>
+        আপনার তথ্য প্রদান করুন
+      </h2>
+      
+      <div className="flex flex-col gap-6">
         {fields.map((f) => (
           <div key={f.key}>
-            <label className="block text-xs uppercase tracking-widest text-[#ffba12] mb-2 font-medium">
+            <label className="block text-xs uppercase tracking-widest text-[#5DBB4D] mb-2 font-bold">
               {f.label_bn || f.label_en}
             </label>
             {(f.type === "text" || f.type === "email") && (
               <input
                 type={f.type}
                 onChange={(e) => update(f.key, e.target.value)}
-                className="w-full bg-[#0A1930] border border-[#3c5685] text-white px-4 py-3 outline-none focus:border-[#ffba12] transition-colors shadow-inner"
+                className="w-full bg-[#0A1930]/80 border border-[#3c5685]/60 text-white px-4 py-3 outline-none focus:border-[#5DBB4D] transition-colors"
+                placeholder="লিখুন..."
               />
             )}
             {f.type === "singleChoice" && (
               <select
                 onChange={(e) => update(f.key, e.target.value)}
                 defaultValue=""
-                className="w-full bg-[#0A1930] border border-[#3c5685] text-white px-4 py-3 outline-none focus:border-[#ffba12] transition-colors cursor-pointer"
+                className="w-full bg-[#0A1930]/80 border border-[#3c5685]/60 text-white px-4 py-3 outline-none focus:border-[#5DBB4D] transition-colors cursor-pointer appearance-none"
               >
                 <option value="" disabled className="text-white/40">বাছাই করুন</option>
                 {f.options.map((opt: string) => (
-                  <option key={opt} value={opt}>{opt}</option>
+                  <option key={opt} value={opt} className="bg-[#132644] text-white">{opt}</option>
                 ))}
               </select>
             )}
             {f.type === "multiSelect" && (
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-3">
                 {f.options.map((opt: string) => {
                   const selected: string[] = info[f.key] || [];
                   const isSel = selected.includes(opt);
@@ -116,10 +123,10 @@ function PersonalInfoForm({
                           isSel ? selected.filter((s) => s !== opt) : [...selected, opt]
                         )
                       }
-                      className={`text-sm px-4 py-2 border transition-colors ${
+                      className={`text-sm px-5 py-2.5 border transition-all duration-300 font-medium ${
                         isSel
-                          ? "bg-[#ffba12] text-[#0A1930] border-[#ffba12] font-bold"
-                          : "bg-[#0A1930] border-[#3c5685] text-white/70 hover:border-[#ffba12]/50"
+                          ? "bg-[#1A6BBA]/20 text-[#5DBB4D] border-[#5DBB4D] shadow-[0_0_15px_rgba(93,187,77,0.2)]"
+                          : "bg-[#0A1930] border-[#3c5685]/60 text-white/70 hover:border-[#5DBB4D]/50 hover:text-white"
                       }`}
                     >
                       {opt}
@@ -131,12 +138,19 @@ function PersonalInfoForm({
           </div>
         ))}
       </div>
+
       <button
         disabled={!allRequiredFilled}
         onClick={() => onDone(info)}
-        className="w-full bg-[#ffba12] hover:bg-white text-[#0A1930] font-bold text-sm uppercase tracking-widest py-4 mt-8 disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-[0_0_15px_rgba(255,186,18,0.2)]"
+        className="w-full mt-10 relative overflow-hidden bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] disabled:from-[#3c5685] disabled:to-[#3c5685] disabled:text-white/40 disabled:cursor-not-allowed text-white font-bold text-base uppercase tracking-widest py-4 transition-all duration-300 flex justify-center items-center gap-3 group border border-transparent shadow-[0_5px_20px_rgba(26,107,186,0.3)] hover:shadow-[0_10px_30px_rgba(93,187,77,0.5)]"
       >
-        পরবর্তী ধাপ →
+        <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300"></div>
+        <span className="relative z-10">পরবর্তী ধাপ</span>
+        {allRequiredFilled && (
+          <svg className="w-5 h-5 relative z-10 group-hover:rotate-12 group-hover:scale-110 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+          </svg>
+        )}
       </button>
     </motion.div>
   );
@@ -172,30 +186,48 @@ export default function Quiz() {
   // Global Layout Wrapper for Premium Background
   // ==========================================
   const LayoutWrapper = ({ children }: { children: React.ReactNode }) => (
-    <div className="relative w-full min-h-screen flex flex-col bg-[#303133] lg:pl-[50px] pt-32 pb-20 px-4 sm:px-6">
+    <div className="relative w-full min-h-screen flex flex-col bg-[#0A1930] lg:pl-[50px] pt-32 pb-20 px-4 sm:px-6 overflow-hidden">
+      
+      {/* SVG Definitions for Global Blue-Green Gradient */}
+      <svg width="0" height="0" className="absolute">
+        <defs>
+          <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#1A6BBA" />
+            <stop offset="100%" stopColor="#5DBB4D" />
+          </linearGradient>
+        </defs>
+      </svg>
+
       <div 
-        className="absolute inset-0 z-10 opacity-10"
+        className="absolute inset-0 z-0 opacity-15"
         style={{
-          backgroundImage: "url('https://res.cloudinary.com/dsrs8hryx/image/upload/v1790162126/Gemini_Generated_Image_shc2z5shc2z5shc2.jpg_20260923171442_uwpltk.jpg')",
+          backgroundImage: "url('/watermarked_img_4680048593054709329.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
         }}
       />
-      <div className="absolute inset-0 z-0 bg-linear-to-b from-[#0A1930]/90 via-[#0A1930]/80 to-[#0A1930]" />
-      <div className="relative z-10 w-full max-w-2xl mx-auto flex-1 flex flex-col justify-center">
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0A1930]/90 via-[#0A1930]/80 to-[#0A1930]" />
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#1A6BBA]/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
+      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#5DBB4D]/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
+      
+      <div className="relative z-10 w-full max-w-3xl mx-auto flex-1 flex flex-col justify-center">
         {children}
       </div>
     </div>
   );
 
-  // Premium Loading
+  // Premium Leaf Loading
   if (loading || !instrument) {
     return (
       <LayoutWrapper>
         <div className="flex flex-col items-center justify-center">
-          <div className="w-12 h-12 border-2 border-[#3c5685] border-t-[#ffba12] animate-[spin_1.5s_linear_infinite]"></div>
-          <p className="mt-6 text-[#ffba12] tracking-[0.2em] uppercase text-sm font-medium">লোড হচ্ছে...</p>
+          <div className="w-16 h-16 relative flex items-center justify-center animate-[spin_4s_linear_infinite]">
+            <svg className="w-10 h-10 text-[#5DBB4D]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M20 4C20 4 14 3 9 8C4 13 4 20 4 20C4 20 11 20 16 15C21 10 20 4 20 4ZM4 20L10 14" />
+            </svg>
+          </div>
+          <p className="mt-6 text-transparent bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text font-bold tracking-[0.2em] uppercase text-sm">লোড হচ্ছে...</p>
         </div>
       </LayoutWrapper>
     );
@@ -206,13 +238,13 @@ export default function Quiz() {
   if (isMcrrs && !ageConfirmed) {
     return (
       <LayoutWrapper>
-        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-[#132644] p-8 sm:p-12 border border-[#3c5685]/50 shadow-[0_20px_50px_rgba(0,0,0,0.5)] text-center">
-          <h2 className="text-xl sm:text-2xl font-serif text-white mb-8">{instrument.data.ageGate.question_bn}</h2>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <button onClick={() => setAgeConfirmed(true)} className="flex-1 bg-[#ffba12] hover:bg-white text-[#0A1930] font-bold py-4 uppercase tracking-wider transition-colors shadow-lg">
+        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-[#132644]/90 backdrop-blur-md p-8 sm:p-12 border border-[#3c5685]/50 shadow-[0_20px_50px_rgba(0,0,0,0.5)] text-center">
+          <h2 className="text-xl sm:text-2xl font-serif text-white mb-10 leading-relaxed">{instrument.data.ageGate.question_bn}</h2>
+          <div className="flex flex-col sm:flex-row gap-5">
+            <button onClick={() => setAgeConfirmed(true)} className="flex-1 bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] text-white font-bold py-4 uppercase tracking-widest transition-all shadow-[0_5px_20px_rgba(93,187,77,0.3)] hover:shadow-[0_10px_30px_rgba(93,187,77,0.5)]">
               হ্যাঁ, ১৮+
             </button>
-            <button onClick={() => (window.location.href = "/")} className="flex-1 bg-transparent border border-[#3c5685] text-white/70 hover:bg-[#3c5685]/30 hover:text-white font-bold py-4 uppercase tracking-wider transition-colors">
+            <button onClick={() => (window.location.href = "/")} className="flex-1 bg-[#0A1930] border border-[#3c5685] text-white/70 hover:border-red-500/50 hover:text-red-400 font-bold py-4 uppercase tracking-widest transition-colors">
               না
             </button>
           </div>
@@ -226,13 +258,17 @@ export default function Quiz() {
   if (consentRequired && !consentAck) {
     return (
       <LayoutWrapper>
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="bg-[#132644] p-8 border border-[#3c5685]/50 shadow-2xl">
-          <h2 className="text-xl font-serif text-[#ffba12] mb-4 uppercase tracking-wider border-b border-[#3c5685]/40 pb-3">সম্মতি প্রয়োজন</h2>
-          <p className="text-white/80 leading-relaxed mb-8 lato-regular text-sm sm:text-base">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="bg-[#132644]/90 backdrop-blur-md p-8 sm:p-12 border border-[#3c5685]/50 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+          <h2 className="text-xl font-serif text-transparent bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text mb-6 uppercase tracking-widest border-b border-[#3c5685]/40 pb-4">সম্মতি প্রয়োজন</h2>
+          <p className="text-white/80 leading-relaxed mb-10 lato-regular text-sm sm:text-base border-l-2 border-[#5DBB4D] pl-4">
             {instrument.data.consent.text_bn}
           </p>
-          <button onClick={() => setConsentAck(true)} className="w-full bg-[#ffba12] hover:bg-white text-[#0A1930] font-bold text-sm uppercase tracking-widest py-4 transition-colors shadow-[0_0_15px_rgba(255,186,18,0.2)]">
-            আমি সম্মত আছি — শুরু করুন
+          <button onClick={() => setConsentAck(true)} className="w-full relative overflow-hidden bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] text-white font-bold text-sm uppercase tracking-widest py-4 transition-all duration-300 flex justify-center items-center gap-3 group border border-transparent shadow-[0_10px_30px_rgba(26,107,186,0.3)]">
+            <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300"></div>
+            <span className="relative z-10">আমি সম্মত আছি — শুরু করুন</span>
+            <svg className="w-5 h-5 relative z-10 group-hover:rotate-12 group-hover:scale-110 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M20 4C20 4 14 3 9 8C4 13 4 20 4 20C4 20 11 20 16 15C21 10 20 4 20 4ZM4 20L10 14" />
+            </svg>
           </button>
         </motion.div>
       </LayoutWrapper>
@@ -244,21 +280,22 @@ export default function Quiz() {
     const rq = instrument.data.routingQuestion;
     return (
       <LayoutWrapper>
-        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="bg-[#132644] p-8 border border-[#3c5685]/50 shadow-2xl">
-          <h2 className="text-xl font-serif text-white mb-6 leading-relaxed">{rq.text_bn}</h2>
-          <div className="flex flex-col gap-3">
+        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="bg-[#132644]/90 backdrop-blur-md p-8 sm:p-12 border border-[#3c5685]/50 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+          <h2 className="text-xl sm:text-2xl font-serif text-white mb-8 leading-relaxed">{rq.text_bn}</h2>
+          <div className="flex flex-col gap-4">
             {rq.options.map((opt: any) => (
               <button
                 key={opt.value}
                 disabled={!opt.enabled}
                 onClick={() => setRouteChosen(opt.value)}
-                className={`text-left px-5 py-4 border text-sm sm:text-base transition-colors ${
+                className={`text-left px-6 py-5 border text-sm sm:text-base transition-colors duration-300 ${
                   opt.enabled
-                    ? "border-[#3c5685] bg-[#0A1930] text-white hover:border-[#ffba12] hover:bg-[#ffba12]/10"
+                    ? "border-[#3c5685] bg-[#0A1930]/80 text-white hover:border-[#5DBB4D] hover:bg-[#5DBB4D]/10 hover:text-[#5DBB4D]"
                     : "border-[#3c5685]/30 bg-[#0A1930]/50 text-white/30 cursor-not-allowed"
                 }`}
               >
-                {opt.label_bn} {opt.note && <span className="text-white/50 text-xs block mt-1">({opt.note})</span>}
+                <span className="font-semibold block">{opt.label_bn}</span>
+                {opt.note && <span className="text-white/40 text-xs block mt-1 tracking-wide">{opt.note}</span>}
               </button>
             ))}
           </div>
@@ -310,23 +347,23 @@ export default function Quiz() {
   if (isMcrrs && careDone) {
     return (
       <LayoutWrapper>
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full">
-          <div className="bg-[#132644] p-4 mb-6 border-l-4 border-[#ffba12] shadow-md">
-            <p className="text-sm text-white/80 font-medium">{instrument.data.careModule.note_bn}</p>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full max-w-2xl mx-auto">
+          <div className="bg-[#1A6BBA]/10 p-5 mb-8 border-l-4 border-[#5DBB4D] shadow-md backdrop-blur-sm">
+            <p className="text-sm text-white/80 font-medium leading-relaxed">{instrument.data.careModule.note_bn}</p>
           </div>
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-6">
             {careItems.map((c: any) => (
-              <div key={c.id} className="bg-[#132644] border border-[#3c5685]/50 p-6 shadow-lg">
-                <div className="text-base font-serif text-white mb-4">{c.text_bn}</div>
+              <div key={c.id} className="bg-[#132644]/90 backdrop-blur-md border border-[#3c5685]/50 p-6 sm:p-8 shadow-lg">
+                <div className="text-lg font-serif text-white mb-6 leading-snug">{c.text_bn}</div>
                 <div className="flex flex-wrap sm:flex-nowrap gap-3">
                   {instrument.data.careModule.answerOptions.map((opt: any) => (
                     <button
                       key={opt.value}
                       onClick={() => setCareAnswers((prev) => ({ ...prev, [c.id]: opt.value }))}
-                      className={`flex-1 py-3 px-2 border text-xs sm:text-sm font-semibold transition-colors ${
+                      className={`flex-1 py-4 px-3 border text-xs sm:text-sm font-semibold transition-all duration-300 uppercase tracking-wider ${
                         careAnswers[c.id] === opt.value
-                          ? "bg-[#ffba12] text-[#0A1930] border-[#ffba12]"
-                          : "bg-[#0A1930] text-white/70 border-[#3c5685] hover:border-[#ffba12]/50"
+                          ? "bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] text-[#0A1930] border-transparent shadow-[0_0_15px_rgba(93,187,77,0.4)]"
+                          : "bg-[#0A1930] text-white/70 border-[#3c5685] hover:border-[#5DBB4D]/60 hover:text-white"
                       }`}
                     >
                       {opt.label_bn}
@@ -336,8 +373,18 @@ export default function Quiz() {
               </div>
             ))}
           </div>
-          <button disabled={!careAllAnswered || submitting} onClick={submitFinal} className="w-full bg-[#ffba12] hover:bg-white text-[#0A1930] font-bold text-sm uppercase tracking-widest py-4 mt-8 disabled:opacity-30 transition-colors shadow-[0_0_15px_rgba(255,186,18,0.2)]">
-            {submitting ? "জমা হচ্ছে..." : "শেষ করুন →"}
+          <button 
+            disabled={!careAllAnswered || submitting} 
+            onClick={submitFinal} 
+            className="w-full mt-10 relative overflow-hidden bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] disabled:from-[#3c5685] disabled:to-[#3c5685] disabled:text-white/40 disabled:cursor-not-allowed text-white font-bold text-sm uppercase tracking-widest py-4 transition-all duration-300 flex justify-center items-center gap-3 group border border-transparent shadow-[0_5px_20px_rgba(26,107,186,0.3)]"
+          >
+            <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300"></div>
+            <span className="relative z-10">{submitting ? "জমা হচ্ছে..." : "শেষ করুন"}</span>
+            {(!submitting && careAllAnswered) && (
+              <svg className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+              </svg>
+            )}
           </button>
         </motion.div>
       </LayoutWrapper>
@@ -348,22 +395,22 @@ export default function Quiz() {
   return (
     <LayoutWrapper>
       
-      {/* Progress Bar */}
-      <div className="flex gap-1.5 mb-3 w-full">
+      {/* Progress Bar (Square/Gradient) */}
+      <div className="flex gap-1 mb-4 w-full">
         {questions.map((_, i) => (
-          <div key={i} className="flex-1 h-1.5 bg-[#3c5685]/30 overflow-hidden">
+          <div key={i} className="flex-1 h-1.5 bg-[#0A1930] border border-[#3c5685]/30 overflow-hidden">
             <motion.div 
               initial={false}
               animate={{ width: i <= cursor ? "100%" : "0%" }}
-              className="h-full bg-[#ffba12]"
+              className="h-full bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D]"
             />
           </div>
         ))}
       </div>
       
-      <div className="flex justify-between items-end mb-6">
-        <span className="text-[#ffba12] font-bold tracking-[0.2em] uppercase text-xs">
-          প্রশ্ন {cursor + 1} <span className="text-white/40">/ {questions.length}</span>
+      <div className="flex justify-between items-end mb-8">
+        <span className="text-[#5DBB4D] font-bold tracking-[0.2em] uppercase text-xs">
+          প্রশ্ন {cursor + 1} <span className="text-white/30">/ {questions.length}</span>
         </span>
       </div>
 
@@ -374,9 +421,9 @@ export default function Quiz() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.3 }}
-          className="bg-[#132644] border border-[#3c5685]/50 p-6 sm:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] w-full"
+          className="bg-[#132644]/90 backdrop-blur-md border border-[#3c5685]/50 p-6 sm:p-10 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.5)] w-full"
         >
-          <div className="text-xl sm:text-2xl font-serif text-white mb-8 leading-snug drop-shadow-sm">
+          <div className="text-xl sm:text-2xl md:text-3xl font-serif text-white mb-10 leading-snug drop-shadow-sm">
             {q.text_bn}
           </div>
 
@@ -387,10 +434,10 @@ export default function Quiz() {
                 <button
                   key={v}
                   onClick={() => selectAnswer(v)}
-                  className={`flex-1 aspect-square border-2 font-bold text-lg transition-all duration-200 ${
+                  className={`flex-1 aspect-square border font-bold text-lg transition-all duration-300 ${
                     answers[q.id] === v
-                      ? "bg-[#ffba12] text-[#0A1930] border-[#ffba12] scale-105 shadow-[0_0_15px_rgba(255,186,18,0.3)]"
-                      : "bg-[#0A1930] text-white/80 border-[#3c5685] hover:border-[#ffba12]/70 hover:bg-[#ffba12]/5"
+                      ? "bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] text-[#0A1930] border-transparent scale-105 shadow-[0_0_20px_rgba(93,187,77,0.4)]"
+                      : "bg-[#0A1930] text-white/80 border-[#3c5685]/60 hover:border-[#5DBB4D]/60 hover:bg-[#5DBB4D]/10 hover:text-white"
                   }`}
                 >
                   {v}
@@ -406,10 +453,10 @@ export default function Quiz() {
                 <button
                   key={v}
                   onClick={() => selectAnswer(v)}
-                  className={`flex-1 aspect-square border-2 font-bold text-lg transition-all duration-200 ${
+                  className={`flex-1 aspect-square border font-bold text-lg transition-all duration-300 ${
                     answers[q.id] === v
-                      ? "bg-[#ffba12] text-[#0A1930] border-[#ffba12] scale-105 shadow-[0_0_15px_rgba(255,186,18,0.3)]"
-                      : "bg-[#0A1930] text-white/80 border-[#3c5685] hover:border-[#ffba12]/70 hover:bg-[#ffba12]/5"
+                      ? "bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] text-[#0A1930] border-transparent scale-105 shadow-[0_0_20px_rgba(93,187,77,0.4)]"
+                      : "bg-[#0A1930] text-white/80 border-[#3c5685]/60 hover:border-[#5DBB4D]/60 hover:bg-[#5DBB4D]/10 hover:text-white"
                   }`}
                 >
                   {v}
@@ -420,23 +467,23 @@ export default function Quiz() {
 
           {/* Likert 5 Zero with Labels */}
           {q.scale === "likert5zero" && (
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-4">
               <div className="flex gap-2 sm:gap-3">
                 {[0, 1, 2, 3, 4].map((v) => (
                   <button
                     key={v}
                     onClick={() => selectAnswer(v)}
-                    className={`flex-1 aspect-square border-2 font-bold text-lg transition-all duration-200 ${
+                    className={`flex-1 aspect-square border font-bold text-lg transition-all duration-300 ${
                       answers[q.id] === v
-                        ? "bg-[#ffba12] text-[#0A1930] border-[#ffba12] scale-105 shadow-[0_0_15px_rgba(255,186,18,0.3)]"
-                        : "bg-[#0A1930] text-white/80 border-[#3c5685] hover:border-[#ffba12]/70 hover:bg-[#ffba12]/5"
+                        ? "bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] text-[#0A1930] border-transparent scale-105 shadow-[0_0_20px_rgba(93,187,77,0.4)]"
+                        : "bg-[#0A1930] text-white/80 border-[#3c5685]/60 hover:border-[#5DBB4D]/60 hover:bg-[#5DBB4D]/10 hover:text-white"
                     }`}
                   >
                     {v}
                   </button>
                 ))}
               </div>
-              <div className="flex justify-between text-xs text-white/40 font-medium tracking-wide px-1">
+              <div className="flex justify-between text-xs text-white/40 font-medium tracking-widest px-1 uppercase">
                 <span>{PCS_SCALE_LABELS_BN[0]}</span>
                 <span>{PCS_SCALE_LABELS_BN[4]}</span>
               </div>
@@ -450,10 +497,10 @@ export default function Quiz() {
                 <button
                   key={v}
                   onClick={() => selectAnswer(v)}
-                  className={`flex-1 py-4 border-2 font-bold uppercase tracking-widest transition-all duration-200 ${
+                  className={`flex-1 py-4 sm:py-5 border font-bold uppercase tracking-widest transition-all duration-300 ${
                     answers[q.id] === v
-                      ? "bg-[#ffba12] text-[#0A1930] border-[#ffba12] shadow-[0_0_15px_rgba(255,186,18,0.3)]"
-                      : "bg-[#0A1930] text-white/80 border-[#3c5685] hover:border-[#ffba12]/70"
+                      ? "bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] text-[#0A1930] border-transparent shadow-[0_0_20px_rgba(93,187,77,0.4)]"
+                      : "bg-[#0A1930] text-white/80 border-[#3c5685]/60 hover:border-[#5DBB4D]/60 hover:bg-[#5DBB4D]/10 hover:text-white"
                   }`}
                 >
                   {v === "Yes" ? "হ্যাঁ" : "না"}
@@ -469,10 +516,10 @@ export default function Quiz() {
                 <button
                   key={i}
                   onClick={() => selectAnswer(i)}
-                  className={`text-left px-5 py-4 border-2 text-sm sm:text-base transition-all duration-200 ${
+                  className={`text-left px-5 py-4 sm:py-5 border text-sm sm:text-base transition-all duration-300 ${
                     answers[q.id] === i
-                      ? "bg-[#ffba12]/10 border-[#ffba12] text-[#ffba12] font-bold"
-                      : "bg-[#0A1930] border-[#3c5685] text-white/80 hover:border-[#ffba12]/50"
+                      ? "bg-gradient-to-r from-[#1A6BBA]/20 to-[#5DBB4D]/20 border-[#5DBB4D] text-[#5DBB4D] font-bold"
+                      : "bg-[#0A1930] border-[#3c5685]/60 text-white/80 hover:border-[#5DBB4D]/50 hover:bg-[#132644] hover:text-white"
                   }`}
                 >
                   {opt}
@@ -482,24 +529,39 @@ export default function Quiz() {
           )}
 
           {/* Navigation Controls */}
-          <div className="flex justify-between items-center mt-10 pt-6 border-t border-[#3c5685]/40">
+          <div className="flex justify-between items-center mt-12 pt-8 border-t border-[#3c5685]/40">
             <button
               disabled={cursor === 0}
               onClick={prev}
-              className="px-4 py-2 text-sm font-semibold uppercase tracking-widest text-white/50 hover:text-[#ffba12] disabled:opacity-0 transition-colors"
+              className="px-4 py-2 text-sm font-bold uppercase tracking-widest text-white/40 hover:text-white disabled:opacity-0 transition-colors flex items-center gap-2"
             >
-              ← আগের
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              আগের
             </button>
             <button
               disabled={answers[q.id] === undefined || submitting}
               onClick={next}
-              className="px-8 py-3 bg-[#ffba12] hover:bg-white text-[#0A1930] text-sm uppercase tracking-widest font-bold disabled:opacity-30 disabled:bg-[#3c5685] disabled:text-white/50 transition-colors shadow-lg"
+              className="relative overflow-hidden bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] disabled:from-[#3c5685] disabled:to-[#3c5685] disabled:text-white/40 disabled:cursor-not-allowed text-white text-sm uppercase tracking-widest font-bold transition-all shadow-[0_5px_20px_rgba(26,107,186,0.3)] flex items-center justify-center gap-2 group px-8 py-3.5 border border-transparent"
             >
-              {submitting
-                ? "জমা হচ্ছে..."
-                : cursor === questions.length - 1
-                ? "শেষ করুন →"
-                : "পরের →"}
+              <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300"></div>
+              <span className="relative z-10">
+                {submitting
+                  ? "জমা হচ্ছে..."
+                  : cursor === questions.length - 1
+                  ? "শেষ করুন"
+                  : "পরের"}
+              </span>
+              {answers[q.id] !== undefined && !submitting && (
+                <svg className={`w-4 h-4 relative z-10 transition-transform duration-300 ${cursor === questions.length - 1 ? 'group-hover:rotate-12 group-hover:scale-110' : 'group-hover:translate-x-1'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  {cursor === questions.length - 1 ? (
+                    <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                  ) : (
+                    <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                  )}
+                </svg>
+              )}
             </button>
           </div>
         </motion.div>
