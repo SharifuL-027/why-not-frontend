@@ -36,7 +36,7 @@ const Navbar = () => {
     { id: '02', label: 'Online Assessment', link: '/tests' },
     { id: '03', label: 'Selection & Recruitment', link: '/selection' },
     { id: '04', label: 'Image Quiz', link: '/image-quiz' },
-    { id: '06', label: 'Online Councelling', link: '/councelling' },
+    { id: '06', label: 'Online Counselling', link: '/counselling' },
     { id: '05', label: 'For Young Generation', link: '/young-generation' },
     { id: '07', label: 'Psychological Awareness', link: '/awareness' },
     { id: '08', label: 'About Us & Contacts', link: '/contact' },

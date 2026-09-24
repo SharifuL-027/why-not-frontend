@@ -76,7 +76,7 @@ const AllRoutes = () => {
             </>
           }
         />
-        <Route path="/councelling" element={<OnlineCounselling />} />
+        <Route path="/counselling" element={<OnlineCounselling />} />
         {/* Sakib Start */}
         <Route path="/tests" element={<InstrumentList />} />
         <Route path="/tests/:slug" element={<InstrumentDetailsPage />} />
