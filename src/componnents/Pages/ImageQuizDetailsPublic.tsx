@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { fetchImageQuizDetails } from "../api/imageQuizPublic";
 
 interface QuizDetails {
@@ -28,79 +29,165 @@ export default function ImageQuizDetailsPublic() {
   }, [slug]);
 
   const handleStart = () => {
-    // এখন সরাসরি quiz-এ পাঠাচ্ছে। পরে পেমেন্ট গেটওয়ে বসালে
-    // এখানে প্রথমে পেমেন্ট পেজে পাঠাবেন, সফল হলে quiz-এ রিডাইরেক্ট করবেন।
     navigate(`/image-quiz/${slug}/quiz`);
   };
 
+  // ==========================================
+  // Premium Leaf Loading State
+  // ==========================================
   if (loading) {
     return (
-      <div className="min-h-screen pt-28 pb-16 flex flex-col justify-center items-center bg-slate-50">
-        <div className="w-10 h-10 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin"></div>
-        <p className="mt-4 text-slate-500 font-medium">বিস্তারিত লোড হচ্ছে...</p>
+      <div className="relative w-full h-screen flex flex-col items-center justify-center bg-[#0A1930] lg:pl-[50px]">
+        <div className="w-16 h-16 relative flex items-center justify-center animate-[spin_4s_linear_infinite]">
+          <svg className="w-10 h-10 text-[#5DBB4D]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M20 4C20 4 14 3 9 8C4 13 4 20 4 20C4 20 11 20 16 15C21 10 20 4 20 4ZM4 20L10 14" />
+          </svg>
+        </div>
+        <p className="mt-6 text-transparent bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text font-bold tracking-[0.2em] uppercase text-sm">
+          বিস্তারিত লোড হচ্ছে...
+        </p>
       </div>
     );
   }
 
+  // ==========================================
+  // Premium Error State
+  // ==========================================
   if (error || !quiz) {
     return (
-      <div className="min-h-screen pt-28 pb-16 flex justify-center items-center bg-slate-50 px-4">
-        <div className="bg-red-50 text-red-600 px-6 py-4 rounded-xl shadow-sm border border-red-100 text-center max-w-md">
-          <p>{error || "তথ্য পাওয়া যায়নি"}</p>
+      <div className="relative w-full h-screen flex flex-col items-center justify-center bg-[#0A1930] lg:pl-[50px] px-4">
+        <div className="bg-[#132644] border border-red-500/50 px-8 py-8 text-center max-w-md shadow-2xl">
+          <svg className="w-10 h-10 mx-auto mb-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <p className="text-white/80 font-serif text-lg tracking-wide">{error || "তথ্য পাওয়া যায়নি"}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 pt-28 pb-20 px-4 sm:px-6">
-      <div className="max-w-3xl mx-auto bg-white rounded-3xl shadow-sm border border-slate-200/60 overflow-hidden">
-        <div className="relative">
-          <img
-            src={quiz.coverImage || "/placeholder.png"}
-            alt={quiz.name?.bn}
-            className="w-full h-64 sm:h-72 object-cover bg-slate-100"
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = "/placeholder.png";
-            }}
-          />
-          {quiz.price === 0 && (
-            <span className="absolute top-4 right-4 bg-emerald-500/90 backdrop-blur-sm text-white text-sm font-bold px-4 py-1.5 rounded-full shadow-sm">
-              ফ্রি
-            </span>
-          )}
-        </div>
 
-        <div className="p-6 sm:p-10">
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-3 tracking-tight">
-            {quiz.name?.bn}
-          </h1>
+    <div className="relative w-full min-h-screen flex flex-col bg-[#0A1930] overflow-hidden lg:pl-[50px]">
+      
+      {/* SVG Definitions for Global Blue-Green Gradient */}
+      <svg width="0" height="0" className="absolute">
+        <defs>
+          <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#1A6BBA" />
+            <stop offset="100%" stopColor="#5DBB4D" />
+          </linearGradient>
+        </defs>
+      </svg>
 
-          <span className="inline-block bg-slate-100 text-slate-500 text-xs font-semibold px-3 py-1 rounded-full mb-6">
-            {quiz.itemCount}টা প্রশ্ন
-          </span>
+      {/* =========================================
+          BACKGROUND SETUP
+          ========================================= */}
+      <div 
+        className="absolute inset-0 z-0 opacity-20"
+        style={{
+          backgroundImage: "url('/watermarked_img_4680048593054709329.jpg')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+        }}
+      />
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-transparent via-[#0A1930]/60 to-[#0A1930]" />
 
-          <p className="text-base text-slate-600 leading-relaxed mb-8">{quiz.description?.bn}</p>
+      {/* Subtle Blue/Green Glows */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#1A6BBA]/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#5DBB4D]/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-6 justify-between pt-8 border-t border-slate-100">
-            <div className="text-center sm:text-left w-full sm:w-auto">
-              <p className="text-sm font-medium text-slate-500 mb-1">মূল্য</p>
-              <p className="text-3xl font-extrabold text-emerald-600">
-                {quiz.price > 0 ? `৳ ${quiz.price}` : "ফ্রি"}
-              </p>
+      <div className="w-full pt-24 pb-20 px-4 sm:px-6 lg:px-10 max-w-4xl mx-auto relative z-10 flex-1 flex flex-col justify-center">
+        
+        {/* Premium Square Card Wrapper */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="bg-[#132644]/90 backdrop-blur-md border border-[#3c5685]/40 shadow-[0_20px_50px_rgba(0,0,0,0.6)] flex flex-col relative"
+        >
+          
+          {/* ==========================================
+              IMAGE SECTION
+              ========================================== */}
+          <div className="relative w-full h-64 sm:h-80 md:h-[350px] overflow-hidden bg-[#0A1930]">
+            <img
+              src={quiz.coverImage || "/placeholder.png"}
+              alt={quiz.name?.bn}
+              className="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-1000 ease-out"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = "/placeholder.png";
+              }}
+            />
+            {/* Gradient Overlay for seamless blending with content */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#132644] via-[#132644]/30 to-transparent" />
+            
+            {/* Free Badge (Blue-Green Gradient & Square) */}
+            {quiz.price === 0 && (
+              <div className="absolute top-6 right-6 bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] text-white text-sm font-bold px-6 py-2.5 tracking-[0.2em] uppercase shadow-lg">
+                ফ্রি
+              </div>
+            )}
+          </div>
+
+          {/* ==========================================
+              CONTENT SECTION
+              ========================================== */}
+          <div className="p-8 sm:p-12 md:p-16 relative z-10 -mt-16 md:-mt-24">
+            
+            {/* Title & Version Tag */}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 font-serif tracking-tight leading-tight drop-shadow-md">
+              {quiz.name?.bn}
+            </h1>
+
+            <div className="flex items-center gap-2 mb-8">
+              <span className="border border-[#1A6BBA]/40 bg-[#1A6BBA]/10 text-[#5DBB4D] text-xs font-bold px-4 py-2 uppercase tracking-widest">
+                {quiz.itemCount}টা প্রশ্ন
+              </span>
             </div>
 
-            <button
-              onClick={handleStart}
-              className="w-full sm:w-auto flex-1 max-w-sm bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold text-lg py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 text-center flex justify-center items-center gap-2"
-            >
-              <span>{quiz.price > 0 ? "কিনুন ও শুরু করুন" : "শুরু করুন"}</span>
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </button>
+            {/* Description */}
+            <p className="text-base sm:text-lg text-white/70 leading-relaxed mb-12 lato-regular">
+              {quiz.description?.bn}
+            </p>
+
+            {/* ==========================================
+                PRICE & ACTION BUTTON
+                ========================================== */}
+            <div className="flex flex-col sm:flex-row items-center gap-6 justify-between pt-8 border-t border-[#3c5685]/40 mt-auto">
+              
+              <div className="text-center sm:text-left w-full sm:w-auto">
+                <p className="text-xs uppercase tracking-[0.2em] font-medium text-white/50 mb-2">কুইজ ফি</p>
+                <p className="text-4xl font-serif text-transparent bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text font-bold">
+                  {quiz.price > 0 ? `৳ ${quiz.price}` : "ফ্রি"}
+                </p>
+              </div>
+
+              <button
+                onClick={handleStart}
+                className="w-full sm:w-auto relative overflow-hidden bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] text-white font-bold text-lg py-4 px-10 shadow-[0_10px_30px_rgba(26,107,186,0.3)] hover:shadow-[0_10px_40px_rgba(93,187,77,0.5)] transition-all duration-300 flex justify-center items-center gap-3 group uppercase tracking-widest border border-transparent hover:border-white/20"
+              >
+                <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300"></div>
+                <span className="relative z-10">
+                  {quiz.price > 0 ? "কিনুন ও শুরু করুন" : "শুরু করুন"}
+                </span>
+                {/* Premium Leaf Icon (Replacing Arrow) */}
+                <svg 
+                  className="w-5 h-5 relative z-10 group-hover:rotate-12 group-hover:scale-110 transition-transform duration-300" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M20 4C20 4 14 3 9 8C4 13 4 20 4 20C4 20 11 20 16 15C21 10 20 4 20 4ZM4 20L10 14" />
+                </svg>
+              </button>
+              
+            </div>
+            
           </div>
-        </div>
+        </motion.div>
+
       </div>
     </div>
   );
