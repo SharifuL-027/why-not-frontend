@@ -27,6 +27,7 @@ import ImageQuizListPublic from "../componnents/Pages/ImageQuizListPublic";
 import ImageQuizDetailsPublic from "../componnents/Pages/ImageQuizDetailsPublic";
 import ImageQuizTake from "../componnents/Pages/ImageQuizTake";
 import ImageQuizResult from "../componnents/Pages/ImageQuizResult";
+import OnlineCounselling from "../componnents/Pages/OnlineCouncelling";
 
 const MainLayout = () => {
   return (
@@ -75,7 +76,7 @@ const AllRoutes = () => {
             </>
           }
         />
-
+        <Route path="/councelling" element={<OnlineCounselling />} />
         {/* Sakib Start */}
         <Route path="/tests" element={<InstrumentList />} />
         <Route path="/tests/:slug" element={<InstrumentDetailsPage />} />
