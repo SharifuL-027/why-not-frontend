@@ -38,7 +38,7 @@ const FAQ = () => {
 
   return (
     // lg:pl-[320px] added to maintain sidebar layout spacing
-    <section className="bg-[#0A1930] py-32 relative overflow-hidden lg:pl-[320px] w-full flex flex-col">
+    <section className="bg-[#0A1930] py-32 relative overflow-hidden lg:pl-[50px] w-full flex flex-col">
       
       {/* SVG Definitions for Global Blue-Green Gradient */}
       <svg width="0" height="0" className="absolute">
@@ -54,19 +54,20 @@ const FAQ = () => {
           BACKGROUND IMAGE & NAVY BLUE OVERLAY
           ========================================= */}
       <div 
-        className="absolute inset-0 z-0 opacity-15"
+        className="absolute inset-0 z-0" 
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1557682250-33bd709cbe85?q=80&w=1429&auto=format&fit=crop')", 
+          backgroundImage: "url('https://res.cloudinary.com/dsrs8hryx/image/upload/q_auto,f_auto/v1790226451/Gemini_Generated_Image_1ez1ba1ez1ba1ez1_lei0b0.jpg')", 
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
         }}
       />
-      <div className="absolute inset-0 z-0 bg-linear-to-b from-[#0A1930] via-[#0A1930]/80 to-[#0A1930]" />
+      {/* ওভারলে এর অপাসিটি কমানো হয়েছে (via-[#0A1930]/40) যাতে ইমেজটি ক্লিয়ার দেখা যায় */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0A1930] via-[#0A1930]/40 to-[#0A1930]" />
 
       {/* Background Decorative Glows (Blue & Green Theme) */}
-      <div className="absolute top-0 right-1/4 w-125 h-125 bg-[#1A6BBA]/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
-      <div className="absolute bottom-0 left-1/4 w-100 h-100 bg-[#5DBB4D]/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
+      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#1A6BBA]/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
+      <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-[#5DBB4D]/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
         
@@ -78,12 +79,12 @@ const FAQ = () => {
           className="text-center mb-16"
         >
           {/* Subtitle updated to Blue-Green Gradient */}
-          <p className="font-bold tracking-[0.2em] text-xs uppercase mb-6 drop-shadow-sm bg-linear-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text text-transparent">
+          <p className="font-bold tracking-[0.2em] text-xs uppercase mb-6 drop-shadow-sm bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text text-transparent">
             Clear Your Doubts
           </p>
           {/* Title updated to White and Blue-Green Gradient */}
           <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight font-serif mb-6 drop-shadow-md">
-            Frequently Asked <span className="italic font-light bg-linear-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text text-transparent">Questions</span>
+            Frequently Asked <span className="italic font-light bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text text-transparent">Questions</span>
           </h2>
         </motion.div>
 
@@ -99,8 +100,8 @@ const FAQ = () => {
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 // Square edges (no rounded classes) and premium dark mode styling
-                className={`border border-[#3c5685]/40 overflow-hidden transition-colors duration-300 backdrop-blur-sm relative group ${
-                  isOpen ? 'bg-[#132644]/90 shadow-[0_10px_30px_rgba(0,0,0,0.5)] border-[#5DBB4D]/50' : 'bg-[#0A1930]/50 hover:bg-[#132644]/50 hover:border-[#5DBB4D]/30'
+                className={`border border-[#3c5685]/40 overflow-hidden transition-colors duration-300 backdrop-blur-md relative group ${
+                  isOpen ? 'bg-[#132644]/80 shadow-[0_10px_30px_rgba(0,0,0,0.5)] border-[#5DBB4D]/50' : 'bg-[#0A1930]/40 hover:bg-[#132644]/60 hover:border-[#5DBB4D]/30'
                 }`}
               >
                 {/* Left Accent Line */}
@@ -125,7 +126,7 @@ const FAQ = () => {
 
                     {/* Question Text styling with Gradient when open */}
                     <span className={`font-serif text-lg sm:text-xl font-medium transition-all duration-300 leading-snug ${
-                      isOpen ? 'bg-linear-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text text-transparent' : 'text-white/90 group-hover:text-white'
+                      isOpen ? 'bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text text-transparent' : 'text-white/90 group-hover:text-white'
                     }`}>
                       {faq.question}
                     </span>
@@ -134,7 +135,7 @@ const FAQ = () => {
                   {/* Square Toggle Icon Styling */}
                   <div className={`shrink-0 ml-4 w-8 h-8 border flex items-center justify-center transition-all duration-300 ${
                     isOpen 
-                      ? 'border-[#5DBB4D] bg-linear-to-br from-[#1A6BBA] to-[#5DBB4D] text-[#0A1930] shadow-inner' 
+                      ? 'border-[#5DBB4D] bg-gradient-to-br from-[#1A6BBA] to-[#5DBB4D] text-[#0A1930] shadow-inner' 
                       : 'border-[#3c5685] text-white/50 bg-[#0A1930] group-hover:border-[#5DBB4D]/50 group-hover:text-[#5DBB4D]'
                   }`}>
                     <svg 

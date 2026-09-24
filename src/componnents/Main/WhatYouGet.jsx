@@ -28,7 +28,7 @@ const WhatYouGet = () => {
 
   return (
     // lg:pl-[320px] যোগ করা হয়েছে যাতে সাইডবারের জায়গা ছেড়ে দেয়
-    <section className="bg-[#0A1930] py-32 relative overflow-hidden lg:pl-[320px] w-full flex flex-col">
+    <section className="bg-[#0A1930] py-32 relative overflow-hidden lg:pl-[120px] w-full flex flex-col">
       
       {/* SVG Definitions for Global Blue-Green Gradient */}
       <svg width="0" height="0" className="absolute">

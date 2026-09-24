@@ -172,7 +172,7 @@ export default function Quiz() {
   // Global Layout Wrapper for Premium Background
   // ==========================================
   const LayoutWrapper = ({ children }: { children: React.ReactNode }) => (
-    <div className="relative w-full min-h-screen flex flex-col bg-[#303133] lg:pl-[320px] pt-32 pb-20 px-4 sm:px-6">
+    <div className="relative w-full min-h-screen flex flex-col bg-[#303133] lg:pl-[50px] pt-32 pb-20 px-4 sm:px-6">
       <div 
         className="absolute inset-0 z-10 opacity-10"
         style={{
@@ -182,7 +182,7 @@ export default function Quiz() {
           backgroundAttachment: 'fixed',
         }}
       />
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0A1930]/90 via-[#0A1930]/80 to-[#0A1930]" />
+      <div className="absolute inset-0 z-0 bg-linear-to-b from-[#0A1930]/90 via-[#0A1930]/80 to-[#0A1930]" />
       <div className="relative z-10 w-full max-w-2xl mx-auto flex-1 flex flex-col justify-center">
         {children}
       </div>

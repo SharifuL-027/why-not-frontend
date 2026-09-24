@@ -48,7 +48,7 @@ const WhyItMatters = () => {
 
   return (
     // এখানে lg:pl-[320px] যোগ করা হয়েছে যাতে সাইডবারের জন্য জায়গা ছেড়ে দেয়
-    <section className="bg-[#0A1930] py-15 relative overflow-hidden lg:pl-80 w-full flex flex-col">
+    <section className="bg-[#0A1930] py-15 relative overflow-hidden lg:pl-[50px] w-full flex flex-col">
       
       {/* SVG Definitions for Global Gradients (Blue to Green) */}
       <svg width="0" height="0" className="absolute">

@@ -42,7 +42,7 @@ export default function InstrumentDetailsPage() {
   // ==========================================
   if (error || !instrument) {
     return (
-      <div className="min-h-screen flex justify-center items-center bg-[#0A1930] lg:pl-[320px] px-4">
+      <div className="min-h-screen flex justify-center items-center bg-[#0A1930] lg:pl-80 px-4">
         <div className="bg-[#132644] border border-red-500/50 px-8 py-6 text-center max-w-md shadow-2xl">
           <svg className="w-10 h-10 mx-auto mb-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -55,10 +55,10 @@ export default function InstrumentDetailsPage() {
 
   return (
     // Main Container with Sidebar Spacing
-    <div className="min-h-screen bg-[#0A1930] pt-32 pb-20 px-4 sm:px-6 lg:pl-[320px] flex flex-col relative overflow-hidden">
+    <div className="min-h-screen bg-[#0A1930] pt-32 pb-20 px-4 sm:px-6 lg:pl-12.5 flex flex-col relative overflow-hidden">
       
       {/* Subtle Background Glow */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#1A6BBA]/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
+      <div className="absolute top-0 right-0 w-150 h-150 bg-[#1A6BBA]/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
 
       <div className="max-w-4xl mx-auto w-full relative z-10">
         
@@ -68,7 +68,7 @@ export default function InstrumentDetailsPage() {
           {/* ==========================================
               IMAGE SECTION
               ========================================== */}
-          <div className="relative w-full h-64 sm:h-80 md:h-[400px] overflow-hidden bg-[#0A1930]">
+          <div className="relative w-full h-64 sm:h-80 md:h-100 overflow-hidden bg-[#0A1930]">
             <img
               src={instrument.coverImage || "/placeholder.png"}
               alt={instrument.instrumentName.bn}
@@ -78,7 +78,7 @@ export default function InstrumentDetailsPage() {
               }}
             />
             {/* Gradient Overlay for seamless blending with content */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#132644] via-[#132644]/40 to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-[#132644] via-[#132644]/40 to-transparent" />
             
             {/* Free Badge (Square & Premium) */}
             {instrument.price === 0 && (

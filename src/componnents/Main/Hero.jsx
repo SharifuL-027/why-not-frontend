@@ -44,65 +44,6 @@ const Hero = () => {
   return (
     // Main Wrapper 
     <div className="flex flex-col lg:flex-row min-h-screen w-full bg-[#0A1930]">
-      
-      {/* =========================================
-          SIDEBAR / SUB-MENU 
-          ========================================= */}
-      
-      {/* Mobile & Tablet View */}
-      <div className="lg:hidden w-full bg-[#0a1930] pt-28 pb-4 px-4 z-20 border-b border-[#3c5685]/30">
-        <h3 className="text-[11px] font-bold tracking-[0.2em] text-[#a0d9f0] uppercase mb-3 px-2">Pages</h3>
-        <div className="flex overflow-x-auto space-x-2 pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none">
-          {menuItems.map((item) => (
-            <Link
-              key={item.id}
-              to={item.link}
-              onClick={() => setActiveMenu(item.id)}
-              className={`shrink-0 flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all duration-300 ${
-                activeMenu === item.id 
-                  ? 'bg-[#1A6BBA]/30 text-white' 
-                  : 'bg-white/5 text-white/70 hover:bg-white/10'
-              }`}
-            >
-              <span className={`text-sm font-semibold ${activeMenu === item.id ? 'text-[#a0d9f0]' : 'text-[#3c5685]'}`}>
-                {item.id}
-              </span>
-              <span className="text-sm font-medium whitespace-nowrap">
-                {item.label}
-              </span>
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      {/* Desktop View */}
-      <aside className="hidden lg:flex flex-col w-[320px] bg-[#0a1930] h-screen sticky top-0 shrink-0 border-r border-[#3c5685]/20 pt-36 px-6 z-20">
-        <h3 className="text-xs font-bold tracking-[0.15em] text-[#a0d9f0] uppercase mb-6 ml-4">
-          Pages
-        </h3>
-        <ul className="flex flex-col space-y-1">
-          {menuItems.map((item) => (
-            <li key={item.id}>
-              <Link
-                to={item.link}
-                onClick={() => setActiveMenu(item.id)}
-                className={`w-full flex items-center text-left gap-4 px-4 py-3.5 rounded-xl transition-all duration-300 ${
-                  activeMenu === item.id 
-                    ? 'bg-[#1A6BBA]/25 text-white shadow-sm' 
-                    : 'text-white/75 hover:bg-white/5 hover:text-white'
-                }`}
-              >
-                <span className={`text-sm font-semibold ${activeMenu === item.id ? 'text-[#a0d9f0]' : 'text-[#3c5685]'}`}>
-                  {item.id}
-                </span>
-                <span className="font-medium text-[15px] leading-tight pr-4">
-                  {item.label}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </aside>
 
       {/* =========================================
           HERO CONTENT 
@@ -209,7 +150,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: -80 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
-              className="text-lg sm:text-xl lato-regular text-white/70 mb-10 mt-2 leading-relaxed w-full lg:w-4/5" // Added mt-2 for space from heading
+              className="text-lg sm:text-xl lato-regular text-gray-100 mb-10 mt-2 leading-relaxed w-full lg:w-4/5" // Added mt-2 for space from heading
             >
               Stop guessing about your future. Answer our structured psychological assessment and get a personalized career roadmap analyzed by our advanced expert system.
             </motion.p>

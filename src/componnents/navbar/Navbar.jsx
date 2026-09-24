@@ -118,7 +118,7 @@ const Navbar = () => {
     
     {/* 2. Text Container */}
     <div className="flex flex-col">
-      <span className="font-serif font-bold text-xl sm:text-2xl tracking-tight text-white group-hover:text-gray-200 transition-colors">
+      <span className="font-serif font-medium text-[20px] sm:text-xl tracking-tight text-white group-hover:text-gray-200 transition-colors">
         WHY NOT YOU?
       </span>
     </div>
@@ -157,13 +157,26 @@ const Navbar = () => {
                 </div>
               )}
 
+             <motion.div
+              initial={{ opacity: 0, y: -80 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.4, ease: "easeOut" }}
+            >
               <button 
-                onClick={() => navigate('/assessment')}
-                className="group flex items-center bg-[#ffba12] text-[#0a1930] px-6 py-2.5 rounded-md font-bold text-sm hover:bg-white transition-all shadow-[0_4px_14px_rgba(255,186,18,0.2)]"
-              >
-                Book a session
-                <ArrowRightIcon />
-              </button>
+  onClick={() => navigate('/form')}
+  className="flex items-center justify-center gap-2.5 bg-linear-to-r from-[#1A6BBA] to-[#5DBB4D] text-white text-[15px] px-8 py-4 rounded-full font-semibold hover:scale-105 transition-all duration-300 shadow-[0_8px_20px_rgba(26,107,186,0.2)] hover:shadow-[0_12px_25px_rgba(93,187,77,0.3)]"
+>
+  <span>Book a Session</span>
+  <svg 
+    className="w-5 h-5" 
+    fill="none" 
+    viewBox="0 0 24 24" 
+    stroke="currentColor"
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 4C20 4 14 3 9 8C4 13 4 20 4 20C4 20 11 20 16 15C21 10 20 4 20 4ZM4 20L10 14" />
+  </svg>
+</button>
+            </motion.div>
             </div>
 
             {/* Mobile Menu Toggle Button */}
