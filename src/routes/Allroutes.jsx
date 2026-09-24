@@ -28,6 +28,8 @@ import ImageQuizDetailsPublic from "../componnents/Pages/ImageQuizDetailsPublic"
 import ImageQuizTake from "../componnents/Pages/ImageQuizTake";
 import ImageQuizResult from "../componnents/Pages/ImageQuizResult";
 import OnlineCounselling from "../componnents/Pages/OnlineCounselling";
+import YoungGeneration from "../componnents/Pages/YoungGenaration";
+import PsychologicalAwareness from "../componnents/Pages/PsychologicalAwareness";
 
 const MainLayout = () => {
   return (
@@ -77,6 +79,8 @@ const AllRoutes = () => {
           }
         />
         <Route path="/counselling" element={<OnlineCounselling />} />
+        <Route path="/young-generation" element={<YoungGeneration />} />
+        <Route path="/awareness" element={<PsychologicalAwareness />} />
         {/* Sakib Start */}
         <Route path="/tests" element={<InstrumentList />} />
         <Route path="/tests/:slug" element={<InstrumentDetailsPage />} />
