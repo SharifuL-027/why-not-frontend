@@ -37,11 +37,10 @@ const FAQ = () => {
   };
 
   return (
-    // lg:pl-[50px] added to maintain sidebar layout spacing
-    // '-mt-[1px]' and strict overflow hidden
-    <section className="bg-[#0A1930] py-32 relative overflow-hidden lg:pl-[50px] w-full flex flex-col -mt-[1px]">
+    // Background updated to Morning Ivory (#FAF7F2)
+    <section className="bg-[#FAF7F2] py-32 relative overflow-hidden lg:pl-[50px] w-full flex flex-col -mt-[1px]">
       
-      {/* SVG Definitions for Global Blue-Green Gradient */}
+      {/* SVG Definitions for Leaf Gradient (Kept Original Blue-Green) */}
       <svg width="0" height="0" className="absolute">
         <defs>
           <linearGradient id="faqLeafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -52,22 +51,26 @@ const FAQ = () => {
       </svg>
 
       {/* =========================================
-          BACKGROUND IMAGE & NAVY BLUE OVERLAY
+          BACKGROUND IMAGE & LIGHT OVERLAY
           ========================================= */}
-      {/* 
-        এখানে absolute w-full h-full ব্যবহার করা হয়েছে যাতে এটি 
-        কোনোভাবেই সেকশনের সাইজের বাইরে না যায়। 
-      */}
+      {/* Zoom issue fixed using backgroundSize: 'contain' or 'auto 100%' depending on image aspect ratio */}
       <div 
-        className="absolute top-0 left-0 w-full h-full z-0 opacity-40 pointer-events-none" 
+        className="absolute top-0 left-0 w-full h-full z-0 opacity-20 pointer-events-none" 
         style={{
           backgroundImage: "url('https://res.cloudinary.com/dsrs8hryx/image/upload/q_auto,f_auto/v1790226451/Gemini_Generated_Image_1ez1ba1ez1ba1ez1_lei0b0.jpg')", 
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundSize: '100% auto', // This reduces extreme zooming on large screens
+          backgroundPosition: 'top center',
+          backgroundRepeat: 'no-repeat',
           backgroundAttachment: 'fixed',
         }}
       />
+      {/* Light Gradient Overlay to blend with Morning Ivory */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#FAF7F2] via-[#FAF7F2]/80 to-[#FAF7F2]" />
       
+      {/* Ambient Light Glows */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#EAEFF0]/80 rounded-full blur-[150px] pointer-events-none z-0"></div>
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#F0EBE6]/80 rounded-full blur-[150px] pointer-events-none z-0"></div>
+
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
         
         <motion.div 
@@ -77,13 +80,13 @@ const FAQ = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center mb-16"
         >
-          {/* Subtitle updated to Blue-Green Gradient */}
-          <p className="font-bold tracking-[0.2em] text-xs uppercase mb-6 drop-shadow-sm bg-linear-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text text-transparent">
+          {/* Subtitle updated to Linen Clay for a premium accent */}
+          <p className="font-bold tracking-[0.2em] text-xs uppercase mb-6 text-[#D4BCA6]">
             Clear Your Doubts
           </p>
-          {/* Title updated to White and Blue-Green Gradient */}
-          <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight font-serif mb-6 drop-shadow-md">
-            Frequently Asked <span className="italic font-light bg-linear-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text text-transparent">Questions</span>
+          {/* Title updated to Dark Charcoal */}
+          <h2 className="text-4xl md:text-5xl font-bold text-[#2C3338] tracking-tight font-serif mb-6 drop-shadow-sm">
+            Frequently Asked <span className="italic font-light text-[#D4BCA6]">Questions</span>
           </h2>
         </motion.div>
 
@@ -98,20 +101,20 @@ const FAQ = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                // Square edges (no rounded classes) and premium dark mode styling
-                className={`border border-[#3c5685]/40 overflow-hidden transition-colors duration-300 backdrop-blur-md relative group ${
-                  isOpen ? 'bg-[#132644]/80 shadow-[0_10px_30px_rgba(0,0,0,0.5)] border-[#5DBB4D]/50' : 'bg-[#0A1930]/40 hover:bg-[#132644]/60 hover:border-[#5DBB4D]/30'
+                // Light Mode Styling: White background, Sage Mist borders
+                className={`border border-[#C8D0C0]/50 overflow-hidden transition-colors duration-300 backdrop-blur-md relative group ${
+                  isOpen ? 'bg-white shadow-[0_10px_30px_rgba(0,0,0,0.05)] border-[#D4BCA6]' : 'bg-white/60 hover:bg-white hover:border-[#C8D0C0]'
                 }`}
               >
-                {/* Left Accent Line */}
-                <div className={`absolute left-0 top-0 bottom-0 w-1 transition-colors duration-300 ${isOpen ? 'bg-gradient-to-b from-[#1A6BBA] to-[#5DBB4D]' : 'bg-transparent group-hover:bg-[#5DBB4D]/30'}`}></div>
+                {/* Left Accent Line - Uses Sage Mist when closed, Linen Clay when open */}
+                <div className={`absolute left-0 top-0 bottom-0 w-1 transition-colors duration-300 ${isOpen ? 'bg-[#D4BCA6]' : 'bg-transparent group-hover:bg-[#C8D0C0]'}`}></div>
 
                 <button
                   onClick={() => toggleFAQ(faq.id)}
                   className="w-full flex items-center justify-between p-6 sm:p-8 text-left focus:outline-none"
                 >
                   <div className="flex items-start sm:items-center gap-4 sm:gap-6">
-                    {/* Leaf Icon on the left side of every question */}
+                    {/* Leaf Icon on the left side (Original Gradient Preserved) */}
                     <div className="shrink-0 mt-1 sm:mt-0">
                       <svg 
                         className={`w-6 h-6 transition-transform duration-300 ${isOpen ? 'scale-110' : 'opacity-70 group-hover:opacity-100 group-hover:scale-105'}`} 
@@ -123,9 +126,9 @@ const FAQ = () => {
                       </svg>
                     </div>
 
-                    {/* Question Text styling with Gradient when open */}
+                    {/* Question Text styling with Dark Charcoal */}
                     <span className={`font-serif text-lg sm:text-xl font-medium transition-all duration-300 leading-snug ${
-                      isOpen ? 'bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text text-transparent' : 'text-white/90 group-hover:text-white'
+                      isOpen ? 'text-[#D4BCA6]' : 'text-[#2C3338] group-hover:text-[#3b3a38]'
                     }`}>
                       {faq.question}
                     </span>
@@ -134,11 +137,11 @@ const FAQ = () => {
                   {/* Square Toggle Icon Styling */}
                   <div className={`shrink-0 ml-4 w-8 h-8 border flex items-center justify-center transition-all duration-300 ${
                     isOpen 
-                      ? 'border-[#5DBB4D] bg-gradient-to-br from-[#1A6BBA] to-[#5DBB4D] text-[#0A1930] shadow-inner' 
-                      : 'border-[#3c5685] text-white/50 bg-[#0A1930] group-hover:border-[#5DBB4D]/50 group-hover:text-[#5DBB4D]'
+                      ? 'border-[#D4BCA6] bg-[#FAF7F2] text-[#D4BCA6] shadow-inner' 
+                      : 'border-[#EAEFF0] text-[#A0AAB2] bg-white group-hover:border-[#C8D0C0] group-hover:text-[#D4BCA6]'
                   }`}>
                     <svg 
-                      className={`w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-45 text-white' : 'rotate-0'}`} 
+                      className={`w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-45' : 'rotate-0'}`} 
                       fill="none" 
                       viewBox="0 0 24 24" 
                       stroke="currentColor"
@@ -156,8 +159,8 @@ const FAQ = () => {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.4, ease: "easeInOut" }}
                     >
-                      {/* Answer Text Styling */}
-                      <div className="px-6 sm:px-14 pb-8 text-white/70 leading-relaxed mt-2 pt-4 border-t border-[#3c5685]/30 lato-regular ml-0 sm:ml-6">
+                      {/* Answer Text Styling - Soft Gray */}
+                      <div className="px-6 sm:px-14 pb-8 text-[#596573] font-light leading-relaxed mt-2 pt-4 border-t border-[#EAEFF0] lato-regular ml-0 sm:ml-6">
                         {faq.answer}
                       </div>
                     </motion.div>
