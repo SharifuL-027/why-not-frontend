@@ -153,7 +153,7 @@ const Footer = () => {
             </p>
           </div>
 
-          <p className="text-transparent bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text text-sm italic font-serif font-bold tracking-wide">
+          <p className="text-transparent bg-linear-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text text-sm italic font-serif font-bold tracking-wide">
             Designed for your future.
           </p>
           

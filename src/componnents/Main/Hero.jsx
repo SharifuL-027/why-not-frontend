@@ -63,11 +63,10 @@ const Hero = () => {
           }}
           className="absolute inset-0 z-0" 
           style={{
-            backgroundImage: "url('https://res.cloudinary.com/dsrs8hryx/image/upload/q_auto,f_auto/v1790144340/Gemini_Generated_Image_6oxbb16oxbb16oxb_uwj00t.jpg')",
+            backgroundImage: "url('https://res.cloudinary.com/dsrs8hryx/image/upload/v1790752896/WhatsApp_Image_2026-09-28_at_11.03.36_AM_axystf.jpg')",
             backgroundSize: 'cover',
-            backgroundPosition: 'center center', // Changed for better centering
-            WebkitMaskImage: 'linear-gradient(to right, transparent 0%, transparent 5%, black 60%)', // Adjusted mask for better text readability
-            maskImage: 'linear-gradient(to right, transparent 0%, transparent 5%, black 60%)',
+            backgroundPosition: 'center center',
+
           }}
         />
 
@@ -121,7 +120,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: -80 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease: "easeOut" }}
-              className="font-semibold text-4xl sm:text-5xl lg:text-7xl playfair-display-bold text-white tracking-tight mb-4 flex flex-col gap-y-1 sm:gap-y-2" // Adjusted flex-col and gap for structure
+              className="font-semibold text-4xl sm:text-5xl lg:text-7xl playfair-display-bold text-gray-700 tracking-tight mb-4 flex flex-col gap-y-1 sm:gap-y-2" // Adjusted flex-col and gap for structure
             >
               <span className="block">Discover the career you</span>
               
@@ -131,16 +130,15 @@ const Hero = () => {
                  <span className="inline-block min-w-40 sm:min-w-70"> {/* Min width to prevent layout shift */}
                   <AnimatePresence mode="wait">
                     <motion.span
-                      key={index}
-                      initial={{ opacity: 0, y: 25 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -25 }}
-                      transition={{ duration: 0.4, ease: "easeInOut" }}
-                      // Removed pb-2, adjusted padding/margin for alignment
-                      className="inline-block bg-linear-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text text-transparent pt-1 sm:pt-0" 
-                    >
-                      {phrases[index]}
-                    </motion.span>
+  key={index}
+  initial={{ opacity: 0, y: 25 }}
+  animate={{ opacity: 1, y: 0 }}
+  exit={{ opacity: 0, y: -25 }}
+  transition={{ duration: 0.4, ease: "easeInOut" }}
+  className="inline-block text-gray-700 font-bold pt-1 sm:pt-0" 
+>
+  {phrases[index]}
+</motion.span>
                   </AnimatePresence>
                 </span>
               </div>
@@ -150,7 +148,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: -80 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
-              className="text-lg sm:text-xl lato-regular text-gray-100 mb-10 mt-2 leading-relaxed w-full lg:w-4/5" // Added mt-2 for space from heading
+              className="text-lg sm:text-xl lato-regular text-gray-600 mb-10 mt-2 leading-relaxed w-full lg:w-4/5" // Added mt-2 for space from heading
             >
               Stop guessing about your future. Answer our structured psychological assessment and get a personalized career roadmap analyzed by our advanced expert system.
             </motion.p>
@@ -161,11 +159,11 @@ const Hero = () => {
               transition={{ duration: 0.9, delay: 0.4, ease: "easeOut" }}
             >
               <button 
-                onClick={() => navigate('/assessment')}
-                className="bg-linear-to-r from-[#1A6BBA] to-[#5DBB4D] text-white px-8 py-4 rounded-full font-semibold text-lg hover:scale-105 transition-all duration-300 shadow-[0_8px_20px_rgba(26,107,186,0.2)] hover:shadow-[0_12px_25px_rgba(93,187,77,0.3)]"
-              >
-                Start Your Assessment
-              </button>
+  onClick={() => navigate('/assessment')}
+  className="bg-[#C8D0C0] text-[#2C3338] px-10 py-4 rounded-sm font-medium text-sm sm:text-base uppercase tracking-widest hover:bg-[#b5bead] hover:scale-105 transition-all duration-300 shadow-[0_8px_20px_rgba(200,208,192,0.3)] hover:shadow-[0_12px_25px_rgba(200,208,192,0.5)]"
+>
+  Start Your Assessment
+</button>
             </motion.div>
             
           </div>
