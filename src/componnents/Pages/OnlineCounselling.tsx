@@ -126,10 +126,10 @@ export default function OnlineCounselling() {
           backgroundImage: "url('https://res.cloudinary.com/dsrs8hryx/image/upload/v1790244691/image.png_2K_20260924160842_o0uxxt.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'left',
-          backgroundAttachment: 'fixed', // Parallax effect
+          backgroundAttachment: 'fixed', 
         }}
       />
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0A1930] via-[#0A1930]/85 to-[#0A1930] pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-linear-to-b from-[#0A1930] via-[#0A1930]/85 to-[#0A1930] pointer-events-none" />
 
       {/* Background Decorative Glows */}
       
