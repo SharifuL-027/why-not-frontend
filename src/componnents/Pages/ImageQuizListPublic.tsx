@@ -74,9 +74,9 @@ export default function ImageQuizListPublic() {
           BACKGROUND IMAGE & LIGHT OVERLAY
           ========================================= */}
       <div 
-        className="absolute inset-0 z-0 opacity-20 pointer-events-none"
+        className="absolute inset-0 z-5 opacity-100 pointer-events-none"
         style={{
-          backgroundImage: "url('https://res.cloudinary.com/dsrs8hryx/image/upload/q_auto,f_auto/v1790155263/Oak_tree_and_river_conversation_2K_20260923151512_xeutzb.jpg')",
+          backgroundImage: "url('https://res.cloudinary.com/dsrs8hryx/image/upload/v1790752896/WhatsApp_Image_2026-09-28_at_11.03.35_AM_ca5ep5.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
@@ -105,7 +105,7 @@ export default function ImageQuizListPublic() {
                 </span>
               </div>
               
-              <h1 className="text-3xl md:text-4xl font-bold text-black font-serif tracking-tight drop-shadow-sm">
+              <h1 className="text-3xl md:text-5xl font-medium text-black font-serif tracking-tight drop-shadow-sm">
                 Image-Based Quizzes
               </h1>
             </div>
