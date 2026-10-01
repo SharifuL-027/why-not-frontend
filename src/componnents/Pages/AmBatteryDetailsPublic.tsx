@@ -127,7 +127,7 @@ export default function AmBatteryDetailsPublic() {
             {/* Light Gradient Overlay for seamless blending with content */}
             <div className="absolute inset-0 bg-gradient-to-t from-white via-white/30 to-transparent" />
             
-            {/* Free Badge (Sage Mist & Square) */}
+            {/* Free Badge (Sage Mist) */}
             {battery.price === 0 && (
               <div className="absolute top-6 right-6 bg-[#C8D0C0] text-[#2C3338] text-sm font-bold px-6 py-2.5 tracking-[0.2em] uppercase shadow-sm">
                 Free
@@ -205,12 +205,12 @@ export default function AmBatteryDetailsPublic() {
 
               <button
                 onClick={handleStart}
-                className="w-full sm:w-auto relative overflow-hidden bg-[#C8D0C0] text-[#2C3338] font-bold text-sm sm:text-base py-4 px-10 shadow-[0_8px_20px_rgba(200,208,192,0.3)] hover:bg-[#b5bead] hover:shadow-[0_12px_25px_rgba(200,208,192,0.5)] transition-all duration-300 flex justify-center items-center gap-3 group uppercase tracking-widest rounded-sm"
+                className="w-full sm:w-auto relative overflow-hidden bg-[#C8D0C0] text-[#2C3338] font-bold text-sm sm:text-base py-4 px-10 shadow-[0_8px_20px_rgba(200,208,192,0.3)] hover:bg-[#b5bead] hover:shadow-[0_12px_25px_rgba(200,208,192,0.5)] transition-all duration-300 flex justify-center items-center gap-3 group uppercase tracking-widest"
               >
                 <span className="relative z-10">
                   {battery.price > 0 ? "Purchase & Start" : "Start Assessment"}
                 </span>
-                {/* Premium Leaf Icon (Replacing Arrow) */}
+                {/* Premium Leaf Icon */}
                 <svg 
                   className="w-5 h-5 relative z-10 group-hover:rotate-12 group-hover:scale-110 transition-transform duration-300" 
                   fill="none" 
