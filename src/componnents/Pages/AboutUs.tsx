@@ -101,7 +101,7 @@ export default function AboutUs() {
         <div>
           <div className="flex items-center gap-4 mb-16">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-[#222222] tracking-wide">Our Core Ethos</h2>
-            <div className="flex-1 h-[1px] bg-gradient-to-r from-[#EFECE5] to-transparent ml-6"></div>
+            <div className="flex-1 h-px bg-linear-to-r from-[#EFECE5] to-transparent ml-6"></div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
