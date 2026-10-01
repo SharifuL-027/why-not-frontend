@@ -49,7 +49,7 @@ export default function OnlineCounselling() {
       initials: "RS",
       name: "Roksana Sultana, PhD",
       title: "PSYCHOLOGIST - ART THERAPIST - WELLBEING SPECIALIST",
-      desc: "15+ years of clinical and assessment practice. Works with adults and couples in relationships, life direction and recovery from prolonged stress, and uses art-based methods where words are hard."
+      desc: "20+ years of clinical and assessment practice. Works with adults and couples in relationships, life direction and recovery from prolonged stress, and uses art-based methods where words are hard."
     },
     {
       initials: "FZ",

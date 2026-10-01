@@ -36,10 +36,11 @@ const Navbar = () => {
     { id: '02', label: 'Online Assessment', link: '/tests' },
     { id: '03', label: 'Selection & Recruitment', link: '/selection' },
     { id: '04', label: 'Image Quiz', link: '/image-quiz' },
-    { id: '05', label: 'Online Counselling', link: '/counselling' },
-    { id: '06', label: 'For Young Generation', link: '/young-generation' },
-    { id: '07', label: 'Psychological Awareness', link: '/awareness' },
-    { id: '08', label: 'About Us & Contacts', link: '/contact' },
+    { id: '05', label: 'Art Therapy', link: '/arttherapy' },
+    { id: '06', label: 'Online Counselling', link: '/counselling' },
+    { id: '07', label: 'For Young Generation', link: '/young-generation' },
+    { id: '08', label: 'Psychological Awareness', link: '/awareness' },
+    { id: '09', label: 'About Us & Contacts', link: '/contact' },
   ];
 
   // Auth Query
