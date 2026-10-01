@@ -12,7 +12,7 @@ interface QuizItem {
 }
 
 // ==========================================
-// Global Shared Background
+// Global Shared Background (Light & Minimal)
 // ==========================================
 const SharedBackground = () => (
   <>
@@ -25,7 +25,7 @@ const SharedBackground = () => (
       </defs>
     </svg>
     <div 
-      className="absolute inset-0 z-0 opacity-15"
+      className="absolute inset-0 z-0 opacity-20 pointer-events-none"
       style={{
         backgroundImage: "url('/watermarked_img_4680048593054709329.jpg')",
         backgroundSize: 'cover',
@@ -33,9 +33,7 @@ const SharedBackground = () => (
         backgroundAttachment: 'fixed',
       }}
     />
-    <div className="absolute inset-0 z-0 bg-linear-to-b from-[#0A1930]/90 via-[#0A1930]/80 to-[#0A1930]" />
-    <div className="absolute top-0 right-0 w-100 h-100 bg-[#1A6BBA]/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
-    <div className="absolute bottom-0 left-0 w-75 h-75 bg-[#5DBB4D]/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
+    <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#FAF7F2]/90 via-[#FAF7F2]/80 to-[#FAF7F2] pointer-events-none" />
   </>
 );
 
@@ -55,15 +53,16 @@ export default function ImageQuizTake() {
     if (!slug) return;
     fetchImageQuizForTaking(slug)
       .then((data) => {
-        setQuizName(data.name?.bn || "");
+        // Fallback to English name if available, else Bengali
+        setQuizName(data.name?.en || data.name?.bn || "");
         setItems(data.items || []);
       })
-      .catch((err) => setError(err.message || "এই কুইজটি পাওয়া যায়নি।"))
+      .catch((err) => setError(err.message || "This quiz could not be found."))
       .finally(() => setLoading(false));
   }, [slug]);
 
   const LayoutWrapper = ({ children }: { children: React.ReactNode }) => (
-    <div className="relative w-full min-h-screen flex flex-col bg-[#0A1930] lg:pl-12.5 pt-32 pb-20 px-4 sm:px-6 overflow-hidden">
+    <div className="relative w-full min-h-screen flex flex-col bg-[#FAF7F2] lg:pl-[50px] pt-32 pb-20 px-4 sm:px-6 overflow-hidden">
       <SharedBackground />
       <div className="relative z-10 w-full max-w-4xl mx-auto flex-1 flex flex-col justify-center">
         {children}
@@ -83,8 +82,8 @@ export default function ImageQuizTake() {
               <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M20 4C20 4 14 3 9 8C4 13 4 20 4 20C4 20 11 20 16 15C21 10 20 4 20 4ZM4 20L10 14" />
             </svg>
           </div>
-          <p className="mt-6 text-transparent bg-linear-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text font-bold tracking-[0.2em] uppercase text-sm">
-            লোড হচ্ছে...
+          <p className="mt-6 text-black font-bold tracking-[0.2em] uppercase text-sm">
+            Loading...
           </p>
         </div>
       </LayoutWrapper>
@@ -97,11 +96,11 @@ export default function ImageQuizTake() {
   if (error) {
     return (
       <LayoutWrapper>
-        <div className="bg-[#132644]/90 backdrop-blur-md border border-red-500/50 px-8 py-8 flex flex-col items-center gap-4 shadow-2xl text-center max-w-md mx-auto">
+        <div className="bg-white border border-[#EAEFF0] px-8 py-8 flex flex-col items-center gap-4 shadow-sm text-center max-w-md mx-auto rounded-sm">
           <svg className="w-10 h-10 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M12 8v4m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>
-          <span className="text-white/80 font-serif text-lg tracking-wide">{error}</span>
+          <span className="text-black font-serif text-lg tracking-wide">{error}</span>
         </div>
       </LayoutWrapper>
     );
@@ -110,8 +109,8 @@ export default function ImageQuizTake() {
   if (items.length === 0) {
     return (
       <LayoutWrapper>
-        <div className="bg-[#ffba12]/10 border border-[#ffba12]/30 p-8 text-center shadow-xl max-w-md mx-auto">
-          <p className="text-[#ffba12] font-serif text-lg tracking-wide">এই কুইজে এখনো কোনো প্রশ্ন যোগ করা হয়নি।</p>
+        <div className="bg-yellow-50 border border-yellow-200 p-8 text-center shadow-sm max-w-md mx-auto rounded-sm">
+          <p className="text-yellow-800 font-serif text-lg tracking-wide">No questions have been added to this quiz yet.</p>
         </div>
       </LayoutWrapper>
     );
@@ -137,7 +136,7 @@ export default function ImageQuizTake() {
       const res = await submitImageQuizResponse(slug, { answers });
       navigate(`/image-quiz/${slug}/result/${res.responseId}`);
     } catch (err: any) {
-      alert(err.message || "জমা দেওয়া যায়নি। আবার চেষ্টা করুন।");
+      alert(err.message || "Failed to submit. Please try again.");
       setSubmitting(false);
     }
   };
@@ -148,26 +147,12 @@ export default function ImageQuizTake() {
     <LayoutWrapper>
       
       {/* =========================================
-          PROGRESS BAR
+          PROGRESS INDICATOR (Matched to Reference Image)
           ========================================= */}
-      <div className="mb-8 bg-[#132644]/80 p-4 border border-[#3c5685]/40 backdrop-blur-sm">
-        <div className="flex justify-between text-xs font-bold tracking-widest uppercase text-white/60 mb-3">
-          <span className="text-[#5DBB4D]">{quizName}</span>
-          <span className="text-[#1A6BBA]">
-            {cursor + 1} / {items.length}
-          </span>
-        </div>
-        <div className="flex gap-1 h-1.5 bg-transparent overflow-hidden">
-          {items.map((_, i) => (
-            <div key={i} className="flex-1 h-full bg-[#0A1930] border border-[#3c5685]/30">
-              <motion.div 
-                initial={false}
-                animate={{ width: i <= cursor ? "100%" : "0%" }}
-                className="h-full bg-linear-to-r from-[#1A6BBA] to-[#5DBB4D]"
-              />
-            </div>
-          ))}
-        </div>
+      <div className="flex justify-start items-end mb-6">
+        <span className="text-[#D4BCA6] font-bold tracking-[0.2em] uppercase text-xs">
+          Question {cursor + 1} <span className="text-[#A0AAB2]">/ {items.length}</span>
+        </span>
       </div>
 
       {/* =========================================
@@ -180,18 +165,23 @@ export default function ImageQuizTake() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.3 }}
-          className="bg-[#132644]/90 backdrop-blur-md border border-[#3c5685]/50 p-6 sm:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] w-full"
+          className="bg-white border border-[#EAEFF0] p-6 sm:p-10 shadow-sm w-full rounded-sm"
         >
+          {/* Main Question Text (if applicable, based on your structure it's an image quiz, but keeping layout consistent) */}
+          <div className="text-2xl sm:text-3xl md:text-4xl font-serif text-black mb-10 leading-snug">
+            Please select the correct option based on the image.
+          </div>
+
           {/* Image Container */}
-          <div className="relative w-full mb-8 bg-[#0A1930] border border-[#3c5685]/40 p-4 flex justify-center items-center min-h-75">
+          <div className="relative w-full mb-12 bg-white flex justify-center items-center">
             <img
               src={item.imageUrl}
               alt={`Question ${item.id}`}
-              className="max-w-full max-h-[60vh] object-contain shadow-lg"
+              className="max-w-full max-h-[50vh] object-contain"
             />
           </div>
 
-          {/* Options Grid */}
+          {/* Options Grid (Matching Reference Image styling) */}
           <div className="grid grid-cols-4 sm:grid-cols-8 gap-3 sm:gap-4">
             {letters.map((l) => {
               const isSelected = answers[item.id] === l;
@@ -199,10 +189,10 @@ export default function ImageQuizTake() {
                 <button
                   key={l}
                   onClick={() => selectAnswer(l)}
-                  className={`py-4 sm:py-5 border text-lg sm:text-xl font-bold transition-all duration-300 ${
+                  className={`py-4 sm:py-5 border text-lg sm:text-xl font-bold transition-all duration-200 rounded-sm ${
                     isSelected
-                      ? "bg-linear-to-r from-[#1A6BBA] to-[#5DBB4D] text-[#0A1930] border-transparent shadow-[0_0_15px_rgba(93,187,77,0.4)] scale-105"
-                      : "bg-[#0A1930] text-white/80 border-[#3c5685]/60 hover:border-[#5DBB4D]/60 hover:bg-[#5DBB4D]/10 hover:text-white"
+                      ? "bg-[#C8D0C0] text-black border-[#C8D0C0]"
+                      : "bg-[#FAF7F2] text-black border-[#EAEFF0] hover:border-[#C8D0C0] hover:bg-white"
                   }`}
                 >
                   {l}
@@ -212,32 +202,31 @@ export default function ImageQuizTake() {
           </div>
 
           {/* Navigation Controls */}
-          <div className="flex justify-between items-center mt-12 pt-8 border-t border-[#3c5685]/40">
+          <div className="flex justify-between items-center mt-12 pt-8 border-t border-[#EAEFF0]">
             <button
               disabled={cursor === 0}
               onClick={prev}
-              className="px-4 py-2 text-sm font-bold uppercase tracking-widest text-white/40 hover:text-white disabled:opacity-0 transition-colors flex items-center gap-2"
+              className="px-4 py-2 text-sm font-bold uppercase tracking-widest text-black disabled:opacity-30 flex items-center gap-2 transition-colors"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
-              আগের
+              Previous
             </button>
             <button
               disabled={answers[item.id] === undefined || submitting}
               onClick={next}
-              className="relative overflow-hidden bg-linear-to-r from-[#1A6BBA] to-[#5DBB4D] disabled:from-[#3c5685] disabled:to-[#3c5685] disabled:text-white/40 disabled:cursor-not-allowed text-white text-sm uppercase tracking-widest font-bold transition-all shadow-[0_5px_20px_rgba(26,107,186,0.3)] flex items-center justify-center gap-2 group px-8 py-3.5 border border-transparent"
+              className="bg-[#C8D0C0] disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed text-black text-sm uppercase tracking-widest font-bold transition-all flex items-center justify-center gap-2 px-8 py-3.5 rounded-sm"
             >
-              <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300"></div>
-              <span className="relative z-10">
+              <span>
                 {submitting
-                  ? "জমা হচ্ছে..."
+                  ? "Submitting..."
                   : isLast
-                  ? "জমা দিন"
-                  : "পরের"}
+                  ? "Submit"
+                  : "Next"}
               </span>
               {answers[item.id] !== undefined && !submitting && (
-                <svg className={`w-4 h-4 relative z-10 transition-transform duration-300 ${isLast ? 'group-hover:rotate-12 group-hover:scale-110' : 'group-hover:translate-x-1'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   {isLast ? (
                     <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                   ) : (
