@@ -53,16 +53,16 @@ const FAQ = () => {
           BACKGROUND IMAGE & LIGHT OVERLAY
           ========================================= */}
       <div 
-        className="absolute top-0 left-0 w-full h-full z-0 opacity-20 pointer-events-none" 
+        className="absolute top-0 left-0 w-full h-full z-0 opacity-90 pointer-events-none" 
         style={{
-          backgroundImage: "url('https://res.cloudinary.com/dsrs8hryx/image/upload/q_auto,f_auto/v1790226451/Gemini_Generated_Image_1ez1ba1ez1ba1ez1_lei0b0.jpg')", 
+          backgroundImage: "url('https://res.cloudinary.com/dsrs8hryx/image/upload/v1790752895/WhatsApp_Image_2026_r9hj3g.jpg')", 
           backgroundSize: '100% auto',
           backgroundPosition: 'top center',
           backgroundRepeat: 'no-repeat',
           backgroundAttachment: 'fixed',
         }}
       />
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#FAF7F2] via-[#FAF7F2]/80 to-[#FAF7F2]" />
+      
       
       {/* Ambient Light Glows */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#EAEFF0]/80 rounded-full blur-[150px] pointer-events-none z-0"></div>
@@ -78,12 +78,12 @@ const FAQ = () => {
           className="text-center mb-16"
         >
           {/* Subtitle updated to Gray */}
-          <p className="font-bold tracking-[0.2em] text-xs uppercase mb-6 text-gray-500">
+          <p className="font-bold tracking-[0.2em] text-xs uppercase mb-6 text-gray-700">
             Clear Your Doubts
           </p>
           {/* Title updated to solid Black and Dark Gray */}
-          <h2 className="text-4xl md:text-5xl font-bold text-black tracking-tight font-serif mb-6 drop-shadow-sm">
-            Frequently Asked <span className="italic font-light text-gray-600">Questions</span>
+          <h2 className="text-4xl md:text-5xl font-medium text-black tracking-tight font-serif mb-6 drop-shadow-sm">
+            Frequently Asked Questions
           </h2>
         </motion.div>
 

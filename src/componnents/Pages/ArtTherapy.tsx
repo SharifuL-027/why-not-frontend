@@ -190,15 +190,19 @@ export default function ArtTherapy() {
             </ul>
           </motion.div>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-[#EFECE5] p-8 rounded-sm flex items-center justify-center min-h-[250px]"
-          >
-            <span className="text-xs text-[#A38771] uppercase tracking-widest font-mono">[ Placeholder for Therapy Image ]</span>
-          </motion.div>
+         <motion.div 
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, margin: "-50px" }}
+  transition={{ duration: 0.6, delay: 0.2 }}
+  className="bg-[#EFECE5] rounded-sm overflow-hidden min-h-[250px] sm:min-h-[350px] h-full relative"
+>
+  <img 
+    src="https://images.unsplash.com/photo-1589460626671-5f033018f87a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+    alt="Art Therapy Session" 
+    className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+  />
+</motion.div>
         </div>
       </section>
 
@@ -250,7 +254,7 @@ export default function ArtTherapy() {
       {/* =========================================
           SECTION 5: EXPERT PROFILE (Light Ivory)
           ========================================= */}
-      <section className="py-24 px-6 sm:px-12 md:px-20 lg:pl-[90px] max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
+      <section className="py-24 px-6 sm:px-12 md:px-20 lg:pl-22.5 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
         <motion.div 
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -313,8 +317,8 @@ export default function ArtTherapy() {
           >
             <div className="mb-10">
               <div className="text-[#A38771] text-xs font-bold uppercase tracking-[0.2em] mb-2">Book a session</div>
-              <h2 className="text-xl sm:text-2xl font-serif text-[#222222] border-b border-[#EFECE5] pb-4">
-                Confirmation goes to +880 1711 902441 · whynotyou.psy@gmail.com
+              <h2 className="text-xl sm:text-2xl font-medium text-[#222222] border-b border-[#EFECE5] pb-4">
+                 +880 1711 902441 · whynotyou.psy@gmail.com
               </h2>
             </div>
 
