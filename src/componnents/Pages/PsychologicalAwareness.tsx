@@ -3,246 +3,242 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 
 // ==========================================
-// Research Data (10 Detailed Researches)
+// User Provided 4 Awareness Posts Data
 // ==========================================
-interface Research {
+interface Post {
   id: number;
   category: string;
   readTime: string;
   title: string;
   excerpt: string;
+  imageUrl: string;
   fullText: React.ReactNode;
+  isFeatured?: boolean;
 }
 
-const researchData: Research[] = [
+const awarenessPostsData: Post[] = [
   {
     id: 1,
-    category: "NEUROSCIENCE",
-    readTime: "8 MIN READ",
-    title: "The Impact of Mindfulness on Amygdala Reactivity",
-    excerpt: "How psychological awareness and mindful practices physically alter the brain's stress center.",
+    isFeatured: true,
+    category: "PARENTING",
+    readTime: "5 MIN READ",
+    title: "He Was Only Thirteen. Are We Sure We Know Our Children?",
+    excerpt: "A tragic incident involving a 13-year-old boy prompts a deeper look into authoritative parenting, teenage gangs, and how well we truly know our children.",
+    imageUrl: "https://res.cloudinary.com/dsrs8hryx/image/upload/v1790752895/child_f16s4x.jpg",
     fullText: (
       <>
-        <p className="mb-4">Recent neuroimaging studies have demonstrated that regular psychological awareness practices, such as mindfulness, lead to decreased cell volume in the amygdala—the brain region responsible for fear, anxiety, and stress.</p>
-        <p className="mb-4">Researchers found that as the amygdala shrinks, the pre-frontal cortex (responsible for higher-order functions like concentration and decision-making) becomes thicker. This proves that self-awareness is not just a psychological concept, but a biological mechanism capable of changing brain structure.</p>
-        <p className="mb-4 border-l-2 border-[#5DBB4D] pl-4 italic text-white/80">"Awareness acts as a neurological scalpel, pruning reactive stress pathways and reinforcing conscious decision-making circuits."</p>
-        <p>In practice, individuals with higher psychological awareness recover from stress 40% faster than those who operate purely on autopilot.</p>
+        <p className="mb-6">A few days ago, a 13-year-old boy lost his life over a mobile phone. The news shook us. Then came a second layer of the story: reports that he had been involved with a local teenage gang. And almost immediately, the conversation shifted. How did a boy that young own an expensive iPhone? How was he riding a motorbike without a licence? Where were his parents?</p>
+        <p className="mb-8">Those questions are understandable. But before we point at one grieving family, psychology asks us to turn the question inward, gently and honestly: <strong>Am I certain that I know what is happening in my own child's life?</strong></p>
+
+        <h3 className="text-xl font-bold text-[#222222] font-serif mb-4">Love is not the same as parenting</h3>
+        <p className="mb-4">Almost every parent loves their child. That is rarely the problem. The difficulty is that love, on its own, does not guarantee good parenting. A parent can love deeply and still be absent, still say "yes" to every demand, still mistake a costly gift for care.</p>
+        <p className="mb-4">Developmental research consistently shows that children do best with what psychologists call authoritative parenting. This style combines warmth with clear, consistent limits. It is not harsh control, and it is not endless permission. Children raised with warmth but no boundaries often struggle with self-control and frustration tolerance. Children raised with rules but no warmth often learn to hide rather than to trust.</p>
+        <p className="mb-8">When a young teenager is handed an expensive phone or the keys to a motorbike, the object itself is not the danger. The danger is the message that may come with it: your wants will be met without effort, and the rules of the world do not quite apply to you.</p>
+
+        <h3 className="text-xl font-bold text-[#222222] font-serif mb-4">Why teenagers are drawn to gangs</h3>
+        <p className="mb-4">No child is born to join a gang. Adolescents go looking for three things: belonging, identity, and respect. If they do not find these at home or at school, they will find them somewhere else.</p>
+        <p className="mb-4">The adolescent brain is still under construction. The emotional and reward-seeking systems mature early, while the prefrontal cortex, which governs judgement, impulse control, and thinking about consequences, keeps developing into the mid-twenties. Research shows that teenagers take noticeably more risks when their peers are watching. A group that offers a nickname, a sense of power, and a place to belong can feel irresistible to a child who feels unseen at home.</p>
+        <p className="mb-8 border-l-2 border-[#A38771] pl-4 italic text-[#4A4A4A]">A gang is often not the cause of a child's problems. It is the answer the child found for problems nobody noticed.</p>
+
+        <h3 className="text-xl font-bold text-[#222222] font-serif mb-4">The myth of "I know my child"</h3>
+        <p className="mb-4">Many parents believe they monitor their children well. Yet studies on parental monitoring reveal something important: most of what parents actually know about their teenagers comes not from checking or controlling, but from what children choose to tell them. And children tell parents things when they feel safe, heard, and not immediately judged.</p>
+        <p className="mb-8">So the real question is not "Do I check my child's phone?" It is "Would my child come to me if something went wrong?"</p>
+
+        <h3 className="text-xl font-bold text-[#222222] font-serif mb-4">A quiet self-check for every parent</h3>
+        <p className="mb-4">Take a moment with these questions. Answer them only for yourself:</p>
+        <ul className="list-disc pl-5 space-y-3 mb-8 text-[#4A4A4A]">
+          <li>Do I know who my child's closest friends are, and where they spend their evenings?</li>
+          <li>When did my child last tell me something difficult, without being forced to?</li>
+          <li>Do I give things to make up for the time I cannot give?</li>
+          <li>Can my child hear "no" from me without it becoming a battle I eventually lose?</li>
+          <li>Do I notice changes in mood, sleep, spending, or secrecy, or do I explain them away?</li>
+          <li>Am I modelling the honesty, patience, and respect for rules that I expect from my child?</li>
+        </ul>
+        <p className="mb-8">If some of these made you pause, that is not a sign of failure. It is a sign of awareness, and awareness is where better parenting begins.</p>
+
+        <h3 className="text-xl font-bold text-[#222222] font-serif mb-4">This is not about blame</h3>
+        <p className="mb-4">A child's death is a tragedy for a family and a loss for all of us. The purpose of reflecting on it is not to condemn parents who are already grieving. It is to make sure that fewer families ever have to grieve in the same way. Parenting in a world of smartphones, social media, and fast-changing peer cultures is harder than it has ever been, and no parent should have to navigate it by guesswork.</p>
+        <p className="mb-8">Being a good parent is not a title we give ourselves. It is a skill we keep examining, learning, and strengthening.</p>
       </>
     )
   },
   {
     id: 2,
-    category: "BEHAVIORAL PSYCHOLOGY",
-    readTime: "10 MIN READ",
-    title: "Cognitive Dissonance and Self-Deception",
-    excerpt: "Why our brains lie to us to protect our ego, and how awareness breaks the cycle.",
+    category: "CAREER PSYCHOLOGY",
+    readTime: "6 MIN READ",
+    title: "Choosing a Career, or Borrowing One? What 440 Bangladeshi Teenagers Revealed About Their Futures",
+    excerpt: "A survey of 440 adolescents reveals a generation choosing careers more out of safety and fear than genuine self-knowledge.",
+    imageUrl: "https://res.cloudinary.com/dsrs8hryx/image/upload/v1790752894/WhatsApp_Image_2026-09-29_at_12.54.19_AM_sio0ua.jpg", // এখানে আপনার ২ নম্বর পোস্টের ছবির লিংক দিন
     fullText: (
       <>
-        <p className="mb-4">Cognitive dissonance occurs when we hold two conflicting beliefs, or when our behavior contradicts our values. To resolve this uncomfortable tension, the brain often resorts to self-deception.</p>
-        <p className="mb-4">Research indicates that without active psychological awareness, humans will rationalize highly destructive behaviors (like staying in toxic environments or avoiding career changes) simply to avoid the pain of admitting they were wrong.</p>
-        <p>By cultivating awareness, individuals learn to sit with the discomfort of being wrong. This drastically accelerates personal growth, as the energy previously spent on protecting the ego is redirected toward solving the actual problem.</p>
+        <p className="mb-8">Ask a teenager in Bangladesh what they want to become, and you will usually get an answer. Ask them <em>why</em>, and the answer often gets thinner. Our survey of 440 adolescents (220 boys and 220 girls) set out to understand how young people are making one of the most important decisions of their lives. The findings are hopeful in some places and worrying in others. Above all, they show a generation choosing careers more out of fear than out of self-knowledge.</p>
+
+        <h3 className="text-xl font-bold text-[#222222] font-serif mb-4">Security first, self second</h3>
+        <p className="mb-4">When asked why they reject a particular career path, teenagers gave strikingly similar reasons. Government jobs were rejected mainly for low salary (44.8%). Private jobs were rejected for lack of job security and pension. Business was avoided because of the risk of failure (31.1%) and a lack of capital (29.1%).</p>
+        <p className="mb-4">Across every sector, the dominant concern was the same: <strong>Will I be safe?</strong> Very few answers suggested young people asked: <em>Will this suit me?</em></p>
+        <p className="mb-8">Psychologically, this matters. Career research, from Holland's person–environment fit theory to Social Cognitive Career Theory, shows that satisfaction, performance, and long-term mental health depend heavily on the match between a person's interests, abilities, and values and the demands of their work. A career chosen only for security can provide income while quietly draining motivation, which is a pattern we later see in adults who feel stuck, burnt out, or unfulfilled.</p>
+
+        <h3 className="text-xl font-bold text-[#222222] font-serif mb-4">A striking gender divide</h3>
+        <p className="mb-4">Girls and boys are imagining very different futures. 84.1% of girls want to build their careers in Bangladesh, compared with only 50% of boys. This gap is not a matter of chance; it is statistically strong (χ²(2) = 58.6, p &lt; .001, Cramér's V = .37). Nearly one in five boys (19.1%) explicitly does not want to work in Bangladesh, and almost a third (30.9%) are unsure.</p>
+        <p className="mb-4">Girls leaned heavily toward private jobs (49.1%), teaching (23.2%), medicine (19.1%), and online business (27.7% among business choices). They are pioneering home-based digital entrepreneurship. Boys leaned more toward government service, corporate jobs, and import–export business.</p>
+        <p className="mb-8 border-l-2 border-[#A38771] pl-4 italic text-[#4A4A4A]">Yet not a single girl chose programming or data analysis. This suggests that some doors remain closed in young minds long before they are closed in the job market.</p>
+
+        <h3 className="text-xl font-bold text-[#222222] font-serif mb-4">"Luck decides" is a warning sign</h3>
+        <p className="mb-4">Almost a quarter of respondents (23.9%) said they avoid business because "luck is a factor", and boys said this far more often than girls (29.5% vs 18.2%).</p>
+        <p className="mb-8">In psychological terms, this reflects an <em>external locus of control</em>: the belief that outcomes depend on fate rather than effort. Young people who hold this belief tend to avoid challenges, give up sooner, and take less ownership of their decisions. It is a mindset that parents and teachers can reshape, but only if they notice it.</p>
+
+        <h3 className="text-xl font-bold text-[#222222] font-serif mb-4">BCS and YouTube, side by side</h3>
+        <p className="mb-8">One of the most revealing results: the BCS civil service and becoming a YouTuber were chosen by exactly the same number of adolescents (26 each, 5.9%). The most traditional and the most modern career dreams now carry equal weight in the teenage imagination. This is not necessarily bad, but it raises an important question. Are these choices based on genuine aptitude, or on what looks prestigious in the family on one hand and glamorous on a screen on the other?</p>
+
+        <h3 className="text-xl font-bold text-[#222222] font-serif mb-4">The undecided one-fifth</h3>
+        <p className="mb-8">About 21.1% of respondents are not sure where they want to build their future. Uncertainty at this age is normal. Developmental psychologists describe adolescence as a period of exploration. The problem is not being unsure; the problem is being unsure without guidance. Left alone, undecided teenagers often default to whatever their peers, relatives, or social media suggest.</p>
+
+        <h3 className="text-xl font-bold text-[#222222] font-serif mb-4">What this means for parents and young people</h3>
+        <p className="mb-4">Choosing a career is not simply picking a job title. It is a question of identity: Who am I, what am I good at, and what kind of life do I want? The data shows that many of our young people are answering that question with borrowed answers, shaped by salary rumours, family pressure, and fear of failure rather than an honest understanding of themselves.</p>
+        <p className="mb-8">The good news is that self-knowledge can be built. Interests, aptitudes, personality, and work values can all be assessed scientifically, giving a young person a clearer map before they invest years in a path.</p>
       </>
     )
   },
   {
     id: 3,
-    category: "CLINICAL RESEARCH",
+    category: "MENTAL HEALTH",
     readTime: "7 MIN READ",
-    title: "The Gut-Brain Axis: Emotional Processing",
-    excerpt: "Understanding the bidirectional communication between our digestive system and emotional states.",
+    title: "Seven Years of Crisis: How Is Bangladesh's Mind Holding Up?",
+    excerpt: "From the pandemic to the 2024 uprisings and floods, exploring the cumulative psychological toll of back-to-back crises on the people of Bangladesh.",
+    imageUrl: "https://res.cloudinary.com/dsrs8hryx/image/upload/v1790752896/WhatsApp_Image_2026-09-29_at_12.54.18_AM_fht6zf.jpg", // এখানে আপনার ৩ নম্বর পোস্টের ছবির লিংক দিন
     fullText: (
       <>
-        <p className="mb-4">The enteric nervous system (often called the 'second brain') contains over 100 million neurons. Research shows that 90% of serotonin is produced in the gut.</p>
-        <p className="mb-4">Psychological awareness helps individuals recognize the physical symptoms of emotional distress. For instance, chronic unexplained stomach issues are frequently linked to unexpressed anxiety or repressed trauma.</p>
-        <p>Awareness of this connection allows for holistic treatment—addressing both the psychological stressor and supporting the physiological system simultaneously.</p>
+        <p className="mb-8">Think back to early 2020. First came the pandemic, with lockdowns, lost incomes, and the fear of losing loved ones. Before we could fully recover, prices began to climb. Then came load-shedding, gas shortages, fuel price hikes, political turmoil, floods, and the constant background noise of wars on the other side of the world, reaching us through our screens every hour. Each crisis on its own was hard. The real story, psychologically, is that they came one after another, with almost no time to recover in between. So how is the mind of Bangladesh doing now?</p>
+
+        <h3 className="text-xl font-bold text-[#222222] font-serif mb-4">Where we started: already a heavy burden</h3>
+        <p className="mb-4">Even before these crises peaked, the country was carrying a significant mental health load. The National Mental Health Survey of Bangladesh in 2019 estimated that 16.8% of adults and 13.6% of children had a mental health condition, and more than 90% of them did not seek treatment. In practical terms, that is roughly one in six adults, and most of them are suffering in silence.</p>
+        <p className="mb-8">The resources to help were very limited. WHO figures for 2020 estimated only about 1.17 mental health professionals per 100,000 people, with roughly 270 psychiatrists and 565 psychologists and other paid mental health workers across government and NGOs.</p>
+
+        <h3 className="text-xl font-bold text-[#222222] font-serif mb-4">Then the storms arrived, one after another</h3>
+        <ul className="list-none space-y-4 mb-8 text-[#4A4A4A]">
+          <li><strong>The pandemic:</strong> In the early months of COVID-19, distress rose sharply. One large online survey of more than 10,000 people in April 2020 found that about 64%, 87%, and 61% of respondents reported high levels of depression, anxiety, and stress respectively. The signal was clear: the nation was frightened.</li>
+          <li><strong>The economic squeeze:</strong> Next came the cost-of-living crisis. Price pressure kept rising in Bangladesh even as other countries recovered. Financial strain is one of the strongest known predictors of anxiety and depression. When a parent cannot predict whether this month's salary will cover rice, rent, and school fees, the body stays in a constant state of alarm.</li>
+          <li><strong>Political unrest:</strong> The events of July–August 2024 left deep wounds. Among 217 injured survivors treated in Dhaka hospitals, 82.5% met the threshold for depression and 64.1% for PTSD. Researchers noted that the uprising left a marked impression on population mental health, including among children exposed through television and social media. Trauma does not only affect people who were physically present; it affects those who watched it happen on their phones.</li>
+          <li><strong>Disasters on top:</strong> Natural hazards added another layer. After the 2024 flash flood in Feni, a study found 52.80% of survivors suffering from severe depression, 44.17% from severe anxiety, and 46.90% from severe stress.</li>
+        </ul>
+
+        <h3 className="text-xl font-bold text-[#222222] font-serif mb-4">What psychology tells us about "crisis after crisis"</h3>
+        <p className="mb-4">Human beings can survive a single hard blow remarkably well. What wears us down is cumulative stress. Psychologists call this <em>allostatic load</em>: the wear and tear on the body and mind from being on alert for too long. Sleep becomes shallow. Patience becomes short. Small problems start to feel enormous.</p>
+        <p className="mb-4">Three patterns are especially visible in Bangladesh today:</p>
+        <ul className="list-disc pl-5 space-y-3 mb-6 text-[#4A4A4A]">
+          <li><strong>Chronic uncertainty:</strong> Not knowing what tomorrow's prices, power supply, or political situation will look like is, for many people, more exhausting than a known hardship.</li>
+          <li><strong>Learned helplessness:</strong> When efforts repeatedly fail to change outcomes, people stop trying, and hopelessness quietly replaces frustration.</li>
+          <li><strong>Secondary trauma through screens:</strong> Endless scrolling through violence, war, and bad news keeps the nervous system activated even in the safety of one's home.</li>
+        </ul>
+        <p className="mb-8 border-l-2 border-[#A38771] pl-4 italic text-[#4A4A4A]">Many people do not describe this as "depression" or "anxiety". They say they are tired, irritable, can't sleep, have headaches, or don't enjoy anything anymore. These are real signals, not weaknesses.</p>
+
+        <h3 className="text-xl font-bold text-[#222222] font-serif mb-4">So, how are we really doing?</h3>
+        <p className="mb-4">The honest answer is that we do not yet have a fresh nationwide picture. The 2019 National Mental Health Survey remains the latest and only large-scale representative survey in the country. What we do have is a growing body of smaller studies, and almost all of them point in the same direction: stress is widespread, trauma is concentrated in the hardest-hit groups, and help-seeking remains far too low.</p>
+        <p className="mb-8">The most important gap is not in the statistics. It is the distance between how people feel and whether they recognise it, name it, and do something about it.</p>
       </>
     )
   },
   {
     id: 4,
-    category: "WORKPLACE PSYCHOLOGY",
-    readTime: "12 MIN READ",
-    title: "Psychological Safety in Corporate Teams",
-    excerpt: "Why the highest-performing teams are those where psychological awareness is prioritized.",
-    fullText: (
-      <>
-        <p className="mb-4">Google's famous 'Project Aristotle' studied hundreds of its teams to figure out why some stumbled while others soared. The number one defining factor was 'Psychological Safety'.</p>
-        <p className="mb-4">Psychological safety is the shared belief that the team is safe for interpersonal risk-taking. It requires high psychological awareness from leaders to foster an environment where employees aren't afraid to admit mistakes or pitch radical ideas.</p>
-        <p>Teams lacking this awareness suffer from high turnover, hidden errors, and stagnant innovation.</p>
-      </>
-    )
-  },
-  {
-    id: 5,
-    category: "DEVELOPMENTAL",
-    readTime: "9 MIN READ",
-    title: "Intergenerational Trauma Transmission",
-    excerpt: "How unspoken psychological wounds are passed down, and how awareness stops the chain.",
-    fullText: (
-      <>
-        <p className="mb-4">Epigenetic studies suggest that trauma can leave a chemical mark on a person's genes, which can then be passed down to future generations. However, behavior is an even stronger transmitter.</p>
-        <p className="mb-4">Parents who lack psychological awareness unconsciously pass their coping mechanisms, fears, and reactive behaviors to their children. A parent terrified of financial ruin may raise a child who hoards resources, even in abundance.</p>
-        <p>Breaking this cycle requires fierce psychological awareness—the ability to look at one's own reactions and say, "This is my trauma talking, not the present reality."</p>
-      </>
-    )
-  },
-  {
-    id: 6,
-    category: "COGNITIVE SCIENCE",
+    category: "RELATIONSHIPS",
     readTime: "6 MIN READ",
-    title: "The Illusion of Multitasking",
-    excerpt: "How a lack of awareness regarding our cognitive limits leads to severe burnout.",
+    title: "Married, But Are We Still Together? The Changing Face of Marriage in Bangladesh",
+    excerpt: "Analyzing the rising divorce rates in Bangladesh and the quiet psychological erosion that precedes infidelity and marital breakdown.",
+    imageUrl: "https://res.cloudinary.com/dsrs8hryx/image/upload/v1790752894/lol_niux6h.jpg", // এখানে আপনার ৪ নম্বর পোস্টের ছবির লিংক দিন
     fullText: (
       <>
-        <p className="mb-4">The human brain cannot perform two complex cognitive tasks simultaneously. What we call multitasking is actually 'task-switching', and it comes with a heavy neurological cost.</p>
-        <p className="mb-4">Research shows that continuous task-switching drops IQ by an average of 10 points (equivalent to losing a night of sleep) and spikes cortisol levels.</p>
-        <p>Awareness of our cognitive boundaries allows us to structure our lives around 'deep work' phases, protecting our mental energy and drastically improving output quality.</p>
-      </>
-    )
-  },
-  {
-    id: 7,
-    category: "SOCIAL PSYCHOLOGY",
-    readTime: "11 MIN READ",
-    title: "Echo Chambers and Confirmation Bias",
-    excerpt: "The psychology behind why we only consume information that agrees with us.",
-    fullText: (
-      <>
-        <p className="mb-4">Confirmation bias is the tendency to search for, interpret, favor, and recall information in a way that confirms one's preexisting beliefs.</p>
-        <p className="mb-4">In the digital age, algorithms weaponize this bias to keep us engaged, creating massive psychological echo chambers. Without psychological awareness, individuals become highly polarized, losing the ability to empathize or understand differing viewpoints.</p>
-        <p>Awareness acts as a circuit breaker, prompting us to actively seek disconfirming evidence and maintain cognitive flexibility.</p>
-      </>
-    )
-  },
-  {
-    id: 8,
-    category: "EMOTIONAL INTELLIGENCE",
-    readTime: "8 MIN READ",
-    title: "Alexithymia: The Inability to Name Emotions",
-    excerpt: "Why having a limited emotional vocabulary traps us in physical stress.",
-    fullText: (
-      <>
-        <p className="mb-4">Alexithymia is a personality construct characterized by the subclinical inability to identify and describe emotions experienced by oneself. Research shows nearly 10% of the population struggles with this.</p>
-        <p className="mb-4">When we cannot name an emotion (e.g., confusing anxiety with physical hunger, or sadness with anger), we cannot regulate it. The emotion gets trapped in the body, often leading to psychosomatic illness.</p>
-        <p>Developing psychological awareness involves building an emotional vocabulary. Studies show that simply putting a feeling into precise words decreases the electrical activity in the amygdala.</p>
-      </>
-    )
-  },
-  {
-    id: 9,
-    category: "CLINICAL PSYCHOLOGY",
-    readTime: "14 MIN READ",
-    title: "Imposter Syndrome in High Achievers",
-    excerpt: "The psychological paradox where success breeds overwhelming self-doubt.",
-    fullText: (
-      <>
-        <p className="mb-4">Imposter syndrome is a psychological pattern in which an individual doubts their skills, talents, or accomplishments and has a persistent internalized fear of being exposed as a fraud.</p>
-        <p className="mb-4">Interestingly, research shows it most frequently affects highly capable individuals. Because they learn things quickly, they assume the task must be easy for everyone, devaluing their own expertise.</p>
-        <p>Awareness helps separate 'feelings' from 'facts'. By tracking actual accomplishments objectively, individuals can neurologically rewire their self-perception over time.</p>
-      </>
-    )
-  },
-  {
-    id: 10,
-    category: "ADDICTION RESEARCH",
-    readTime: "15 MIN READ",
-    title: "Dopamine Deregulation in the Digital Age",
-    excerpt: "How endless scrolling hijacks the brain's reward system, and the awareness needed to reclaim it.",
-    fullText: (
-      <>
-        <p className="mb-4">Dopamine is not the chemical of pleasure; it is the chemical of pursuit and motivation. Modern apps are designed to trigger dopamine spikes at unpredictable intervals, creating a behavioral loop identical to a slot machine.</p>
-        <p className="mb-4">Over time, the brain's baseline for dopamine drops, making everyday tasks (like reading a book or working) feel unbearably boring and difficult.</p>
-        <p>Psychological awareness is the first line of defense. By recognizing the physical urge to check a phone as a neurological craving rather than a conscious choice, individuals can begin 'dopamine fasting' and restore their baseline motivation.</p>
+        <p className="mb-8">A few years into marriage, many couples in Bangladesh describe the same quiet change. They still share a home, a bed, and responsibilities, but the conversations have become shorter, the silences longer, and each partner spends the evening glowing blue behind a phone screen. For some, this distance slowly turns into conflict. For a growing number, it ends in separation. What is happening to marriage in our country, and why?</p>
+
+        <h3 className="text-xl font-bold text-[#222222] font-serif mb-4">What the numbers say</h3>
+        <p className="mb-4">According to the Bangladesh Bureau of Statistics (BBS), the crude divorce rate hovered between 0.6 and 1.1 per 1,000 people from 2006 to 2021, then rose to 1.4 in 2022. Put simply, for every 10,000 people, 8 got divorced in 2020, 7 in 2021, and 14 in 2022. The 2023 survey showed a slight easing to 11 per 10,000, so the trend is not a straight line upward. Even so, the overall picture is clear: marital breakdown is more common today than it was a decade ago, and it is no longer only an urban phenomenon, since rural rates are now slightly higher than those in cities.</p>
+        <p className="mb-8">Another striking shift is <em>who</em> is leaving. In 2022, the Dhaka South City Corporation recorded 7,698 divorces, and wives filed about 70 percent of the applications; in Dhaka North, the figure was about 65 percent.</p>
+
+        <h3 className="text-xl font-bold text-[#222222] font-serif mb-4">Why marriages are breaking</h3>
+        <p className="mb-4">For the first time, BBS published data on the causes of divorce. The leading reason was extramarital relationships (23%), followed closely by the inability to maintain conjugal life (22%). Other causes included failure to support the family, family pressure, physical abuse, and sexual incapacity. Behind these categories are deeper psychological patterns.</p>
+        <ol className="list-decimal pl-5 space-y-4 mb-8 text-[#4A4A4A]">
+          <li><strong>Emotional disconnection comes before infidelity.</strong> Affairs rarely begin with attraction to someone new. They usually begin with loneliness inside the marriage. When a spouse feels unseen, unheard, or unappreciated, the attention of a stranger online can feel like water in a desert.</li>
+          <li><strong>Social media lowers the barriers.</strong> In the past, a secret relationship required effort and risk. Today it requires only a phone. Online interaction often feels "less real", and therefore less wrong, until it has already gone too far. Psychologists recognise mechanisms like phubbing (ignoring your partner for your phone), constant comparison, and secret chats that replace honest conversation.</li>
+          <li><strong>Economic pressure spills into the bedroom.</strong> According to the Family Stress Model, economic strain makes people more irritable and less patient, which leads to harsher arguments and less warmth. Couples do not usually fight about money itself; they fight because money worries have drained their capacity for kindness.</li>
+          <li><strong>Changing expectations, changing tolerance.</strong> More women are educated and earning, and they are less willing to endure abuse or neglect in silence. This is not the "breaking" of family values. It is a demand that marriage offer respect and dignity, not only duty.</li>
+          <li><strong>The four silent destroyers.</strong> Relationship researcher John Gottman identified four communication patterns that predict divorce: criticism, contempt, defensiveness, and stonewalling. Contempt is the most damaging of all. In many Bangladeshi households, these patterns are made worse by interference from in-laws and a cultural expectation that problems should never be discussed openly.</li>
+        </ol>
+
+        <h3 className="text-xl font-bold text-[#222222] font-serif mb-4">The marriages that last</h3>
+        <p className="mb-8 border-l-2 border-[#A38771] pl-4 italic text-[#4A4A4A]">Strong marriages are not the ones without conflict. They are the ones where partners repair after conflict.</p>
+        <p className="mb-8">Research consistently shows that lasting couples turn towards each other's small bids for attention, protect regular time together, speak about problems gently, and treat each other as friends as well as spouses. Trust is built in small daily moments, and it is lost the same way.</p>
+
+        <h3 className="text-xl font-bold text-[#222222] font-serif mb-4">An honest question for every couple</h3>
+        <p className="mb-4">Take a moment and reflect: When did we last talk without screens? Do I know what worries my partner these days? Do our arguments end in understanding, or in silence? Would I be comfortable if my spouse read my private messages?</p>
+        <p className="mb-8">If these questions feel uncomfortable, that discomfort is useful information. Most marriages do not end suddenly. They erode quietly over years, and they can usually be saved when problems are recognised early.</p>
       </>
     )
   }
 ];
 
-// ==========================================
-// Global Shared Parallax Background
-// ==========================================
-const SharedBackground = () => (
-  <>
-    <svg width="0" height="0" className="absolute">
-      <defs>
-        <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#1A6BBA" />
-          <stop offset="100%" stopColor="#5DBB4D" />
-        </linearGradient>
-      </defs>
-    </svg>
-    <div 
-      className="fixed inset-0 z-0 opacity-20 pointer-events-none"
-      style={{
-        backgroundImage: "url('https://res.cloudinary.com/dsrs8hryx/image/upload/v1790244691/image.png_2K_20260924160842_o0uxxt.jpg')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed',
-      }}
-    />
-    <div className="fixed inset-0 z-0 bg-gradient-to-b from-[#0A1930]/95 via-[#0A1930]/85 to-[#0A1930] pointer-events-none" />
-    <div className="fixed top-0 right-0 w-[600px] h-[600px] bg-[#1A6BBA]/10 rounded-full blur-[180px] pointer-events-none z-0"></div>
-    <div className="fixed bottom-0 left-0 w-[500px] h-[500px] bg-[#5DBB4D]/10 rounded-full blur-[180px] pointer-events-none z-0"></div>
-  </>
-);
+export default function AwarenessPosts() {
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
 
-export default function PsychologicalAwareness() {
-  const [selectedResearch, setSelectedResearch] = useState<Research | null>(null);
+  const featuredPost = awarenessPostsData[0]; // 1st post as featured
+  const standardPosts = awarenessPostsData.slice(1); // 2nd, 3rd, 4th posts
 
   return (
-    <div className="relative w-full min-h-screen lg:pl-[50px] overflow-hidden flex flex-col pt-32 pb-32 px-4 sm:px-6 md:px-10 font-sans">
-      <SharedBackground />
-
+    <div className="relative w-full min-h-screen lg:pl-[50px] overflow-hidden flex flex-col pt-32 pb-32 px-4 sm:px-6 md:px-10 bg-[#F9F6F0] font-sans">
+      
       {/* =========================================
-          MODAL (POPUP) SECTION FOR RESEARCH
+          MODAL (POPUP) SECTION FOR FULL READING
           ========================================= */}
       <AnimatePresence>
-        {selectedResearch && (
+        {selectedPost && (
           <motion.div 
             initial={{ opacity: 0 }} 
             animate={{ opacity: 1 }} 
             exit={{ opacity: 0 }} 
-            className="fixed inset-0 z-50 flex items-center justify-center px-4 sm:px-10 py-10 bg-[#0A1930]/90 backdrop-blur-md lg:pl-[50px]"
+            className="fixed inset-0 z-50 flex items-center justify-center px-4 sm:px-10 py-10 bg-[#222222]/80 backdrop-blur-md lg:pl-[50px]"
           >
-            <div className="absolute inset-0 cursor-pointer" onClick={() => setSelectedResearch(null)}></div>
+            <div className="absolute inset-0 cursor-pointer" onClick={() => setSelectedPost(null)}></div>
             
             <motion.div 
               initial={{ y: 50, scale: 0.95 }}
               animate={{ y: 0, scale: 1 }}
               exit={{ y: 20, scale: 0.95 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
-              className="relative w-full max-w-4xl bg-[#132644] border border-[#5DBB4D]/50 shadow-[0_20px_60px_rgba(0,0,0,0.8)] max-h-full flex flex-col overflow-hidden"
+              className="relative w-full max-w-4xl bg-white border border-[#EFECE5] shadow-[0_20px_60px_rgba(0,0,0,0.15)] max-h-full flex flex-col overflow-hidden rounded-sm"
             >
-              <div className="h-1.5 w-full bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D]"></div>
+              <div className="h-1.5 w-full bg-[#A38771]"></div>
               
               <button 
-                onClick={() => setSelectedResearch(null)}
-                className="absolute top-4 right-4 w-12 h-12 bg-[#0A1930] border border-[#3c5685] text-white/50 hover:text-white hover:border-red-500 hover:bg-red-500/10 flex items-center justify-center transition-all duration-300 z-20"
+                onClick={() => setSelectedPost(null)}
+                className="absolute top-4 right-4 w-12 h-12 bg-white/90 backdrop-blur-sm border border-[#EFECE5] text-[#222222] hover:text-[#A38771] hover:border-[#A38771] flex items-center justify-center transition-all duration-300 z-20 rounded-sm"
               >
                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
 
-              <div className="p-8 sm:p-14 overflow-y-auto custom-scrollbar relative">
-                <svg className="absolute top-10 right-10 w-48 h-48 text-[#5DBB4D] opacity-5 pointer-events-none -rotate-12" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20 4C20 4 14 3 9 8C4 13 4 20 4 20C4 20 11 20 16 15C21 10 20 4 20 4Z" />
-                </svg>
+              <div className="overflow-y-auto custom-scrollbar relative flex-1">
+                {/* Modal Header Image */}
+                {selectedPost.imageUrl && (
+                  <div className="w-full h-64 sm:h-80 relative overflow-hidden bg-[#F9F6F0]">
+                    <img src={selectedPost.imageUrl} alt={selectedPost.title} className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent"></div>
+                  </div>
+                )}
 
-                <div className="flex items-center gap-4 mb-8 relative z-10">
-                  <span className="text-xs sm:text-sm font-bold text-transparent bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text uppercase tracking-[0.2em] border border-[#3c5685]/60 px-4 py-1.5 bg-[#0A1930]">
-                    {selectedResearch.category}
-                  </span>
-                  <span className="text-xs sm:text-sm text-white/40 tracking-[0.1em] uppercase">{selectedResearch.readTime}</span>
-                </div>
-                
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-white mb-10 leading-tight relative z-10 drop-shadow-md">
-                  {selectedResearch.title}
-                </h2>
-                
-                <div className="text-lg sm:text-xl text-white/80 leading-loose lato-regular relative z-10 space-y-6">
-                  {selectedResearch.fullText}
+                <div className="p-8 sm:p-14 relative z-10">
+                  <div className="flex items-center gap-4 mb-8">
+                    <span className="text-xs sm:text-sm font-bold text-[#222222] uppercase tracking-[0.2em] border border-[#EFECE5] px-4 py-1.5 bg-[#F9F6F0] rounded-sm">
+                      {selectedPost.category}
+                    </span>
+                    <span className="text-xs sm:text-sm text-[#A38771] font-bold tracking-[0.1em] uppercase">{selectedPost.readTime}</span>
+                  </div>
+                  
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium font-serif text-[#222222] mb-10 leading-tight">
+                    {selectedPost.title}
+                  </h2>
+                  
+                  <div className="text-lg text-[#4A4A4A] leading-loose lato-regular">
+                    {selectedPost.fullText}
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -250,158 +246,129 @@ export default function PsychologicalAwareness() {
         )}
       </AnimatePresence>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto flex-1 flex flex-col gap-24 sm:gap-32">
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex-1 flex flex-col gap-24">
         
         {/* =========================================
-            SECTION 1: HERO (PAGE 1)
+            SECTION 1: HERO
             ========================================= */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="min-h-[70vh] flex flex-col justify-center border-b border-[#3c5685]/40 pb-16"
+          className="flex flex-col justify-center border-b border-[#EFECE5] pb-16"
         >
           <div className="flex items-center gap-3 mb-8">
-            <svg className="w-6 h-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke="url(#leafGrad)">
-              <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M20 4C20 4 14 3 9 8C4 13 4 20 4 20C4 20 11 20 16 15C21 10 20 4 20 4ZM4 20L10 14" />
-            </svg>
-            <span className="text-[#5DBB4D] font-bold tracking-[0.25em] uppercase text-sm sm:text-base">
-              Explore The Human Mind
+            <span className="text-[#A38771] font-bold tracking-[0.25em] uppercase text-sm sm:text-base">
+              AWARENESS & INSIGHTS
             </span>
           </div>
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium text-white font-serif tracking-tight drop-shadow-2xl mb-10 leading-[1.1]">
-            Psychological <br />
-            <span className="italic font-light text-transparent bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text">Awareness</span>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium text-[#222222] font-serif tracking-tight drop-shadow-sm mb-10 leading-[1.1]">
+            Understanding the mind <br />
+            <span className="italic font-light text-[#A38771]">is where change begins</span>
           </h1>
-          <p className="text-white/70 text-lg sm:text-2xl max-w-4xl leading-relaxed lato-regular border-l-4 border-[#1A6BBA] pl-6 py-2">
-            Understanding your own mind is not just an abstract concept; it is the absolute foundation of a healthy and fulfilling life. Psychological awareness empowers us to identify the blind spots of our subconscious mind and make conscious, intentional decisions.
+          <p className="text-[#4A4A4A] text-lg sm:text-2xl max-w-4xl leading-relaxed lato-regular border-l-4 border-[#A38771] pl-6 py-2">
+            Read through these four core awareness articles to understand the profound psychological shifts happening in parenting, career choices, mental health, and relationships.
           </p>
         </motion.div>
 
         {/* =========================================
-            SECTION 2: IMPORTANCE & NEED (PAGE 2)
+            SECTION 2: 4 POSTS GRID
             ========================================= */}
         <div>
           <div className="flex items-center gap-4 mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-white tracking-wide">Why It Matters</h2>
-            <div className="flex-1 h-[1px] bg-gradient-to-r from-[#3c5685]/50 to-transparent ml-6"></div>
+            <h2 className="text-3xl sm:text-4xl font-serif text-[#222222] tracking-wide">Awareness Articles</h2>
+            <div className="flex-1 h-[1px] bg-[#EFECE5] ml-6"></div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {/* Box 1 */}
+          {/* Featured Post (1st Post) */}
+          {featuredPost && (
             <motion.div 
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6 }}
-              className="bg-[#132644]/60 backdrop-blur-md border border-[#3c5685]/30 p-10 sm:p-14 hover:border-[#5DBB4D]/50 hover:bg-[#132644]/90 transition-all duration-500 group relative overflow-hidden"
+              onClick={() => setSelectedPost(featuredPost)}
+              className="bg-white border border-[#EFECE5] shadow-sm hover:shadow-[0_15px_40px_rgba(0,0,0,0.04)] mb-12 flex flex-col md:flex-row group cursor-pointer hover:border-[#A38771] transition-all duration-500 relative overflow-hidden rounded-sm"
             >
-              <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-[#1A6BBA] to-[#5DBB4D]"></div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-6 font-serif">The Root of Decision Making</h3>
-              <p className="text-base sm:text-lg text-white/60 leading-loose">
-                Of the thousands of decisions we make every day, 95% stem from our subconscious mind. Without psychological awareness, we are largely driven by past traumas, hidden fears, and cognitive biases. Active awareness pulls us out of 'auto-pilot' mode and places the control of our lives firmly back into our own hands.
-              </p>
+              <div className="w-full md:w-1/2 lg:w-3/5 p-8 sm:p-12 relative z-10 flex flex-col justify-center">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="text-xs font-bold text-[#222222] bg-[#F9F6F0] border border-[#EFECE5] uppercase tracking-widest px-3 py-1 rounded-sm">
+                    {featuredPost.category}
+                  </span>
+                  <span className="text-xs text-[#A38771] font-bold uppercase tracking-widest">{featuredPost.readTime}</span>
+                </div>
+                
+                <h3 className="text-3xl sm:text-4xl font-bold text-[#222222] mb-6 font-serif group-hover:text-[#A38771] transition-colors duration-300 leading-snug">
+                  {featuredPost.title}
+                </h3>
+                
+                <p className="text-base sm:text-lg text-[#4A4A4A] leading-relaxed mb-10">
+                  {featuredPost.excerpt}
+                </p>
+
+                <div className="mt-auto inline-flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-[#222222] group-hover:text-[#A38771] transition-colors">
+                  Read Article
+                  <span className="w-8 h-8 flex items-center justify-center border border-[#EFECE5] group-hover:border-[#A38771] bg-[#F9F6F0] group-hover:bg-white transition-colors rounded-sm">
+                    <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+
+              {/* Featured Image Box */}
+              <div className="w-full md:w-1/2 lg:w-2/5 aspect-[4/3] md:aspect-auto bg-[#EFECE5] border-l border-[#EFECE5] overflow-hidden relative z-10 shrink-0 flex items-center justify-center">
+                {featuredPost.imageUrl ? (
+                  <img src={featuredPost.imageUrl} alt={featuredPost.title} className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
+                ) : (
+                  <span className="text-xs text-gray-400 uppercase tracking-widest font-mono">[ Image 1 Placeholder ]</span>
+                )}
+              </div>
             </motion.div>
+          )}
 
-            {/* Box 2 */}
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="bg-[#132644]/60 backdrop-blur-md border border-[#3c5685]/30 p-10 sm:p-14 hover:border-[#5DBB4D]/50 hover:bg-[#132644]/90 transition-all duration-500 group relative overflow-hidden"
-            >
-              <div className="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-[#5DBB4D] to-[#1A6BBA]"></div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-6 font-serif">Emotional Regulation</h3>
-              <p className="text-base sm:text-lg text-white/60 leading-loose">
-                Failing to recognize your own emotions means becoming entirely subjected to them. Being able to differentiate between when we are angry, when we are overwhelmed, and when we are simply exhausted is crucial for mental resilience. It acts as a shield against impulsive, destructive behaviors.
-              </p>
-            </motion.div>
-
-            {/* Box 3 */}
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6 }}
-              className="bg-[#132644]/60 backdrop-blur-md border border-[#3c5685]/30 p-10 sm:p-14 hover:border-[#1A6BBA]/50 hover:bg-[#132644]/90 transition-all duration-500 group relative overflow-hidden"
-            >
-              <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D]"></div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-6 font-serif">Breaking Interpersonal Cycles</h3>
-              <p className="text-base sm:text-lg text-white/60 leading-loose">
-                We often repeat the same destructive mistakes in our personal relationships. Becoming aware of our deep psychological patterns helps us understand why we are drawn to specific dynamics or why we react explosively to minor triggers. This awareness is the key to building deep, healthy, and lasting connections.
-              </p>
-            </motion.div>
-
-            {/* Box 4 */}
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="bg-[#132644]/60 backdrop-blur-md border border-[#3c5685]/30 p-10 sm:p-14 hover:border-[#1A6BBA]/50 hover:bg-[#132644]/90 transition-all duration-500 group relative overflow-hidden"
-            >
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#5DBB4D] to-[#1A6BBA]"></div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-6 font-serif">Professional Excellence</h3>
-              <p className="text-base sm:text-lg text-white/60 leading-loose">
-                In the professional world, technical skills are not enough; sustaining performance under pressure requires profound mental fortitude. From overcoming imposter syndrome to preventing chronic burnout—the solution to sustainable excellence begins entirely with tracking and managing your own mental state.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* =========================================
-            SECTION 3: THE RESEARCH GRID (PAGES 3-4)
-            ========================================= */}
-        <div>
-          <div className="mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-white tracking-wide mb-6">Scientific Backing</h2>
-            <p className="text-lg sm:text-xl text-white/50 max-w-3xl leading-relaxed">
-              Read through these 10 core psychological research summaries to understand how profoundly awareness impacts human biology and behavior.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12">
-            {researchData.map((post, idx) => (
+          {/* Grid Posts (2nd, 3rd, 4th Post) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {standardPosts.map((post, idx) => (
               <motion.div 
                 key={post.id}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: (idx % 2) * 0.15 }}
-                onClick={() => setSelectedResearch(post)}
-                className="bg-[#0A1930]/80 backdrop-blur-sm border border-[#3c5685]/40 p-8 sm:p-12 flex flex-col group cursor-pointer hover:bg-[#132644]/90 hover:border-[#5DBB4D]/60 hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-500 relative overflow-hidden min-h-[350px]"
+                transition={{ duration: 0.6, delay: idx * 0.15 }}
+                onClick={() => setSelectedPost(post)}
+                className="bg-white border border-[#EFECE5] shadow-sm flex flex-col group cursor-pointer hover:border-[#A38771] hover:shadow-[0_15px_40px_rgba(0,0,0,0.04)] transition-all duration-500 relative overflow-hidden rounded-sm"
               >
-                {/* Accent top line on hover */}
-                <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-out z-20"></div>
-                
-                {/* Large Background Number */}
-                <div className="absolute -top-6 -right-6 text-8xl sm:text-9xl font-mono font-bold text-white/5 group-hover:text-[#1A6BBA]/10 transition-colors duration-500 pointer-events-none select-none">
-                  {String(post.id).padStart(2, '0')}
-                </div>
-
-                <div className="flex items-center gap-3 mb-6 relative z-10">
-                  <span className="text-xs font-bold text-[#5DBB4D] uppercase tracking-widest border border-[#5DBB4D]/30 px-3 py-1">
-                    {post.category}
-                  </span>
-                  <span className="text-xs text-white/30 tracking-[0.15em] uppercase">{post.readTime}</span>
+                {/* Image Box */}
+                <div className="w-full h-48 sm:h-56 bg-[#EFECE5] overflow-hidden relative border-b border-[#EFECE5] flex items-center justify-center">
+                  {post.imageUrl ? (
+                    <img src={post.imageUrl} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
+                  ) : (
+                    <span className="text-xs text-gray-400 uppercase tracking-widest font-mono">[ Image {post.id} Placeholder ]</span>
+                  )}
                 </div>
                 
-                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-5 font-serif group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#1A6BBA] group-hover:to-[#5DBB4D] group-hover:bg-clip-text transition-all duration-300 relative z-10 leading-snug">
-                  {post.title}
-                </h3>
-                
-                <p className="text-base sm:text-lg text-white/50 leading-relaxed mb-10 flex-1 relative z-10">
-                  {post.excerpt}
-                </p>
+                <div className="p-8 flex flex-col flex-1">
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="text-[10px] font-bold text-[#A38771] uppercase tracking-widest">{post.category}</span>
+                    <span className="text-gray-300">•</span>
+                    <span className="text-[10px] text-gray-500 uppercase tracking-widest">{post.readTime}</span>
+                  </div>
+                  
+                  <h3 className="text-xl font-bold text-[#222222] mb-4 font-serif group-hover:text-[#A38771] transition-colors duration-300 leading-snug">
+                    {post.title}
+                  </h3>
+                  
+                  <p className="text-sm text-[#4A4A4A] leading-relaxed mb-8 flex-1">
+                    {post.excerpt}
+                  </p>
 
-                <div className="mt-auto inline-flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-[#1A6BBA] group-hover:text-[#5DBB4D] transition-colors relative z-10">
-                  Read full research
-                  <span className="w-8 h-8 flex items-center justify-center border border-[#1A6BBA]/40 group-hover:border-[#5DBB4D] bg-[#0A1930] transition-colors">
-                    <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <div className="mt-auto inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#222222] group-hover:text-[#A38771] transition-colors">
+                    Read
+                    <svg className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M9 5l7 7-7 7" />
                     </svg>
-                  </span>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -409,35 +376,28 @@ export default function PsychologicalAwareness() {
         </div>
 
         {/* =========================================
-            SECTION 4: CALL TO ACTION (PAGE 5)
+            SECTION 3: CALL TO ACTION
             ========================================= */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="bg-[#132644]/90 backdrop-blur-md border-t-4 border-[#5DBB4D] border-l border-r border-b border-[#3c5685]/40 p-12 sm:p-20 text-center relative overflow-hidden group shadow-2xl mt-10"
+          className="bg-white border border-[#EFECE5] p-12 sm:p-20 text-center relative overflow-hidden group shadow-sm mt-10 rounded-sm"
         >
-          {/* Subtle overlay effect */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#1A6BBA]/10 via-transparent to-transparent pointer-events-none"></div>
-
           <div className="relative z-10 max-w-3xl mx-auto">
-            <svg className="w-12 h-12 mx-auto text-[#5DBB4D] mb-8 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-            <h2 className="text-3xl sm:text-5xl font-serif text-white mb-6 leading-tight">
-              Ready to take the next step in your <span className="text-transparent bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] bg-clip-text">Psychological Journey?</span>
+            <h2 className="text-3xl sm:text-4xl font-serif text-[#222222] mb-6 leading-tight">
+              Ready to take the next step in your <span className="italic text-[#A38771]">Psychological Journey?</span>
             </h2>
-            <p className="text-lg sm:text-xl text-white/60 mb-12 lato-regular leading-relaxed">
-              Reading about psychology is the first step. Applying it to your own life is where real change happens. Connect with an expert today.
+            <p className="text-lg text-[#4A4A4A] mb-12 lato-regular leading-relaxed">
+              Reading about psychology is the first step. Applying it to your own life is where real change happens.
             </p>
             
             <div className="flex flex-col sm:flex-row justify-center gap-6">
               <Link 
-                to="/online-counselling"
-                className="relative overflow-hidden bg-gradient-to-r from-[#1A6BBA] to-[#5DBB4D] text-[#0A1930] font-bold text-base sm:text-lg uppercase tracking-widest px-10 py-5 transition-all duration-300 flex justify-center items-center gap-3 shadow-[0_10px_30px_rgba(93,187,77,0.3)] hover:shadow-[0_15px_40px_rgba(93,187,77,0.5)] group/btn border border-transparent"
+                to="/counselling"
+                className="relative overflow-hidden bg-[#A38771] text-white font-bold text-sm sm:text-base uppercase tracking-widest px-10 py-5 transition-all duration-300 flex justify-center items-center gap-3 shadow-sm hover:shadow-md group/btn border border-transparent rounded-sm hover:bg-[#8e7460]"
               >
-                <div className="absolute inset-0 bg-white/0 group-hover/btn:bg-white/20 transition-colors duration-300"></div>
                 <span className="relative z-10">Book a Session</span>
                 <svg className="w-5 h-5 relative z-10 group-hover/btn:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M9 5l7 7-7 7" />
@@ -445,8 +405,8 @@ export default function PsychologicalAwareness() {
               </Link>
               
               <Link 
-                to="/online-assessment"
-                className="relative overflow-hidden bg-[#0A1930] text-white font-bold text-base sm:text-lg uppercase tracking-widest px-10 py-5 transition-all duration-300 flex justify-center items-center gap-3 border border-[#3c5685]/80 hover:border-[#1A6BBA] hover:bg-[#1A6BBA]/10 group/btn2"
+                to="/tests"
+                className="relative overflow-hidden bg-[#F9F6F0] text-[#222222] font-bold text-sm sm:text-base uppercase tracking-widest px-10 py-5 transition-all duration-300 flex justify-center items-center gap-3 border border-[#EFECE5] hover:border-[#A38771] hover:bg-white group/btn2 rounded-sm"
               >
                 <span className="relative z-10">Take an Assessment</span>
               </Link>

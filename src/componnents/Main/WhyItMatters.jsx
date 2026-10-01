@@ -47,10 +47,10 @@ const WhyItMatters = () => {
   ];
 
   return (
-    // এখানে lg:pl-[320px] যোগ করা হয়েছে যাতে সাইডবারের জন্য জায়গা ছেড়ে দেয়
-    <section className="bg-[#0A1930] py-15 relative overflow-hidden lg:pl-[50px] w-full flex flex-col">
+    // Background changed to Morning Ivory (#FAF7F2)
+    <section className="bg-[#FAF7F2] py-14 relative overflow-hidden lg:pl-[50px] w-full flex flex-col">
       
-      {/* SVG Definitions for Global Gradients (Blue to Green) */}
+      {/* SVG Definitions for Global Gradients (Blue to Green kept for icons) */}
       <svg width="0" height="0" className="absolute">
         <defs>
           <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -60,9 +60,9 @@ const WhyItMatters = () => {
         </defs>
       </svg>
 
-      {/* Abstract Ambient Background (Ice Blue & Nature Green Glow) */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#1A6BBA]/10 rounded-full blur-[150px] pointer-events-none"></div>
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#5DBB4D]/10 rounded-full blur-[150px] pointer-events-none"></div>
+      {/* Abstract Ambient Background (Soft Horizon and Blush Dawn Glows) */}
+      <div className="absolute top-0 right-0 w-[600px] h-150 bg-[#EAEFF0]/80 rounded-full blur-[150px] pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#F0EBE6]/80 rounded-full blur-[150px] pointer-events-none"></div>
 
       {/* Main Content Wrapper */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
@@ -76,7 +76,8 @@ const WhyItMatters = () => {
               whileInView={{ opacity: 1, rotateX: 0, z: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-              className="text-4xl sm:text-5xl font-serif text-white mb-8 tracking-tight leading-tight drop-shadow-md"
+              // Text color changed to Dark Charcoal
+              className="text-4xl sm:text-5xl font-serif text-[#2C3338] mb-8 tracking-tight leading-tight drop-shadow-sm"
             >
               Your future is too important to leave to chance
             </motion.h2>
@@ -86,7 +87,8 @@ const WhyItMatters = () => {
               whileInView={{ opacity: 1, rotateX: 0, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              className="text-lg text-white/70 mb-8 lato-regular leading-relaxed"
+              // Text color changed to Soft Gray
+              className="text-lg text-[#596573] mb-8 lato-regular leading-relaxed font-light"
             >
               Most students and professionals choose their careers based on societal pressure, passing trends, or sheer guesswork. This leads to the "Sunday Scaries," burnout, and mid-life career crises. 
               <br/><br/>
@@ -107,24 +109,29 @@ const WhyItMatters = () => {
                     rotateX: 5, 
                     rotateY: -5,
                     z: 30,
-                    boxShadow: "0px 20px 40px rgba(0,0,0,0.4)" 
+                    // Shadow lightened for the light theme
+                    boxShadow: "0px 15px 30px rgba(0,0,0,0.05)" 
                   }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
-                  className="bg-[#132644]/90 border border-[#3c5685]/40 backdrop-blur-sm p-8 transform-gpu cursor-pointer group hover:border-[#5DBB4D]/50 transition-colors relative overflow-hidden"
+                  // Card changed to White with Sage Mist border
+                  className="bg-white/80 border border-[#C8D0C0]/60 backdrop-blur-sm p-8 transform-gpu cursor-pointer group hover:border-[#D4BCA6] transition-colors relative overflow-hidden rounded-sm"
                 >
-                  {/* Subtle inner hover glow */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#1A6BBA]/0 to-[#5DBB4D]/0 group-hover:from-[#1A6BBA]/5 group-hover:to-[#5DBB4D]/5 transition-colors duration-500"></div>
+                  {/* Subtle inner hover glow (Linen Clay tone) */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#D4BCA6]/0 to-[#D4BCA6]/0 group-hover:from-[#D4BCA6]/5 group-hover:to-[#D4BCA6]/10 transition-colors duration-500"></div>
 
-                  <div className="relative z-10 w-14 h-14 flex items-center justify-center mb-6 border border-[#3c5685] bg-[#0A1930] group-hover:border-[#5DBB4D]/50 transition-colors duration-300">
+                  {/* Icon Box */}
+                  <div className="relative z-10 w-14 h-14 flex items-center justify-center mb-6 border border-[#EAEFF0] bg-[#FAF7F2] group-hover:border-[#5DBB4D]/30 transition-colors duration-300 shadow-sm">
                     {benefit.icon}
                   </div>
                   
-                  <h3 className="relative z-10 text-xl font-serif font-semibold text-white mb-4 group-hover:text-[#5DBB4D] transition-colors">
+                  {/* Title changed to Dark Charcoal, hovers to Linen Clay */}
+                  <h3 className="relative z-10 text-xl font-serif font-semibold text-[#2C3338] mb-4 group-hover:text-[#D4BCA6] transition-colors">
                     {benefit.title}
                   </h3>
                   
-                  <p className="relative z-10 text-sm text-white/60 leading-relaxed group-hover:text-white/80 transition-colors">
+                  {/* Description changed to Soft Gray */}
+                  <p className="relative z-10 text-sm text-[#596573] leading-relaxed group-hover:text-[#2C3338] transition-colors font-light">
                     {benefit.description}
                   </p>
                 </motion.div>
