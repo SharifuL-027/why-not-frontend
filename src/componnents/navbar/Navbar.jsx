@@ -140,11 +140,9 @@ const Navbar = () => {
                 <div className="w-6 h-6 border-2 border-[#D4BCA6] border-t-transparent rounded-full animate-spin"></div>
               ) : user ? (
                 <div className="flex items-center space-x-4 border-r border-[#2C3338]/20 pr-6">
-                  {user.role === 'ADMIN' ? (
+                  {user.role === 'ADMIN' && (
                     <Link to="/dashboard/admin/why-not-you" className="text-[#596573] hover:text-[#D4BCA6] transition-colors" title="Admin Panel"><AdminIcon /></Link>
-                  ) : (
-                    <Link to="/profile" className="text-[#596573] hover:text-[#D4BCA6] transition-colors" title="My Profile"><ProfileIcon /></Link>
-                  )}
+                  ) }
                   <button onClick={handleLogout} className="text-[#596573] hover:text-red-500 transition-colors" title="Logout"><LogoutIcon /></button>
                 </div>
               ) : (
