@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { 
-fetchImageQuizzesAdmin, setImageQuizStatus, setImageQuizPrice, deleteImageQuiz
- } from "../api/imageQuizAdmin";
-
+  fetchImageQuizzesAdmin, 
+  setImageQuizStatus, 
+  setImageQuizPrice, 
+  deleteImageQuiz 
+} from "../api/imageQuizAdmin";
 
 interface QuizRow {
   _id: string;
@@ -25,7 +27,7 @@ export default function ImageQuizList() {
     setLoading(true);
     fetchImageQuizzesAdmin()
       .then(setQuizzes)
-      .catch((err) => setError(err.message || "তালিকা লোড করা যায়নি।"))
+      .catch((err) => setError(err.message || "Failed to load the list."))
       .finally(() => setLoading(false));
   };
 
@@ -40,7 +42,7 @@ export default function ImageQuizList() {
       await setImageQuizStatus(q.slug, next);
       load();
     } catch (err: any) {
-      alert(err.message || "স্ট্যাটাস পরিবর্তন করা যায়নি।");
+      alert(err.message || "Failed to change status.");
     } finally {
       setBusySlug(null);
     }
@@ -51,7 +53,7 @@ export default function ImageQuizList() {
     if (draft === undefined) return;
     const price = Number(draft);
     if (Number.isNaN(price) || price < 0) {
-      alert("সঠিক দাম দিন।");
+      alert("Please enter a valid price.");
       return;
     }
     setBusySlug(q.slug);
@@ -59,69 +61,88 @@ export default function ImageQuizList() {
       await setImageQuizPrice(q.slug, price);
       load();
     } catch (err: any) {
-      alert(err.message || "দাম আপডেট করা যায়নি।");
+      alert(err.message || "Failed to update price.");
     } finally {
       setBusySlug(null);
     }
   };
 
   const handleDelete = async (q: QuizRow) => {
-    if (!confirm(`"${q.name?.bn}" ডিলিট করবেন? এটা ফেরানো যাবে না।`)) return;
+    if (!confirm(`Are you sure you want to delete "${q.name?.en || q.name?.bn}"? This action cannot be undone.`)) return;
     setBusySlug(q.slug);
     try {
       await deleteImageQuiz(q.slug);
       load();
     } catch (err: any) {
-      alert(err.message || "ডিলিট করা যায়নি।");
+      alert(err.message || "Failed to delete.");
     } finally {
       setBusySlug(null);
     }
   };
 
-  if (loading) return <div className="p-8 text-slate-500">লোড হচ্ছে...</div>;
-  if (error) return <div className="p-8 text-red-600">{error}</div>;
+  if (loading) return <div className="p-8 text-[#4A4A4A] font-medium tracking-wide">Loading...</div>;
+  if (error) return <div className="p-8 text-red-500 font-medium">{error}</div>;
 
   return (
-    <div>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-slate-800">Image Quiz</h1>
+    <div className="w-full max-w-6xl mx-auto px-4 sm:px-0 font-sans pb-16">
+      
+      {/* Header Section */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold font-serif text-[#222222] tracking-wide">
+          Image Quizzes
+        </h1>
         <Link
           to="/dashboard/admin/why-not-you/image-quiz/create"
-          className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2 rounded-lg text-sm"
+          className="bg-[#222222] hover:bg-[#A38771] text-[#F9F6F0] font-bold text-xs uppercase tracking-widest px-6 py-3.5 transition-colors duration-300 rounded-sm shadow-sm whitespace-nowrap text-center"
         >
-          + নতুন Image Quiz
+          + New Image Quiz
         </Link>
       </div>
 
+      {/* Content Section */}
       {quizzes.length === 0 ? (
-        <div className="bg-white border border-slate-200 rounded-2xl p-8 text-center text-slate-500">
-          এখনো কোনো image quiz তৈরি হয়নি।
+        <div className="bg-white border border-[#EFECE5] rounded-sm p-12 text-center text-[#4A4A4A] text-sm shadow-sm">
+          No image quizzes have been created yet.
         </div>
       ) : (
-        <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
-          <table className="w-full text-sm">
-            <thead className="bg-slate-50 text-slate-500 text-xs uppercase">
+        <div className="bg-white border border-[#EFECE5] rounded-sm shadow-sm overflow-x-auto custom-scrollbar">
+          <table className="w-full text-sm text-left whitespace-nowrap">
+            <thead className="bg-[#F9F6F0] text-[#4A4A4A] text-xs uppercase tracking-widest border-b border-[#EFECE5]">
               <tr>
-                <th className="text-left px-4 py-3">নাম</th>
-                <th className="text-left px-4 py-3">Slug</th>
-                <th className="text-left px-4 py-3">প্রশ্ন</th>
-                <th className="text-left px-4 py-3">দাম (৳)</th>
-                <th className="text-left px-4 py-3">স্ট্যাটাস</th>
-                <th className="text-right px-4 py-3">অ্যাকশন</th>
+                <th className="px-6 py-4 font-bold">Name</th>
+                <th className="px-6 py-4 font-bold">Slug</th>
+                <th className="px-6 py-4 font-bold">Questions</th>
+                <th className="px-6 py-4 font-bold">Price (৳)</th>
+                <th className="px-6 py-4 font-bold">Status</th>
+                <th className="px-6 py-4 font-bold text-right">Actions</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-[#EFECE5]">
               {quizzes.map((q) => (
-                <tr key={q._id} className="border-t border-slate-100">
-                  <td className="px-4 py-3 font-medium text-slate-800">{q.name?.bn}</td>
-                  <td className="px-4 py-3 text-slate-500 font-mono text-xs">{q.slug}</td>
-                  <td className="px-4 py-3 text-slate-500">{q.items?.length || 0}</td>
-                  <td className="px-4 py-3">
-                    <div className="flex items-center gap-2">
+                <tr key={q._id} className="hover:bg-[#F9F6F0]/50 transition-colors">
+                  
+                  {/* Name */}
+                  <td className="px-6 py-4 font-bold text-[#222222]">
+                    {q.name?.en || q.name?.bn}
+                  </td>
+                  
+                  {/* Slug */}
+                  <td className="px-6 py-4 text-[#4A4A4A] font-mono text-xs">
+                    {q.slug}
+                  </td>
+                  
+                  {/* Questions Count */}
+                  <td className="px-6 py-4 text-[#4A4A4A] font-bold">
+                    {q.items?.length || 0}
+                  </td>
+                  
+                  {/* Price Update */}
+                  <td className="px-6 py-4">
+                    <div className="flex items-center gap-3">
                       <input
                         type="number"
                         min={0}
-                        className="w-20 border border-slate-200 rounded px-2 py-1"
+                        className="w-20 bg-[#F9F6F0] border border-[#EFECE5] rounded-sm px-3 py-1.5 outline-none focus:border-[#A38771] text-[#222222] transition-colors"
                         placeholder={String(q.price)}
                         value={priceDrafts[q.slug] ?? ""}
                         onChange={(e) =>
@@ -131,38 +152,42 @@ export default function ImageQuizList() {
                       <button
                         disabled={busySlug === q.slug || priceDrafts[q.slug] === undefined}
                         onClick={() => handleSavePrice(q)}
-                        className="text-emerald-700 text-xs font-semibold disabled:opacity-40"
+                        className="text-[#A38771] hover:text-[#222222] text-xs font-bold uppercase tracking-widest disabled:opacity-40 transition-colors"
                       >
-                        সেভ
+                        Save
                       </button>
                     </div>
                   </td>
-                  <td className="px-4 py-3">
+                  
+                  {/* Status Toggle */}
+                  <td className="px-6 py-4">
                     <button
                       disabled={busySlug === q.slug}
                       onClick={() => handleToggleStatus(q)}
-                      className={`text-xs font-bold px-3 py-1 rounded-full ${
+                      className={`text-[10px] font-bold px-3 py-1.5 rounded-sm uppercase tracking-widest transition-colors shadow-sm ${
                         q.status === "published"
-                          ? "bg-emerald-50 text-emerald-700"
-                          : "bg-amber-50 text-amber-700"
+                          ? "bg-[#222222] text-[#F9F6F0] hover:bg-[#4A4A4A]"
+                          : "bg-amber-500/10 text-amber-800 border border-amber-500/30 hover:bg-amber-500/20"
                       }`}
                     >
-                      {q.status === "published" ? "Published" : "Draft"} — টগল
+                      {q.status === "published" ? "Published" : "Draft"}
                     </button>
                   </td>
-                  <td className="px-4 py-3 text-right space-x-3">
+                  
+                  {/* Actions */}
+                  <td className="px-6 py-4 text-right space-x-5">
                     <Link
                       to={`/dashboard/admin/why-not-you/image-quiz/${q.slug}/items`}
-                      className="text-blue-600 text-xs font-semibold"
+                      className="text-[#A38771] hover:text-[#222222] text-xs font-bold uppercase tracking-widest transition-colors"
                     >
-                      প্রশ্ন পরিচালনা
+                      Manage
                     </Link>
                     <button
                       disabled={busySlug === q.slug}
                       onClick={() => handleDelete(q)}
-                      className="text-red-600 text-xs font-semibold"
+                      className="text-red-500 hover:text-red-700 text-xs font-bold uppercase tracking-widest transition-colors disabled:opacity-50"
                     >
-                      ডিলিট
+                      Delete
                     </button>
                   </td>
                 </tr>

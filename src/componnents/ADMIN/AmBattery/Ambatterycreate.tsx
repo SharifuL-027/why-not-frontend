@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 import { createAmBattery } from "../../api/amBatteryAdmin";
 import { AM_BANDS, AM_CONVERGENCE_CHECK, AM_DOMAINS, AM_FIT_STATEMENT_RULE, AM_INSTRUMENTS, AM_NARRATIVE_TEMPLATES } from "./Aminstrumentmeta";
 
@@ -21,7 +20,7 @@ export default function AmBatteryCreate() {
     setError("");
 
     if (!slug.trim() || !nameBn.trim()) {
-      setError("Slug ও বাংলা নাম দেওয়া আবশ্যক।");
+      setError("Slug and Primary Name are required.");
       return;
     }
 
@@ -56,97 +55,120 @@ export default function AmBatteryCreate() {
       const battery = await createAmBattery(payload);
       navigate(`/dashboard/admin/why-not-you/am-battery/${battery.slug}/items`);
     } catch (err: any) {
-      setError(err.message || "Battery তৈরি করা যায়নি।");
+      setError(err.message || "Failed to create the battery.");
     } finally {
       setSaving(false);
     }
   };
 
   return (
-    <div className="max-w-2xl">
-      <h1 className="text-2xl font-bold text-slate-800 mb-6">নতুন Selection Battery</h1>
+    <div className="w-full max-w-2xl px-4 sm:px-0 mx-auto font-sans pb-10">
+      <h1 className="text-2xl sm:text-3xl font-bold font-serif text-[#222222] tracking-wide mb-8">
+        Create New Selection Battery
+      </h1>
 
-      <form onSubmit={handleSubmit} className="bg-white border border-slate-200 rounded-2xl p-6 space-y-5">
+      <form onSubmit={handleSubmit} className="bg-white border border-[#EFECE5] shadow-sm rounded-sm p-6 sm:p-8 space-y-6">
+        
+        {/* Error Message */}
         {error && (
-          <div className="bg-red-50 text-red-700 border border-red-100 rounded-lg px-4 py-2 text-sm">
-            {error}
+          <div className="bg-red-500/10 text-red-700 border border-red-500/30 rounded-sm px-5 py-3 text-sm flex items-start gap-3">
+            <svg className="w-5 h-5 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>{error}</span>
           </div>
         )}
 
         <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-1">Slug (URL-এ ব্যবহৃত হবে)</label>
+          <label className="block text-xs font-bold tracking-widest text-[#4A4A4A] mb-2 uppercase">
+            Slug (Used in URL)
+          </label>
           <input
             value={slug}
             onChange={(e) => setSlug(e.target.value.toLowerCase().replace(/\s+/g, "-"))}
             placeholder="assistant-manager-battery"
-            className="w-full border border-slate-200 rounded-lg px-3 py-2"
+            className="w-full bg-[#F9F6F0] border border-[#EFECE5] text-[#222222] px-4 py-3 outline-none focus:border-[#A38771] transition-colors rounded-sm"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-1">নাম (বাংলা)</label>
+          <label className="block text-xs font-bold tracking-widest text-[#4A4A4A] mb-2 uppercase">
+            Name (Primary)
+          </label>
           <input
             value={nameBn}
             onChange={(e) => setNameBn(e.target.value)}
-            placeholder="অ্যাসিসট্যান্ট ম্যানেজার / মিড-লেভেল ম্যানেজার নির্বাচন ব্যাটারি"
-            className="w-full border border-slate-200 rounded-lg px-3 py-2"
+            placeholder="Assistant Manager / Mid-Level Manager Battery"
+            className="w-full bg-[#F9F6F0] border border-[#EFECE5] text-[#222222] px-4 py-3 outline-none focus:border-[#A38771] transition-colors rounded-sm"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-1">নাম (ইংরেজি, ঐচ্ছিক)</label>
+          <label className="block text-xs font-bold tracking-widest text-[#4A4A4A] mb-2 uppercase">
+            Name (English, Optional)
+          </label>
           <input
             value={nameEn}
             onChange={(e) => setNameEn(e.target.value)}
             placeholder="Assistant Manager / Mid-Level Manager Battery"
-            className="w-full border border-slate-200 rounded-lg px-3 py-2"
+            className="w-full bg-[#F9F6F0] border border-[#EFECE5] text-[#222222] px-4 py-3 outline-none focus:border-[#A38771] transition-colors rounded-sm"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-1">বিবরণ</label>
+          <label className="block text-xs font-bold tracking-widest text-[#4A4A4A] mb-2 uppercase">
+            Description
+          </label>
           <textarea
             value={descBn}
             onChange={(e) => setDescBn(e.target.value)}
-            rows={3}
-            className="w-full border border-slate-200 rounded-lg px-3 py-2"
+            rows={4}
+            className="w-full bg-[#F9F6F0] border border-[#EFECE5] text-[#222222] px-4 py-3 outline-none focus:border-[#A38771] transition-colors rounded-sm resize-none"
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1">দাম (৳)</label>
+            <label className="block text-xs font-bold tracking-widest text-[#4A4A4A] mb-2 uppercase">
+              Price (৳)
+            </label>
             <input
               type="number"
               min={0}
               value={price}
               onChange={(e) => setPrice(e.target.value)}
-              className="w-full border border-slate-200 rounded-lg px-3 py-2"
+              className="w-full bg-[#F9F6F0] border border-[#EFECE5] text-[#222222] px-4 py-3 outline-none focus:border-[#A38771] transition-colors rounded-sm"
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1">Cover Image URL</label>
+            <label className="block text-xs font-bold tracking-widest text-[#4A4A4A] mb-2 uppercase">
+              Cover Image URL
+            </label>
             <input
               value={coverImage}
               onChange={(e) => setCoverImage(e.target.value)}
-              className="w-full border border-slate-200 rounded-lg px-3 py-2"
+              className="w-full bg-[#F9F6F0] border border-[#EFECE5] text-[#222222] px-4 py-3 outline-none focus:border-[#A38771] transition-colors rounded-sm"
             />
           </div>
         </div>
 
-        <div className="bg-amber-50 border border-amber-100 text-amber-800 rounded-lg p-3 text-xs leading-relaxed">
-          ℹ️ Submit করলে ৮টা instrument, ৮টা ডোমেইন, ৫টা band, convergence/fit-statement rule
-          স্বয়ংক্রিয়ভাবে ম্যানুয়েল অনুযায়ী বসে যাবে (draft অবস্থায়)। এরপর পরের পেজে গিয়ে
-          প্রশ্ন (item) যোগ করতে হবে — যতক্ষণ প্রশ্ন না থাকবে ততক্ষণ এটা Publish করবেন না।
+        {/* Info Box */}
+        <div className="bg-amber-500/10 border border-amber-500/30 text-amber-800 rounded-sm p-4 text-xs sm:text-sm leading-relaxed flex items-start gap-3 mt-4">
+          <span className="text-amber-600 mt-0.5">ℹ️</span>
+          <p>
+            Submitting this form will automatically configure the 8 instruments, 8 domains, 5 bands, and convergence/fit-statement rules in draft mode. You will then be redirected to add questions. Please refrain from publishing until all questions are added.
+          </p>
         </div>
 
-        <button
-          type="submit"
-          disabled={saving}
-          className="bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-bold px-6 py-2.5 rounded-lg"
-        >
-          {saving ? "তৈরি হচ্ছে..." : "Battery তৈরি করুন"}
-        </button>
+        <div className="pt-4 border-t border-[#EFECE5]">
+          <button
+            type="submit"
+            disabled={saving}
+            className="w-full sm:w-auto bg-[#222222] hover:bg-[#A38771] disabled:bg-[#EFECE5] disabled:text-[#4A4A4A] disabled:cursor-not-allowed text-[#F9F6F0] font-bold text-xs uppercase tracking-widest px-10 py-4 transition-colors duration-300 rounded-sm shadow-sm"
+          >
+            {saving ? "Creating..." : "Create Battery"}
+          </button>
+        </div>
       </form>
     </div>
   );
