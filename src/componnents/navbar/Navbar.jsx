@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import adminAxios from '../api/adminAxios'; 
+import adminAxios from '../api/adminAxios'; // আপনার API পাথ ঠিক আছে কিনা চেক করবেন
 
 // Reusable SVG Icon Components
-const ArrowRightIcon = () => (
-  <svg className="w-5 h-5 ml-2 -mr-1 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-  </svg>
-);
 
 const AdminIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" /></svg>
@@ -126,17 +121,31 @@ const Navbar = () => {
               </Link>
             </div>
 
+<<<<<<< HEAD
+=======
+            {/* Desktop Top Links */}
+            <div className="hidden md:flex space-x-10 items-center">
+              <Link to="/tests" className="font-medium text-white/80 hover:text-white hover:underline underline-offset-4 decoration-[#ffba12] transition-all text-sm uppercase tracking-wider">
+                Tests
+              </Link>
+              <Link to="/image-quiz" className="font-medium text-white/80 hover:text-white hover:underline underline-offset-4 decoration-[#ffba12] transition-all text-sm uppercase tracking-wider">
+                Image Quiz
+              </Link>
+              <Link to="/selection" className="font-medium text-white/80 hover:text-white hover:underline underline-offset-4 decoration-[#ffba12] transition-all text-sm uppercase tracking-wider">
+                Selection
+              </Link>
+            </div>
+
+>>>>>>> e309ce99c998c2146d7453447277bcdb4d961f9c
             {/* Desktop Auth & Call to Action */}
             <div className="hidden md:flex items-center space-x-6">
               {isLoading ? (
                 <div className="w-6 h-6 border-2 border-[#D4BCA6] border-t-transparent rounded-full animate-spin"></div>
               ) : user ? (
                 <div className="flex items-center space-x-4 border-r border-[#2C3338]/20 pr-6">
-                  {user.role === 'ADMIN' ? (
+                  {user.role === 'ADMIN' && (
                     <Link to="/dashboard/admin/why-not-you" className="text-[#596573] hover:text-[#D4BCA6] transition-colors" title="Admin Panel"><AdminIcon /></Link>
-                  ) : (
-                    <Link to="/profile" className="text-[#596573] hover:text-[#D4BCA6] transition-colors" title="My Profile"><ProfileIcon /></Link>
-                  )}
+                  ) }
                   <button onClick={handleLogout} className="text-[#596573] hover:text-red-500 transition-colors" title="Logout"><LogoutIcon /></button>
                 </div>
               ) : (
