@@ -159,7 +159,7 @@ const Hero = () => {
               transition={{ duration: 0.9, delay: 0.4, ease: "easeOut" }}
             >
               <button 
-  onClick={() => navigate('/assessment')}
+  onClick={() => navigate('/tests')}
   className="bg-[#C8D0C0] text-[#2C3338] px-10 py-4 rounded-sm font-medium text-sm sm:text-base uppercase tracking-widest hover:bg-[#b5bead] hover:scale-105 transition-all duration-300 shadow-[0_8px_20px_rgba(200,208,192,0.3)] hover:shadow-[0_12px_25px_rgba(200,208,192,0.5)]"
 >
   Start Your Assessment

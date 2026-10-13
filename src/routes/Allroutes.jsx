@@ -36,23 +36,12 @@ import ArtTherapy from "../componnents/Pages/ArtTherapy";
 const MainLayout = () => {
   return (
     // পুরো লেআউটটিকে একটি ফ্লেক্স কন্টেইনারে রাখা হয়েছে এবং নেভি ব্লু ব্যাকগ্রাউন্ড দেওয়া হয়েছে
-    <div className="relative min-h-screen bg-[#0A1930] w-full flex flex-col">
+    <div className="relative min-h-screen bg-[#F9F6F0] w-full flex flex-col">
       
-      {/* 
-        Navbar এর ভেতরেই এখন আমাদের সাইডবার (Desktop) এবং টপ মেনু (Mobile) আছে।
-        Navbar নিজে পজিশন করা আছে, তাই এটি এই লেআউটের উপরে রেন্ডার হবে।
-      */}
       <Navbar />
 
-      {/* 
-        Main Content Area:
-        যেহেতু Navbar-এর ডেস্কটপ সাইডবারের প্রস্থ ৩২০px, 
-        তাই আমরা বড় স্ক্রিনে (lg) বাম দিক থেকে ৩২০px প্যাডিং (pl-[320px]) দিচ্ছি।
-        মোবাইলে (lg এর নিচে) সাইডবারটি উপরে থাকে, তাই প্যাডিং লাগবে না (pl-0)।
-      */}
-      <div className="flex-1 flex flex-col lg:pl-[320px] w-full">
+      <div className="flex-1 flex flex-col lg:pl-[320px] w-full pt-[130px] lg:pt-0">
         
-        {/* এই main ট্যাগের ভেতরেই আপনার সবগুলো পেজ (Hero, Tests, Quiz) রেন্ডার হবে */}
         <main className="flex-1 w-full min-h-screen relative">
           <Outlet />
         </main>
@@ -60,7 +49,7 @@ const MainLayout = () => {
         <Footer />
         
       </div>
-    </div>
+</div>
   );
 };
 

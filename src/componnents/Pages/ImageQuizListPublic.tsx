@@ -84,7 +84,7 @@ export default function ImageQuizListPublic() {
       />
       
       {/* Light Overlay */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#FAF7F2]/90 via-[#FAF7F2]/80 to-[#FAF7F2] pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-linear-to-b from-[#FAF7F2]/90 via-[#FAF7F2]/80 to-[#FAF7F2] pointer-events-none" />
 
       {/* =========================================
           MAIN CONTENT WRAPPER (Sidebar Spacing)
@@ -106,7 +106,7 @@ export default function ImageQuizListPublic() {
               </div>
               
               <h1 className="text-3xl md:text-5xl font-medium text-black font-serif tracking-tight drop-shadow-sm">
-                Image-Based Quizzes
+                Intelligence Assessment based Quizzes
               </h1>
             </div>
             

@@ -35,7 +35,7 @@ const Navbar = () => {
     { id: '01', label: 'Home', link: '/' }, 
     { id: '02', label: 'Online Assessment', link: '/tests' },
     { id: '03', label: 'Selection & Recruitment', link: '/selection' },
-    { id: '04', label: 'Image Quiz', link: '/image-quiz' },
+    { id: '04', label: 'Intelligence Assessment', link: '/image-quiz' },
     { id: '05', label: 'Art Therapy', link: '/arttherapy' },
     { id: '06', label: 'Online Counselling', link: '/counselling' },
     { id: '07', label: 'For Young Generation', link: '/young-generation' },
@@ -96,11 +96,11 @@ const Navbar = () => {
       <nav 
         className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out border-b border-[#2C3338]/10 ${
           isScrolled 
-            ? 'bg-[#FAF7F2]/95 backdrop-blur-md shadow-sm py-4' // Morning Ivory
-            : 'bg-[#FAF7F2] py-6'
+            ? 'bg-[#FAF7F2]/95 backdrop-blur-md shadow-sm py-2 lg:py-4'
+            : 'bg-[#FAF7F2] py-3 lg:py-6'
         }`}
       >
-        <div className="w-full px-6 md:px-12 lg:px-20 xl:px-32 max-w-[1600px] mx-auto">
+        <div className="w-full px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32 max-w-[1600px] mx-auto">
           <div className="flex justify-between items-center">
             
             {/* Logo Section */}
@@ -114,18 +114,17 @@ const Navbar = () => {
                 <img 
                   src="https://res.cloudinary.com/dsrs8hryx/image/upload/v1790161331/WhatsApp_Image_2026-08-17_at_12.05.48_AM-removebg-preview_o66w0p.png" 
                   alt="Why Not You Logo" 
-                  className="h-14 sm:h-12 w-auto object-contain shrink-0" 
+                  className="h-10 sm:h-12 w-auto object-contain shrink-0" 
                 />
                 
                 {/* 2. Text Container */}
                 <div className="flex flex-col">
-                  <span className="font-serif font-medium text-[20px] sm:text-xl tracking-tight text-[#2C3338] transition-colors">
+                  <span className="font-serif font-medium text-[18px] sm:text-xl tracking-tight text-[#2C3338] transition-colors">
                     WHY NOT YOU?
                   </span>
                 </div>
               </Link>
             </div>
-
 
             {/* Desktop Auth & Call to Action */}
             <div className="hidden md:flex items-center space-x-6">
@@ -153,7 +152,6 @@ const Navbar = () => {
             >
               <button 
                 onClick={() => navigate('/form')}
-                // Button style matches "Sage Mist" from new palette
                 className="flex items-center justify-center gap-2.5 bg-[#C8D0C0] text-[#2C3338] text-[13px] px-8 py-3.5 rounded-sm font-medium uppercase tracking-widest hover:bg-[#b5bead] transition-all duration-300 shadow-sm"
               >
                 <span>Book a Session</span>
@@ -179,7 +177,6 @@ const Navbar = () => {
       {/* =========================================
           DESKTOP SIDEBAR (Fixed to Left)
           ========================================= */}
-      {/* Background changed to Morning Ivory with border */}
       <aside className="hidden lg:flex fixed left-0 top-0 flex-col w-[320px] bg-[#FAF7F2] h-screen border-r border-[#2C3338]/10 pt-32 px-6 z-40">
         <h3 className="text-xs font-bold tracking-[0.15em] text-[#D4BCA6] uppercase mb-6 ml-4">
           Pages
@@ -193,8 +190,8 @@ const Navbar = () => {
                   to={item.link}
                   className={`w-full flex items-center text-left gap-4 px-4 py-3.5 rounded-sm transition-all duration-300 ${
                     active 
-                      ? 'bg-[#EAEFF0] text-[#2C3338] shadow-sm border border-[#C8D0C0]/50' // Active state (Soft Horizon)
-                      : 'text-[#596573] hover:bg-[#EDE5DA] hover:text-[#2C3338]' // Inactive state
+                      ? 'bg-[#EAEFF0] text-[#2C3338] shadow-sm border border-[#C8D0C0]/50' 
+                      : 'text-[#596573] hover:bg-[#EDE5DA] hover:text-[#2C3338]' 
                   }`}
                 >
                   <span className={`text-sm font-medium ${active ? 'text-[#C8D0C0]' : 'text-[#A0AAB2]'}`}>
@@ -211,36 +208,7 @@ const Navbar = () => {
       </aside>
 
       {/* =========================================
-          MOBILE HORIZONTAL SUB-MENU (Sticky below Top Navbar)
-          ========================================= */}
-      <div className="lg:hidden fixed top-[80px] w-full bg-[#FAF7F2]/95 backdrop-blur-md pt-4 pb-2 px-4 z-40 border-b border-[#2C3338]/10">
-        <div className="flex overflow-x-auto space-x-2 pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none">
-          {menuItems.map((item) => {
-            const active = isActive(item.link);
-            return (
-              <Link
-                key={item.id}
-                to={item.link}
-                className={`shrink-0 flex items-center gap-2 px-4 py-2 rounded-sm transition-all duration-300 ${
-                  active 
-                    ? 'bg-[#EAEFF0] text-[#2C3338] border border-[#C8D0C0]/50' 
-                    : 'bg-[#EDE5DA]/50 text-[#596573] hover:bg-[#EDE5DA]'
-                }`}
-              >
-                <span className={`text-xs font-semibold ${active ? 'text-[#C8D0C0]' : 'text-[#A0AAB2]'}`}>
-                  {item.id}
-                </span>
-                <span className="text-xs font-medium uppercase tracking-wider whitespace-nowrap">
-                  {item.label}
-                </span>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* =========================================
-          FULL-SCREEN MOBILE MENU OVERLAY (For Top Links/Auth)
+          FULL-SCREEN MOBILE MENU OVERLAY (Hamburger Menu)
           ========================================= */}
       <AnimatePresence>
         {isOpen && (
@@ -251,7 +219,8 @@ const Navbar = () => {
             transition={{ type: "tween", duration: 0.3 }}
             className="fixed inset-0 z-[60] bg-[#FAF7F2] flex flex-col"
           >
-            <div className="flex justify-between items-center w-full px-6 py-6 border-b border-[#2C3338]/10">
+            {/* Overlay Header */}
+            <div className="flex justify-between items-center w-full px-6 py-5 border-b border-[#2C3338]/10">
                <Link to="/" className="font-serif font-bold text-xl tracking-tight text-[#2C3338] flex flex-col" onClick={() => setIsOpen(false)}>
                 <span>WHY NOT YOU?</span>
               </Link>
@@ -262,27 +231,53 @@ const Navbar = () => {
               </button>
             </div>
 
-            <div className="flex flex-col flex-1 overflow-y-auto px-8 py-12 space-y-8">
+            {/* Overlay Body (Scrollable) */}
+            <div className="flex flex-col flex-1 overflow-y-auto px-6 py-8 space-y-8">
+              
+              {/* All Menu Links */}
               <div className="flex flex-col space-y-6 border-b border-[#2C3338]/10 pb-8">
-                <Link to="/tests" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-[#2C3338] hover:text-[#D4BCA6] transition-colors flex items-center justify-between">Tests <span className="text-[#A0AAB2]">→</span></Link>
-                <Link to="/image-quiz" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-[#2C3338] hover:text-[#D4BCA6] transition-colors flex items-center justify-between">Image Quiz <span className="text-[#A0AAB2]">→</span></Link>
-                <Link to="/selection" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-[#2C3338] hover:text-[#D4BCA6] transition-colors flex items-center justify-between">Selection <span className="text-[#A0AAB2]">→</span></Link>
+                {menuItems.map((item) => {
+                  const active = isActive(item.link);
+                  return (
+                    <Link 
+                      key={item.id} 
+                      to={item.link} 
+                      onClick={() => setIsOpen(false)} 
+                      className={`flex items-center justify-between transition-colors group ${
+                        active ? 'text-[#D4BCA6]' : 'text-[#2C3338] hover:text-[#D4BCA6]'
+                      }`}
+                    >
+                      <div className="flex items-center gap-4">
+                        <span className={`text-xs font-sans font-bold tracking-widest ${active ? 'text-[#D4BCA6]' : 'text-[#A0AAB2]'}`}>
+                          {item.id}
+                        </span>
+                        <span className="text-xl font-serif leading-tight">
+                          {item.label}
+                        </span>
+                      </div>
+                      <span className={`text-sm transition-transform duration-300 group-hover:translate-x-1 ${active ? 'text-[#D4BCA6]' : 'text-[#A0AAB2]'}`}>
+                        →
+                      </span>
+                    </Link>
+                  );
+                })}
               </div>
 
+              {/* Auth / Profile Links */}
               <div className="flex flex-col space-y-6 pb-8">
                 {isLoading ? (
                    <div className="w-8 h-8 border-2 border-[#D4BCA6] border-t-transparent rounded-full animate-spin"></div>
                 ) : user ? (
                   <>
                     {user.role === 'ADMIN' ? (
-                      <Link to="/dashboard/admin/why-not-you" onClick={() => setIsOpen(false)} className="text-xl text-[#596573] hover:text-[#2C3338] flex items-center gap-3"><AdminIcon /> Admin Panel</Link>
+                      <Link to="/dashboard/admin/why-not-you" onClick={() => setIsOpen(false)} className="text-xl font-serif text-[#596573] hover:text-[#2C3338] flex items-center gap-3"><AdminIcon /> Admin Panel</Link>
                     ) : (
-                      <Link to="/profile" onClick={() => setIsOpen(false)} className="text-xl text-[#596573] hover:text-[#2C3338] flex items-center gap-3"><ProfileIcon /> My Profile</Link>
+                      <Link to="/profile" onClick={() => setIsOpen(false)} className="text-xl font-serif text-[#596573] hover:text-[#2C3338] flex items-center gap-3"><ProfileIcon /> My Profile</Link>
                     )}
-                    <button onClick={() => { handleLogout(); setIsOpen(false); }} className="text-xl text-red-500 hover:text-red-600 text-left flex items-center gap-3"><LogoutIcon /> Logout</button>
+                    <button onClick={() => { handleLogout(); setIsOpen(false); }} className="text-xl font-serif text-red-500 hover:text-red-600 text-left flex items-center gap-3"><LogoutIcon /> Logout</button>
                   </>
                 ) : (
-                  <Link to="/authpage" onClick={() => setIsOpen(false)} className="text-xl text-[#596573] hover:text-[#2C3338] uppercase tracking-wider font-medium">Sign In</Link>
+                  <Link to="/authpage" onClick={() => setIsOpen(false)} className="text-xl font-serif text-[#596573] hover:text-[#2C3338] uppercase tracking-wider font-medium">Sign In</Link>
                 )}
               </div>
             </div>
