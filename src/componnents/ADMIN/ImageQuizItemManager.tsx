@@ -7,7 +7,6 @@ import {
   updateImageQuizItem,
 } from "../api/imageQuizAdmin";
 
-
 const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H"];
 
 interface ImageQuizItemRow {
@@ -38,7 +37,7 @@ export default function ImageQuizItemManager() {
     setLoading(true);
     fetchImageQuizAdmin(slug)
       .then(setQuiz)
-      .catch((err) => setError(err.message || "লোড করা যায়নি।"))
+      .catch((err) => setError(err.message || "Failed to load."))
       .finally(() => setLoading(false));
   };
 
@@ -81,12 +80,12 @@ export default function ImageQuizItemManager() {
 
   const handleDelete = async (itemId: string) => {
     if (!slug) return;
-    if (!confirm(`প্রশ্ন "${itemId}" ডিলিট করবেন?`)) return;
+    if (!confirm(`Are you sure you want to delete question "${itemId}"?`)) return;
     try {
       await deleteImageQuizItem(slug, itemId);
       load();
     } catch (err: any) {
-      alert(err.message || "ডিলিট করা যায়নি।");
+      alert(err.message || "Failed to delete.");
     }
   };
 
@@ -96,11 +95,11 @@ export default function ImageQuizItemManager() {
     setFormError("");
 
     if (!editingId && !file) {
-      setFormError("প্রশ্নের ছবি আবশ্যক।");
+      setFormError("Question image is required.");
       return;
     }
     if (!availableLetters.includes(correctOptionId)) {
-      setFormError("সঠিক উত্তর, অপশন সংখ্যার মধ্যেই বেছে নিতে হবে।");
+      setFormError("Correct answer must be within the available options.");
       return;
     }
 
@@ -125,31 +124,31 @@ export default function ImageQuizItemManager() {
       resetForm();
       load();
     } catch (err: any) {
-      setFormError(err.message || "সেভ করা যায়নি।");
+      setFormError(err.message || "Failed to save.");
     } finally {
       setSaving(false);
     }
   };
 
-  if (loading) return <div className="p-8 text-slate-500">লোড হচ্ছে...</div>;
-  if (error) return <div className="p-8 text-red-600">{error}</div>;
+  if (loading) return <div className="p-8 text-[#4A4A4A] font-medium tracking-wide">Loading...</div>;
+  if (error) return <div className="p-8 text-red-500 font-medium">{error}</div>;
   if (!quiz) return null;
 
   return (
-    <div>
-      <div className="flex items-center justify-between mb-6">
+    <div className="w-full max-w-4xl mx-auto px-4 sm:px-0 font-sans pb-16">
+      <div className="flex items-center justify-between mb-8">
         <div>
           <Link
             to="/dashboard/admin/why-not-you/image-quiz"
-            className="text-xs text-blue-600"
+            className="text-xs text-[#A38771] uppercase tracking-widest font-bold hover:text-[#222222] transition-colors"
           >
-            ← সব Image Quiz
+            ← All Image Quizzes
           </Link>
-          <h1 className="text-2xl font-bold text-slate-800 mt-1">
-            {quiz.name?.bn} — প্রশ্ন পরিচালনা
+          <h1 className="text-2xl sm:text-3xl font-bold font-serif text-[#222222] tracking-wide mt-3">
+            {quiz.name?.en || quiz.name?.bn} — Manage Questions
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
-            মোট {items.length}টা প্রশ্ন যোগ হয়েছে · স্ট্যাটাস: {quiz.status}
+          <p className="text-xs text-[#4A4A4A] mt-2 uppercase tracking-widest font-medium">
+            Total {items.length} questions added <span className="mx-2 text-[#EFECE5]">|</span> Status: {quiz.status}
           </p>
         </div>
       </div>
@@ -157,43 +156,46 @@ export default function ImageQuizItemManager() {
       {/* ---------- Add / Edit form ---------- */}
       <form
         onSubmit={handleSubmit}
-        className="bg-white border border-slate-200 rounded-2xl p-6 mb-8 space-y-4"
+        className="bg-white border border-[#EFECE5] shadow-sm rounded-sm p-6 sm:p-8 mb-10 space-y-6"
       >
-        <h2 className="text-sm font-bold text-slate-800 uppercase tracking-wide">
+        <h2 className="text-sm font-bold text-[#A38771] uppercase tracking-widest border-b border-[#EFECE5] pb-4">
           {editingId
-            ? `প্রশ্ন এডিট করছেন: ${editingId}`
-            : "নতুন প্রশ্ন যোগ করুন"}
+            ? `Editing Question: ${editingId}`
+            : "Add New Question"}
         </h2>
 
         {formError && (
-          <div className="bg-red-50 text-red-700 border border-red-100 rounded-lg px-4 py-2 text-sm">
-            {formError}
+          <div className="bg-red-500/10 text-red-700 border border-red-500/30 rounded-sm px-5 py-3 text-sm flex items-start gap-3">
+            <svg className="w-5 h-5 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>{formError}</span>
           </div>
         )}
 
         <div>
-          <label className="block text-xs font-semibold text-slate-600 mb-1">
-            প্রশ্নের ছবি {editingId && "(না বদলাতে চাইলে খালি রাখুন)"}
+          <label className="block text-xs font-bold tracking-widest text-[#4A4A4A] mb-2 uppercase">
+            Question Image {editingId && <span className="text-gray-400 normal-case tracking-normal ml-1">(Leave empty to keep current)</span>}
           </label>
           <input
             type="file"
             accept="image/*"
             onChange={(e) => handleFileChange(e.target.files?.[0] || null)}
-            className="w-full text-sm"
+            className="w-full text-sm text-[#4A4A4A] file:mr-4 file:py-2 file:px-4 file:rounded-sm file:border-0 file:text-xs file:font-bold file:uppercase file:tracking-widest file:bg-[#EFECE5] file:text-[#222222] hover:file:bg-[#A38771] hover:file:text-white transition-colors cursor-pointer"
           />
           {preview && (
             <img
               src={preview}
               alt="preview"
-              className="mt-3 max-h-64 rounded-lg border border-slate-200"
+              className="mt-4 max-h-64 object-contain rounded-sm border border-[#EFECE5] bg-[#F9F6F0] p-2"
             />
           )}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
-            <label className="block text-xs font-semibold text-slate-600 mb-1">
-              কয়টা অপশন থাকবে
+            <label className="block text-xs font-bold tracking-widest text-[#4A4A4A] mb-2 uppercase">
+              Number of Options
             </label>
             <select
               value={optionsCount}
@@ -204,24 +206,24 @@ export default function ImageQuizItemManager() {
                   setCorrectOptionId(LETTERS[0]);
                 }
               }}
-              className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm"
+              className="w-full bg-[#F9F6F0] border border-[#EFECE5] text-[#222222] px-4 py-3 outline-none focus:border-[#A38771] transition-colors rounded-sm"
             >
               {[2, 3, 4, 5, 6, 7, 8].map((n) => (
                 <option key={n} value={n}>
-                  {n}টা (A–{LETTERS[n - 1]})
+                  {n} Options (A–{LETTERS[n - 1]})
                 </option>
               ))}
             </select>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-600 mb-1">
-              সঠিক উত্তর
+            <label className="block text-xs font-bold tracking-widest text-[#4A4A4A] mb-2 uppercase">
+              Correct Answer
             </label>
             <select
               value={correctOptionId}
               onChange={(e) => setCorrectOptionId(e.target.value)}
-              className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm"
+              className="w-full bg-[#F9F6F0] border border-[#EFECE5] text-[#222222] px-4 py-3 outline-none focus:border-[#A38771] transition-colors rounded-sm"
             >
               {availableLetters.map((l) => (
                 <option key={l} value={l}>
@@ -233,86 +235,94 @@ export default function ImageQuizItemManager() {
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-slate-600 mb-1">
-            ব্যাখ্যা / নোট (ঐচ্ছিক — রেজাল্টে দেখানো হবে)
+          <label className="block text-xs font-bold tracking-widest text-[#4A4A4A] mb-2 uppercase">
+            Explanation / Note <span className="text-gray-400 normal-case tracking-normal ml-1">(Optional — shown in results)</span>
           </label>
           <textarea
             value={noteBn}
             onChange={(e) => setNoteBn(e.target.value)}
-            rows={2}
-            className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm"
+            rows={3}
+            className="w-full bg-[#F9F6F0] border border-[#EFECE5] text-[#222222] px-4 py-3 outline-none focus:border-[#A38771] transition-colors rounded-sm resize-none"
           />
         </div>
 
-        <div className="flex items-center gap-3 pt-2">
+        <div className="flex items-center gap-4 pt-4 border-t border-[#EFECE5]">
           <button
             type="submit"
             disabled={saving}
-            className="bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-bold px-6 py-2 rounded-lg text-sm"
+            className="bg-[#222222] hover:bg-[#A38771] disabled:bg-[#EFECE5] disabled:text-[#4A4A4A] disabled:cursor-not-allowed text-[#F9F6F0] font-bold text-xs uppercase tracking-widest px-8 py-3.5 transition-colors duration-300 rounded-sm shadow-sm"
           >
             {saving
-              ? "সেভ হচ্ছে..."
+              ? "Saving..."
               : editingId
-                ? "আপডেট করুন"
-                : "প্রশ্ন যোগ করুন"}
+                ? "Update Question"
+                : "Add Question"}
           </button>
           {editingId && (
             <button
               type="button"
               onClick={resetForm}
-              className="text-slate-500 text-sm font-semibold"
+              className="text-[#4A4A4A] hover:text-[#222222] text-xs font-bold uppercase tracking-widest transition-colors px-4 py-3.5"
             >
-              বাতিল
+              Cancel
             </button>
           )}
         </div>
       </form>
 
       {/* ---------- Item list ---------- */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {items.map((it) => (
           <div
             key={it.id}
-            className="bg-white border border-slate-200 rounded-xl overflow-hidden"
+            className="bg-white border border-[#EFECE5] rounded-sm overflow-hidden shadow-sm flex flex-col group hover:border-[#A38771] transition-colors duration-300"
           >
-            <img
-              src={it.imageUrl}
-              alt={it.id}
-              className="w-full h-48 object-contain bg-slate-50"
-            />
-            <div className="p-3">
-              <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
-                <span className="font-mono bg-slate-100 px-1.5 py-0.5 rounded">
-                  {it.id}
+            <div className="relative w-full h-48 bg-[#F9F6F0] border-b border-[#EFECE5] p-4 flex items-center justify-center">
+              <img
+                src={it.imageUrl}
+                alt={it.id}
+                className="max-w-full max-h-full object-contain"
+              />
+            </div>
+            
+            <div className="p-5 flex-1 flex flex-col">
+              <div className="flex items-center justify-between mb-4">
+                <span className="font-mono bg-[#EFECE5] px-2 py-1 rounded-sm text-[#222222] text-xs font-bold">
+                  ID: {it.id}
                 </span>
-                <span>
-                  {it.optionsCount} অপশন · সঠিক:{" "}
-                  <b className="text-emerald-700">{it.correctOptionId}</b>
+                <span className="text-[10px] text-[#4A4A4A] uppercase tracking-widest font-bold">
+                  {it.optionsCount} Options <span className="mx-1">|</span> Correct:{" "}
+                  <b className="text-[#A38771] text-sm">{it.correctOptionId}</b>
                 </span>
               </div>
+              
               {it.note_bn && (
-                <p className="text-xs text-slate-500 mb-2">{it.note_bn}</p>
+                <p className="text-sm text-[#4A4A4A] mb-4 leading-relaxed line-clamp-3">
+                  {it.note_bn}
+                </p>
               )}
-              <div className="flex gap-3">
+              
+              <div className="flex gap-6 mt-auto pt-4 border-t border-[#EFECE5]">
                 <button
                   onClick={() => startEdit(it)}
-                  className="text-blue-600 text-xs font-semibold"
+                  className="text-[#A38771] hover:text-[#222222] text-xs font-bold uppercase tracking-widest transition-colors"
                 >
-                  এডিট
+                  Edit
                 </button>
                 <button
                   onClick={() => handleDelete(it.id)}
-                  className="text-red-600 text-xs font-semibold"
+                  className="text-red-500 hover:text-red-700 text-xs font-bold uppercase tracking-widest transition-colors"
                 >
-                  ডিলিট
+                  Delete
                 </button>
               </div>
             </div>
           </div>
         ))}
+        
         {items.length === 0 && (
-          <div className="col-span-2 text-center text-slate-400 text-sm py-8">
-            এখনো কোনো প্রশ্ন যোগ করা হয়নি।
+          <div className="col-span-1 sm:col-span-2 text-center text-[#4A4A4A] text-sm py-12 border border-dashed border-[#EFECE5] rounded-sm bg-white">
+            No questions have been added yet.
           </div>
         )}
       </div>
