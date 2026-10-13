@@ -90,7 +90,7 @@ const Footer = () => {
               </h4>
               <ul className="space-y-3.5">
                 <li>
-                  <Link to="/assessment" className="text-[#4A4A4A] hover:text-[#222222] transition-colors text-sm flex items-center gap-2 group">
+                  <Link to="/tests" className="text-[#4A4A4A] hover:text-[#222222] transition-colors text-sm flex items-center gap-2 group">
                     <span className="w-0 h-[1px] bg-[#A38771] group-hover:w-3 transition-all duration-300" />
                     Take Assessment
                   </Link>
@@ -110,7 +110,7 @@ const Footer = () => {
                 <li>
                   <Link to="/image-quiz" className="text-[#4A4A4A] hover:text-[#222222] transition-colors text-sm flex items-center gap-2 group">
                     <span className="w-0 h-[1px] bg-[#A38771] group-hover:w-3 transition-all duration-300" />
-                    Image Quiz
+                    Intelligence Assessment
                   </Link>
                 </li>
               </ul>
@@ -129,9 +129,9 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/careers" className="text-[#4A4A4A] hover:text-[#222222] transition-colors text-sm flex items-center gap-2 group">
+                  <Link to="/arttherapy" className="text-[#4A4A4A] hover:text-[#222222] transition-colors text-sm flex items-center gap-2 group">
                     <span className="w-0 h-[1px] bg-[#A38771] group-hover:w-3 transition-all duration-300" />
-                    Careers
+                    Art Therapy
                   </Link>
                 </li>
                 <li>

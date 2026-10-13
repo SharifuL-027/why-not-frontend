@@ -121,8 +121,6 @@ const Navbar = () => {
               </Link>
             </div>
 
-<<<<<<< HEAD
-=======
             {/* Desktop Top Links */}
             <div className="hidden md:flex space-x-10 items-center">
               <Link to="/tests" className="font-medium text-white/80 hover:text-white hover:underline underline-offset-4 decoration-[#ffba12] transition-all text-sm uppercase tracking-wider">
@@ -136,7 +134,6 @@ const Navbar = () => {
               </Link>
             </div>
 
->>>>>>> e309ce99c998c2146d7453447277bcdb4d961f9c
             {/* Desktop Auth & Call to Action */}
             <div className="hidden md:flex items-center space-x-6">
               {isLoading ? (
@@ -160,11 +157,16 @@ const Navbar = () => {
               transition={{ duration: 0.9, delay: 0.4, ease: "easeOut" }}
             >
               <button 
-                onClick={() => navigate('/form')}
-                className="flex items-center justify-center gap-2.5 bg-[#C8D0C0] text-[#2C3338] text-[13px] px-8 py-3.5 rounded-sm font-medium uppercase tracking-widest hover:bg-[#b5bead] transition-all duration-300 shadow-sm"
-              >
-                <span>Book a Session</span>
-              </button>
+  onClick={() => {
+    navigate('/counselling'); // প্রথমে Counselling পেজে যাবে
+    setTimeout(() => {
+      document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' });
+    }, 300);
+  }}
+  className="flex items-center justify-center gap-2.5 bg-[#C8D0C0] text-[#2C3338] text-[13px] px-8 py-3.5 rounded-sm font-medium uppercase tracking-widest hover:bg-[#b5bead] transition-all duration-300 shadow-sm"
+>
+  <span>Book a Session</span>
+</button>
             </motion.div>
             </div>
 
