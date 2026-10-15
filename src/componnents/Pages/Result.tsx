@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { fetchResult } from "../api/instruments";
 
 const bandColor: Record<string, string> = {
-  strong: "bg-[#A38771]/10 text-[#A38771] border border-[#A38771]/40",
-  good: "bg-white text-[#222222] border border-[#EFECE5]",
-  explore: "bg-transparent text-[#4A4A4A] border border-[#EFECE5]",
+  strong: "bg-emerald-50 text-emerald-800 border-emerald-200",
+  good: "bg-blue-50 text-blue-800 border-blue-200",
+  explore: "bg-gray-50 text-gray-700 border-gray-200",
 };
 
 function cfiBandClass(label_en: string) {
@@ -15,514 +15,582 @@ function cfiBandClass(label_en: string) {
 }
 
 const rankColor: Record<number, string> = {
-  0: "bg-[#A38771]/10 text-[#A38771] border border-[#A38771]/40",
-  1: "bg-white text-[#222222] border border-[#EFECE5]",
-  2: "bg-transparent text-[#4A4A4A] border border-[#EFECE5]",
-  3: "bg-amber-500/10 text-amber-700 border border-amber-500/30",
-  4: "bg-red-500/10 text-red-600 border border-red-500/30",
+  0: "bg-emerald-50 text-emerald-800 border-emerald-300",
+  1: "bg-teal-50 text-teal-800 border-teal-300",
+  2: "bg-amber-50 text-amber-800 border-amber-300",
+  3: "bg-orange-50 text-orange-800 border-orange-300",
+  4: "bg-rose-50 text-rose-800 border-rose-300",
 };
 
-// ==========================================
-// Global Shared Background for all reports (Light & Minimal)
-// ==========================================
-const SharedBackground = () => (
-  <>
-    <div 
-      className="absolute inset-0 z-0 opacity-10 pointer-events-none"
-      style={{
-        backgroundImage: "url('/watermarked_img_4680048593054709329.jpg')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
-      }}
-    />
-    <div className="absolute inset-0 z-0 bg-[#F9F6F0]" />
-    <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#EFECE5]/80 rounded-full blur-[150px] pointer-events-none z-0"></div>
-    <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#EAEFF0]/60 rounded-full blur-[150px] pointer-events-none z-0"></div>
-  </>
-);
+// Section Container Component
+function Section({ title, icon, children }: { title: string; icon?: React.ReactNode; children: React.ReactNode }) {
+  return (
+    <div className="bg-white border border-[#EAEFF0] p-6 sm:p-8 mt-6 shadow-[0_2px_15px_rgba(0,0,0,0.02)] rounded-md">
+      <div className="text-xs font-bold text-[#A38771] uppercase tracking-[0.18em] mb-6 flex items-center gap-2.5 border-b border-[#EAEFF0] pb-4">
+        {icon || (
+          <span className="w-2 h-2 rounded-full bg-[#A38771]" />
+        )}
+        <span>{title}</span>
+      </div>
+      <div className="text-[#4A4A4A] text-sm leading-relaxed">{children}</div>
+    </div>
+  );
+}
 
 export default function Result() {
   const { responseId } = useParams<{ responseId: string }>();
-  const [result, setResult] = useState<Record<string, any> | null>(null);
+  const [data, setData] = useState<{ result: any; response?: any } | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
     if (!responseId) return;
     fetchResult(responseId)
-      .then((res) => setResult(res.result))
+      .then((res) => {
+        setData(res);
+      })
       .catch((err) => {
         if (err?.response?.status === 402) {
           setError("Payment is required to view this report.");
         } else {
-          setError("Report not found.");
+          setError("Assessment report could not be found.");
         }
       })
       .finally(() => setLoading(false));
   }, [responseId]);
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   if (loading) {
     return (
-      <div className="relative w-full h-screen flex flex-col items-center justify-center bg-[#F9F6F0] lg:pl-[50px] overflow-hidden">
-        <SharedBackground />
-        <div className="w-16 h-16 relative flex items-center justify-center animate-[spin_4s_linear_infinite] z-10">
-          <svg className="w-10 h-10 text-[#A38771]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M20 4C20 4 14 3 9 8C4 13 4 20 4 20C4 20 11 20 16 15C21 10 20 4 20 4ZM4 20L10 14" />
-          </svg>
-        </div>
-        <p className="mt-6 text-[#A38771] font-bold tracking-[0.2em] uppercase text-sm z-10">
-          Generating Report...
+      <div className="relative w-full min-h-screen flex flex-col items-center justify-center bg-[#FAF7F2] lg:pl-[50px]">
+        <div className="w-12 h-12 border-3 border-[#A38771] border-t-transparent rounded-full animate-spin mb-4" />
+        <p className="text-[#2C3338] font-serif font-bold tracking-widest uppercase text-sm">
+          Compiling Psychological Assessment Report...
         </p>
       </div>
     );
   }
 
-  if (error || !result) {
+  if (error || !data?.result) {
     return (
-      <div className="relative w-full h-screen flex flex-col items-center justify-center bg-[#F9F6F0] lg:pl-[50px] overflow-hidden px-4">
-        <SharedBackground />
-        <div className="bg-white border border-red-200 px-8 py-8 flex flex-col items-center gap-4 shadow-sm relative z-10 text-center rounded-sm">
-          <svg className="w-10 h-10 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M12 8v4m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-          </svg>
-          <span className="text-[#222222] font-serif text-lg tracking-wide">{error}</span>
+      <div className="relative w-full min-h-screen flex flex-col items-center justify-center bg-[#FAF7F2] lg:pl-[50px] px-4">
+        <div className="bg-white border border-red-200 px-8 py-10 max-w-md w-full text-center shadow-sm rounded-md">
+          <div className="w-12 h-12 rounded-full bg-red-50 text-red-500 mx-auto flex items-center justify-center mb-4 text-xl font-bold">
+            !
+          </div>
+          <h2 className="text-xl font-serif font-bold text-[#2C3338] mb-2">Notice</h2>
+          <p className="text-sm text-[#596573] mb-6">{error || "Unable to display report."}</p>
+          <Link
+            to="/tests"
+            className="inline-block bg-[#2C3338] text-white text-xs font-bold uppercase tracking-wider py-3 px-6 rounded-sm hover:bg-black transition-colors"
+          >
+            Back to Assessment Directory
+          </Link>
         </div>
       </div>
     );
   }
 
+  const result = data.result;
+  const participantInfo = data.response?.personalInfo;
+  const submittedDate = data.response?.submittedAt
+    ? new Date(data.response.submittedAt).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+
   return (
-    <div className="relative min-h-screen bg-[#F9F6F0] lg:pl-[50px] pt-24 pb-20 overflow-hidden flex flex-col">
-      <SharedBackground />
-      <div className="w-full relative z-10 flex-1">
-        {result.scoringType === "vector_matching" && <CfiReport r={result} />}
+    <div className="relative min-h-screen bg-[#FAF7F2] lg:pl-[50px] pt-24 pb-20 px-4 sm:px-6">
+      {/* Top Action Header (Hidden on print) */}
+      <div className="max-w-4xl mx-auto mb-6 flex flex-col sm:flex-row justify-between items-center gap-4 print:hidden">
+        <Link
+          to="/tests"
+          className="text-xs font-bold uppercase tracking-widest text-[#596573] hover:text-[#2C3338] flex items-center gap-2 transition-colors"
+        >
+          ← Assessment Directory
+        </Link>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={handlePrint}
+            className="bg-[#2C3338] hover:bg-black text-white text-xs font-bold uppercase tracking-wider py-2.5 px-5 rounded-sm transition-all flex items-center gap-2 shadow-sm"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zM9 9h6a2 2 0 002-2V4a2 2 0 00-2-2H9a2 2 0 00-2 2v3a2 2 0 002 2z" />
+            </svg>
+            <span>Download / Print PDF</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Main Report Container */}
+      <div className="max-w-4xl mx-auto bg-white border border-[#EAEFF0] shadow-[0_10px_40px_rgba(0,0,0,0.04)] rounded-md overflow-hidden p-6 sm:p-12 print:border-none print:shadow-none print:p-0">
+        
+        {/* Clinical Document Header */}
+        <div className="border-b border-[#EAEFF0] pb-8 mb-8">
+          <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#5DBB4D]" />
+                <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#A38771]">
+                  Why Not You Psychometric Services
+                </span>
+              </div>
+              <h1 className="text-2xl sm:text-3xl font-serif font-bold text-[#2C3338] tracking-tight">
+                Psychometric Evaluation Report
+              </h1>
+              <p className="text-xs text-[#7A8691] mt-1">
+                Standardized Clinical Screening & Assessment Instrument
+              </p>
+            </div>
+
+            <div className="text-left sm:text-right text-xs text-[#596573] border-l-2 sm:border-l-0 sm:border-r-2 border-[#A38771] pl-3 sm:pl-0 sm:pr-3 py-1">
+              <div><span className="font-semibold text-[#2C3338]">Report ID:</span> WNY-{responseId?.slice(-6).toUpperCase()}</div>
+              <div><span className="font-semibold text-[#2C3338]">Date Issued:</span> {submittedDate}</div>
+              <div><span className="font-semibold text-[#2C3338]">Status:</span> Completed & Verified</div>
+            </div>
+          </div>
+
+          {/* Participant Profile Card */}
+          {participantInfo && (
+            <div className="mt-6 p-4 sm:p-5 bg-[#FAF7F2] border border-[#EAEFF0] rounded-sm grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+              <div>
+                <span className="text-[#7A8691] uppercase tracking-wider block font-semibold text-[10px]">Participant</span>
+                <span className="font-bold text-[#2C3338] text-sm mt-0.5 block">{participantInfo.name || "Anonymous"}</span>
+              </div>
+              <div>
+                <span className="text-[#7A8691] uppercase tracking-wider block font-semibold text-[10px]">Email Record</span>
+                <span className="text-[#2C3338] font-medium mt-0.5 block truncate">{participantInfo.email || "Confidential"}</span>
+              </div>
+              <div>
+                <span className="text-[#7A8691] uppercase tracking-wider block font-semibold text-[10px]">Age Range</span>
+                <span className="text-[#2C3338] font-medium mt-0.5 block">{participantInfo.age || "18+"}</span>
+              </div>
+              <div>
+                <span className="text-[#7A8691] uppercase tracking-wider block font-semibold text-[10px]">Gender</span>
+                <span className="text-[#2C3338] font-medium mt-0.5 block">{participantInfo.gender || "Not specified"}</span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Dynamic Test Specific Results */}
         {result.scoringType === "sum_and_band" && <FadssReport r={result} />}
+        {result.scoringType === "vector_matching" && <CfiReport r={result} />}
         {result.scoringType === "domain_pomp_composite" && <PcsReport r={result} />}
         {result.scoringType === "domain_mean_average" && <RrsReport r={result} />}
         {result.scoringType === "mcrrs_triage" && <McrrsReport r={result} />}
-        
-        {!["vector_matching", "sum_and_band", "domain_pomp_composite", "domain_mean_average", "mcrrs_triage"].includes(result.scoringType) && (
-          <div className="p-16 text-center text-[#4A4A4A]">Unknown report type.</div>
+
+        {/* Legal & Clinical Disclaimer Footer */}
+        <div className="mt-12 pt-6 border-t border-[#EAEFF0] text-[11px] text-[#7A8691] leading-relaxed">
+          <p className="mb-2">
+            <span className="font-bold text-[#2C3338]">Clinical & Legal Disclaimer:</span> This assessment report is compiled from self-report psychometric instruments and serves exclusively for screening, self-reflection, and developmental insight. It does not constitute a formal psychiatric diagnosis, clinical prognosis, or custodial/legal judgment.
+          </p>
+          <p>© {new Date().getFullYear()} Why Not You Assessment Center. Payment & response logs are stored in encrypted form in accordance with applicable privacy legislation.</p>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+/* =========================================================================
+   1. FADSS DETAILED REPORT (Frustration, Anxiety, Depression, Stress Scale)
+   ========================================================================= */
+function FadssReport({ r }: { r: Record<string, any> }) {
+  const constructKeys = Object.keys(r.constructResults);
+  const overallRank = r.overallState?.rank ?? 0;
+
+  return (
+    <div className="space-y-6">
+      {/* Overall Mental State Severity Banner */}
+      <div className={`p-6 sm:p-8 border rounded-sm text-center ${rankColor[overallRank]}`}>
+        <span className="text-xs font-bold uppercase tracking-[0.2em] opacity-80 block mb-2">
+          Overall Mental Wellbeing State
+        </span>
+        <h2 className="text-2xl sm:text-3xl font-serif font-bold mb-3">
+          {r.overallState?.label_en || r.overallState?.label_bn}
+        </h2>
+        <p className="text-sm max-w-2xl mx-auto leading-relaxed">
+          {r.overallState?.message_en || r.overallState?.message_bn}
+        </p>
+
+        {r.dominant?.length > 0 && (
+          <div className="mt-4 pt-3 border-t border-current/20 inline-block text-xs font-semibold tracking-wider uppercase">
+            Primary Area of Impact: <span className="underline font-bold">{r.dominant.join(", ")}</span>
+          </div>
         )}
       </div>
-    </div>
-  );
-}
 
-// ==========================================
-// Section Wrapper Component (Refined Style)
-// ==========================================
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div className="bg-white border border-[#EFECE5] p-6 sm:p-8 mt-6 shadow-sm rounded-sm">
-      <div className="text-xs font-bold text-[#A38771] uppercase tracking-widest mb-6 flex items-center gap-3 border-b border-[#EFECE5] pb-4">
-        <svg className="w-4 h-4 shrink-0 text-[#A38771]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M20 4C20 4 14 3 9 8C4 13 4 20 4 20C4 20 11 20 16 15C21 10 20 4 20 4ZM4 20L10 14" />
-        </svg>
-        {title}
-      </div>
-      <div className="text-[#4A4A4A] text-sm">{children}</div>
-    </div>
-  );
-}
-
-/* ================= CFI-BD REPORT ================= */
-function CfiReport({ r }: { r: Record<string, any> }) {
-  const codeEn = r.hollandCode.map((t: string) => r.typeLabels_en?.[t] || r.typeLabels_bn?.[t] || t).join(" · ");
-
-  return (
-    <div className="pb-16 max-w-3xl mx-auto px-4 sm:px-6">
-      <div className="bg-white border border-[#EFECE5] text-[#222222] text-center px-6 py-12 mb-8 shadow-sm rounded-sm">
-        <div className="text-xs uppercase tracking-[0.2em] text-[#A38771] font-bold mb-4">
-          Your Profile
+      {/* Referral & Crisis Note if flagged */}
+      {(r.referral || r.crisisNote) && (
+        <div className="bg-rose-50 border border-rose-300 text-rose-900 p-6 rounded-sm text-sm leading-relaxed space-y-2">
+          {r.referral && (
+            <p className="font-medium">
+              ⚠️ <span className="font-bold">Consultation Recommended:</span> {r.referral}
+            </p>
+          )}
+          {r.crisisNote && (
+            <p className="bg-white/80 p-3 rounded-sm border border-rose-200 text-xs">
+              🆘 {r.crisisNote}
+            </p>
+          )}
         </div>
-        <h1 className="text-3xl font-bold mb-6 font-serif tracking-wide text-[#222222]">{codeEn}</h1>
-        <div className="flex justify-center gap-2">
-          {r.hollandCode.map((t: string) => (
+      )}
+
+      {/* 4 Constructs Comparative Grid */}
+      <Section title="Comparative Psychological Domain Analysis">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {constructKeys.map((key) => {
+            const cr = r.constructResults[key];
+            const pct = cr.score !== null ? (cr.score / cr.maxScore) * 100 : 0;
+            const rank = cr.band?.rank ?? 0;
+
+            return (
+              <div key={key} className="bg-[#FAF7F2] p-5 border border-[#EAEFF0] rounded-sm flex flex-col justify-between">
+                <div>
+                  <div className="flex justify-between items-start mb-2">
+                    <span className="font-serif font-bold text-base text-[#2C3338]">
+                      {cr.name_en || cr.name_bn}
+                    </span>
+                    <span className="font-mono font-bold text-sm text-[#A38771]">
+                      {cr.score ?? "—"} <span className="text-gray-400 font-normal">/ {cr.maxScore}</span>
+                    </span>
+                  </div>
+
+                  {/* Severity Bar */}
+                  <div className="h-2 bg-[#EAEFF0] rounded-full overflow-hidden mb-3">
+                    <div
+                      className={`h-full transition-all duration-500 ${
+                        rank >= 3 ? "bg-rose-500" : rank === 2 ? "bg-amber-500" : "bg-[#5DBB4D]"
+                      }`}
+                      style={{ width: `${pct}%` }}
+                    />
+                  </div>
+                </div>
+
+                <div className="flex justify-between items-center text-xs">
+                  <span className="text-[#7A8691]">Severity Band:</span>
+                  <span className={`px-2.5 py-0.5 font-bold uppercase tracking-wider rounded-sm text-[11px] border ${rankColor[rank]}`}>
+                    {cr.band?.label_en || cr.band?.label_bn}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </Section>
+
+      {/* Interpretations and Action Steps */}
+      <Section title="Domain Interpretations & Evidence-Based Guidance">
+        <div className="space-y-6">
+          {constructKeys.map((key) => {
+            const cr = r.constructResults[key];
+            if (!cr.interpretation) return null;
+
+            return (
+              <div key={key} className="border-b border-[#EAEFF0] pb-6 last:border-b-0 last:pb-0">
+                <div className="flex items-center gap-3 mb-2">
+                  <h3 className="font-serif font-bold text-base text-[#2C3338]">
+                    {cr.name_en || cr.name_bn}
+                  </h3>
+                  <span className="text-xs text-[#7A8691]">·</span>
+                  <span className="text-xs font-bold text-[#A38771] uppercase tracking-wider">
+                    {cr.band?.label_en || cr.band?.label_bn}
+                  </span>
+                </div>
+
+                <p className="text-sm text-[#596573] leading-relaxed mb-4">
+                  {cr.interpretation.en || cr.interpretation.bn}
+                </p>
+
+                {(cr.interpretation.actions_en || cr.interpretation.actions_bn)?.length > 0 && (
+                  <div className="bg-[#FAF7F2] p-4 rounded-sm border border-[#EAEFF0]">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#2C3338] block mb-2">
+                      Recommended Action Steps:
+                    </span>
+                    <ul className="space-y-1.5 text-xs text-[#596573]">
+                      {(cr.interpretation.actions_en || cr.interpretation.actions_bn).map((act: string, i: number) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <span className="text-[#A38771] mt-0.5">✔</span>
+                          <span>{act}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </Section>
+
+      {/* Helplines Directory */}
+      {r.helplines?.length > 0 && (
+        <Section title="Immediate Mental Health Support & Helplines">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {r.helplines.map((h: any, i: number) => (
+              <div key={i} className="p-4 bg-[#FAF7F2] border border-[#EAEFF0] rounded-sm flex justify-between items-center">
+                <div>
+                  <div className="font-bold text-xs text-[#2C3338] mb-0.5">{h.name_en || h.name_bn}</div>
+                  <div className="text-[11px] text-[#7A8691]">{h.hours_en || h.hours_bn || "Support Service"}</div>
+                </div>
+                <a
+                  href={`tel:${h.number}`}
+                  className="px-3 py-1.5 bg-[#2C3338] text-white font-mono text-xs font-bold rounded-sm hover:bg-black transition-colors"
+                >
+                  {h.number}
+                </a>
+              </div>
+            ))}
+          </div>
+        </Section>
+      )}
+    </div>
+  );
+}
+
+/* =========================================================================
+   2. CFI-BD DETAILED REPORT (Career Fit Inventory - Bangladesh)
+   ========================================================================= */
+function CfiReport({ r }: { r: Record<string, any> }) {
+  const codeEn = r.hollandCode
+    ?.map((t: string) => r.typeLabels_en?.[t] || r.typeLabels_bn?.[t] || t)
+    .join(" · ");
+
+  return (
+    <div className="space-y-6">
+      {/* Holland RIASEC Header Card */}
+      <div className="p-6 sm:p-8 bg-[#FAF7F2] border border-[#EAEFF0] text-center rounded-sm">
+        <span className="text-xs uppercase tracking-[0.2em] text-[#A38771] font-bold block mb-2">
+          Your Primary Occupational Profile
+        </span>
+        <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#2C3338] mb-4">
+          Holland Code: {r.hollandCode?.join("")} ({codeEn})
+        </h2>
+
+        <div className="flex justify-center gap-2 mb-4">
+          {r.hollandCode?.map((code: string) => (
             <span
-              key={t}
-              className="w-10 h-10 border border-[#EFECE5] bg-[#F9F6F0] flex items-center justify-center font-mono font-bold text-lg text-[#222222] rounded-sm"
+              key={code}
+              className="w-12 h-12 bg-white border border-[#EAEFF0] text-[#2C3338] font-mono font-bold text-lg rounded-sm flex items-center justify-center shadow-sm"
             >
-              {t}
+              {code}
             </span>
           ))}
         </div>
-        <div className="text-xs text-[#4A4A4A] mt-6 tracking-widest uppercase">
-          Track {r.track} <span className="mx-2 text-[#EFECE5]">|</span> 
-          Clarity {r.clarity.toFixed(1)} ({r.clarityVerdict}) <span className="mx-2 text-[#EFECE5]">|</span> 
-          Coherence {r.coherence}/3
+
+        <div className="text-xs text-[#7A8691] flex justify-center gap-4">
+          <span>Clarity: <strong className="text-[#2C3338]">{r.clarity?.toFixed(1)}</strong></span>
+          <span>Coherence: <strong className="text-[#2C3338]">{r.coherence}/3</strong></span>
+          <span>Track: <strong className="text-[#2C3338]">{r.track}</strong></span>
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto">
-        {r.clarityVerdict === "FLAT" ? (
-          <div className="bg-amber-500/10 border border-amber-500/30 p-6 mt-6 rounded-sm">
-            <p className="text-sm text-amber-800 leading-relaxed">
-              Your interest patterns are not yet distinct enough — therefore specific career matches are not being displayed. We suggest exploring further interests and re-taking the assessment.
-            </p>
-          </div>
-        ) : (
-          <>
-            <Section title="Interests & Confidence">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="text-xs text-[#4A4A4A] uppercase tracking-widest border-b border-[#EFECE5]">
-                    <th className="text-left pb-3 font-medium">Type</th>
-                    <th className="text-right pb-3 font-medium">Interest</th>
-                    <th className="text-right pb-3 font-medium">Confidence</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Object.keys(r.typeLabels_bn || r.typeLabels_en || {}).map((t) => (
-                    <tr key={t} className="border-b border-[#EFECE5] hover:bg-[#F9F6F0] transition-colors">
-                      <td className="py-4 text-[#222222]">{r.typeLabels_en?.[t] || r.typeLabels_bn?.[t] || t}</td>
-                      <td className="py-4 text-right font-mono text-[#A38771]">{r.interest[t].toFixed(1)}</td>
-                      <td className="py-4 text-right font-mono text-[#222222]">{r.confidence[t].toFixed(1)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </Section>
+      {/* Interests & Confidence Table */}
+      <Section title="Interest vs. Confidence Dimensions">
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs sm:text-sm text-left">
+            <thead>
+              <tr className="border-b border-[#EAEFF0] text-[#7A8691] uppercase tracking-wider text-[11px]">
+                <th className="py-2.5 font-bold">Holland Type</th>
+                <th className="py-2.5 text-right font-bold">Interest (0–100)</th>
+                <th className="py-2.5 text-right font-bold">Confidence (0–100)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.keys(r.typeLabels_en || r.typeLabels_bn || {}).map((t) => (
+                <tr key={t} className="border-b border-[#EAEFF0] hover:bg-[#FAF7F2] transition-colors">
+                  <td className="py-3 font-semibold text-[#2C3338]">
+                    {r.typeLabels_en?.[t] || r.typeLabels_bn?.[t]} ({t})
+                  </td>
+                  <td className="py-3 text-right font-mono font-bold text-[#A38771]">
+                    {r.interest?.[t]?.toFixed(1)}
+                  </td>
+                  <td className="py-3 text-right font-mono font-medium text-[#2C3338]">
+                    {r.confidence?.[t]?.toFixed(1)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Section>
 
-            <Section title="Work Values">
-              <table className="w-full text-sm">
-                <tbody>
-                  {Object.keys(r.valueLabels_bn || r.valueLabels_en || {}).map((v) => (
-                    <tr key={v} className="border-b border-[#EFECE5] hover:bg-[#F9F6F0] transition-colors">
-                      <td className="py-4 text-[#222222]">{r.valueLabels_en?.[v] || r.valueLabels_bn?.[v] || v}</td>
-                      <td className="py-4 text-right font-mono text-[#A38771]">{r.values[v].toFixed(1)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </Section>
-
-            <Section title={`Matching Careers (${r.matches.length})`}>
-              <div className="flex flex-col gap-3">
-                {r.matches.map((m: any, i: number) => (
-                  <div key={i} className="flex justify-between items-center bg-[#F9F6F0] border border-[#EFECE5] px-5 py-4 rounded-sm">
-                    <div>
-                      <div className="font-semibold text-base text-[#222222] mb-1">{m.name_en || m.name_bn}</div>
-                      <div className="text-xs text-[#4A4A4A] tracking-widest uppercase">{m.cluster}</div>
-                    </div>
-                    <div className="text-right flex flex-col items-end gap-2">
-                      <div className="font-mono font-bold text-[#A38771] text-lg">
-                        {m.match.toFixed(1)}
-                      </div>
-                      <span className={`text-[10px] font-bold px-3 py-1 uppercase tracking-widest rounded-sm ${cfiBandClass(m.band.label_en)}`}>
-                        {m.band.label_en || m.band.label_bn}
-                      </span>
-                    </div>
-                  </div>
-                ))}
+      {/* Matched Careers */}
+      <Section title={`Top Career Pathways (${r.matches?.length || 0} Matches)`}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          {r.matches?.map((m: any, i: number) => (
+            <div key={i} className="p-4 bg-[#FAF7F2] border border-[#EAEFF0] rounded-sm flex justify-between items-center">
+              <div>
+                <h4 className="font-bold text-sm text-[#2C3338] mb-0.5">{m.name_en || m.name_bn}</h4>
+                <span className="text-[11px] text-[#7A8691] uppercase tracking-wider block">{m.cluster}</span>
               </div>
-            </Section>
-
-            {r.training?.length > 0 && (
-              <Section title="Training Recommendations">
-                {r.training.map((t: any, i: number) => (
-                  <div key={i} className="mb-6 last:mb-0">
-                    <h4 className="text-sm font-bold text-[#A38771] mb-3 uppercase tracking-widest">{t.cluster}</h4>
-                    {t.entries.map((e: any, j: number) => (
-                      <div key={j} className="text-sm text-[#4A4A4A] mb-2 border-l-2 border-[#A38771] pl-3 py-1">
-                        <b className="text-[#222222]">{e.en || e.bn}</b> — {e.provider} <span className="text-gray-400">({e.kind}, {e.dur})</span>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </Section>
-            )}
-
-            {r.crossCuttingSkills?.length > 0 && (
-              <Section title="Additional Skill Suggestions">
-                {r.crossCuttingSkills.map((s: any, i: number) => (
-                  <div key={i} className="bg-[#F9F6F0] border border-[#EFECE5] px-5 py-4 mb-3 rounded-sm">
-                    <b className="text-sm text-[#A38771] block mb-1">{s.name_en || s.name_bn}</b>
-                    <span className="text-xs text-[#4A4A4A] uppercase tracking-widest">{s.provider}</span>
-                    <div className="text-sm text-[#4A4A4A] mt-2 leading-relaxed">{s.why_en || s.why}</div>
-                  </div>
-                ))}
-              </Section>
-            )}
-
-            {r.overseas && (
-              <Section title="Overseas Opportunities">
-                {r.overseas.sections.map((sec: any, i: number) => (
-                  <div key={i} className="mb-6">
-                    <h4 className="text-sm font-bold text-[#A38771] mb-3 uppercase tracking-widest">{sec.cluster}</h4>
-                    {sec.routes.map((route: any, j: number) => (
-                      <div key={j} className="border border-[#EFECE5] bg-[#F9F6F0] p-4 mb-3 rounded-sm">
-                        <div className="text-base font-bold text-[#222222] mb-1">{route.t}</div>
-                        <div className="text-xs text-[#4A4A4A] tracking-widest uppercase mb-2">{route.auth}</div>
-                        <div className="text-sm text-[#4A4A4A] leading-relaxed">{route.scope}</div>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-
-                {r.overseas.weakEnglish && (
-                  <p className="text-sm text-amber-800 mb-4 bg-amber-500/10 p-4 border border-amber-500/30 rounded-sm">
-                    Nearly all overseas pathways require language proficiency — English language skills take precedence over technical training.
-                  </p>
-                )}
-
-                {r.overseas.showScholarships && (
-                  <>
-                    <h4 className="text-sm font-bold text-[#A38771] mb-3 mt-6 uppercase tracking-widest">Scholarships</h4>
-                    {r.overseas.scholarships.map((s: any, i: number) => (
-                      <div key={i} className="border border-[#EFECE5] bg-[#F9F6F0] p-4 mb-3 rounded-sm">
-                        <div className="text-base font-bold text-[#222222] mb-1">{s.name}</div>
-                        <div className="text-xs text-[#4A4A4A] tracking-widest uppercase mb-2">{s.where}</div>
-                        <div className="text-sm text-[#4A4A4A] leading-relaxed">{s.note}</div>
-                      </div>
-                    ))}
-                  </>
-                )}
-
-                <div className="bg-red-500/10 border border-red-500/30 text-red-700 p-4 text-sm leading-relaxed mt-4 rounded-sm">
-                  ⚠ {r.overseas.fraudWarning_en || r.overseas.fraudWarning_bn || "Warning regarding potential visa or placement fraud."}
-                </div>
-              </Section>
-            )}
-
-            {r.gaps?.length > 0 && (
-              <Section title="Interest-Confidence Gaps">
-                {r.gaps.map((g: any, i: number) => (
-                  <div key={i} className="bg-[#F9F6F0] border-l-2 border-[#A38771] p-4 text-sm text-[#4A4A4A] mb-3 rounded-sm">
-                    {g.message_en || g.message_bn}
-                  </div>
-                ))}
-              </Section>
-            )}
-          </>
-        )}
-
-        <div className="bg-amber-500/10 border border-amber-500/30 text-amber-800 p-5 text-sm leading-relaxed mt-8 rounded-sm">
-          ⚠ This report is intended as a starting point for discussion, not a final verdict. CFI-BD local benchmarks are ongoing.
+              <div className="text-right">
+                <span className="font-mono font-bold text-base text-[#A38771] block">
+                  {m.match?.toFixed(1)}%
+                </span>
+                <span className={`text-[10px] font-bold px-2 py-0.5 uppercase tracking-wider border rounded-sm ${cfiBandClass(m.band?.label_en)}`}>
+                  {m.band?.label_en || m.band?.label_bn}
+                </span>
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
+      </Section>
+
+      {/* Cross-Cutting Skills & Training */}
+      {r.crossCuttingSkills?.length > 0 && (
+        <Section title="High-Priority Skill Recommendations">
+          <div className="space-y-3">
+            {r.crossCuttingSkills.map((s: any, i: number) => (
+              <div key={i} className="p-4 bg-[#FAF7F2] border border-[#EAEFF0] rounded-sm">
+                <div className="flex justify-between items-start mb-1">
+                  <h4 className="font-bold text-xs text-[#2C3338] uppercase tracking-wider">{s.name_en || s.name_bn}</h4>
+                  <span className="text-[11px] text-[#7A8691] font-mono">{s.provider}</span>
+                </div>
+                <p className="text-xs text-[#596573] leading-relaxed mt-1">
+                  Targeted developmental priority aligned with your interest profile.
+                </p>
+              </div>
+            ))}
+          </div>
+        </Section>
+      )}
+
+      {/* Overseas Pathways if triggered */}
+      {r.overseas && (
+        <Section title="Overseas Employment Opportunities & Precautions">
+          <div className="space-y-4">
+            <div className="bg-amber-50 border border-amber-200 text-amber-900 p-4 rounded-sm text-xs leading-relaxed">
+              ⚠️ {r.overseas.fraudWarning_en || r.overseas.fraudWarning_bn}
+            </div>
+            {r.overseas.sections?.map((sec: any, i: number) => (
+              <div key={i} className="p-4 bg-[#FAF7F2] border border-[#EAEFF0] rounded-sm">
+                <h4 className="font-bold text-xs text-[#A38771] uppercase tracking-wider mb-2">{sec.cluster}</h4>
+                <div className="space-y-2">
+                  {sec.routes?.map((rt: any, j: number) => (
+                    <div key={j} className="text-xs text-[#2C3338]">
+                      <strong>{rt.t}</strong> — <span className="text-[#7A8691]">{rt.scope}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+      )}
     </div>
   );
 }
 
-/* ================= FADSS REPORT ================= */
-function FadssReport({ r }: { r: Record<string, any> }) {
-  const constructKeys = Object.keys(r.constructResults);
+/* =========================================================================
+   3. PCS-BD DETAILED REPORT (Parenting Capability Scale - Bangladesh)
+   ========================================================================= */
+function PcsReport({ r }: { r: Record<string, any> }) {
+  const domainKeys = Object.keys(r.domainResults || {});
 
   return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 pb-16">
-      <div className="mt-8 mb-8 text-center bg-white border border-[#EFECE5] p-8 shadow-sm rounded-sm">
-        <div
-          className={`inline-block px-6 py-2 border text-sm font-bold tracking-widest uppercase mb-4 rounded-sm ${rankColor[r.overallState.rank]}`}
-        >
-          {r.overallState.label_en || r.overallState.label_bn}
+    <div className="space-y-6">
+      {/* Overall Composite Parenting Index */}
+      <div className="p-6 sm:p-8 bg-[#FAF7F2] border border-[#EAEFF0] text-center rounded-sm">
+        <span className="text-xs uppercase tracking-[0.2em] text-[#A38771] font-bold block mb-2">
+          Composite Parenting Capability Index
+        </span>
+        <div className="text-5xl font-mono font-bold text-[#2C3338] mb-3">
+          {r.composite ?? "—"}
         </div>
-        <p className="text-base text-[#4A4A4A] leading-relaxed">{r.overallState.message_en || r.overallState.message_bn}</p>
-        {r.dominant?.length > 0 && (
-          <p className="text-xs text-[#A38771] mt-4 uppercase tracking-widest font-bold">
-            Most Affected: <span className="text-[#4A4A4A] font-normal">{r.dominant.join(", ")}</span>
+        <span className="inline-block px-4 py-1.5 bg-white border border-[#EAEFF0] text-xs font-bold uppercase tracking-wider text-[#2C3338] rounded-sm shadow-sm">
+          {r.compositeBand?.label_en || r.compositeBand?.label_bn || "Standard"}
+        </span>
+
+        {r.imNote && (
+          <p className="mt-4 text-xs text-[#7A8691] max-w-lg mx-auto leading-relaxed border-t border-[#EAEFF0] pt-3">
+            {r.imNote.note_en || r.imNote.note_bn}
           </p>
         )}
       </div>
 
-      {(r.referral || r.crisisNote) && (
-        <div className="bg-red-500/10 border border-red-500/40 text-red-700 p-6 text-sm leading-relaxed mb-6 rounded-sm">
-          {r.referral && <p className="mb-2">⚠ {r.referral}</p>}
-          {r.crisisNote && <p>{r.crisisNote}</p>}
-        </div>
-      )}
-
-      <Section title="Domain Comparison">
-        <div className="flex flex-col gap-5">
-          {constructKeys.map((c) => {
-            const cr = r.constructResults[c];
-            const pct = cr.score !== null ? (cr.score / cr.maxScore) * 100 : 0;
-            return (
-              <div key={c} className="bg-[#F9F6F0] p-4 border border-[#EFECE5] rounded-sm">
-                <div className="flex justify-between text-sm mb-3">
-                  <span className="font-semibold text-[#222222]">{cr.name_en || cr.name_bn}</span>
-                  <span className="font-mono text-[#A38771] font-bold">
-                    {cr.score ?? "—"} <span className="text-gray-400">/ {cr.maxScore}</span>
-                  </span>
-                </div>
-                <div className="h-1.5 bg-[#EFECE5] overflow-hidden mb-3 rounded-full">
-                  <div className="h-full bg-[#A38771]" style={{ width: `${pct}%` }} />
-                </div>
-                {cr.band && (
-                  <span className={`inline-block text-[10px] font-bold px-3 py-1 uppercase tracking-widest rounded-sm ${rankColor[cr.band.rank]}`}>
-                    {cr.band.label_en || cr.band.label_bn}
-                  </span>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </Section>
-
-      <Section title="Detailed Interpretation & Action Steps">
-        {constructKeys.map((c) => {
-          const cr = r.constructResults[c];
-          if (!cr.interpretation) return null;
-          return (
-            <div key={c} className="mb-8 border-b border-[#EFECE5] pb-6 last:border-0 last:pb-0">
-              <h4 className="text-base font-bold text-[#A38771] mb-3 font-serif">
-                {cr.name_en || cr.name_bn} <span className="text-[#EFECE5] mx-2">|</span> <span className="text-[#4A4A4A] text-sm font-sans uppercase tracking-widest">{cr.band.label_en || cr.band.label_bn}</span>
-              </h4>
-              <p className="text-sm text-[#4A4A4A] leading-relaxed mb-4">
-                {cr.interpretation.en || cr.interpretation.bn}
-              </p>
-              <ul className="list-none space-y-2">
-                {(cr.interpretation.actions_en || cr.interpretation.actions_bn || []).map((a: string, i: number) => (
-                  <li key={i} className="flex gap-3 text-sm text-[#4A4A4A]">
-                    <span className="text-[#A38771]">■</span> {a}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          );
-        })}
-      </Section>
-
-      {r.helplines?.length > 0 && (
-        <Section title="Support & Helpline Contacts">
-          {r.helplines.map((h: any, i: number) => (
-            <div key={i} className="flex justify-between text-sm py-4 border-b border-[#EFECE5] last:border-0">
-              <span className="text-[#222222] font-medium">{h.name_en || h.name_bn}</span>
-              <span className="font-mono text-[#A38771] font-bold">{h.number}</span>
-            </div>
-          ))}
-        </Section>
-      )}
-
-      <div className="bg-amber-500/10 border border-amber-500/30 text-amber-800 p-5 text-sm leading-relaxed mt-8 rounded-sm">
-        ⚠ This report provides a preliminary screening based on FADSS tools — it is not a clinical diagnosis. Cut-offs remain provisional.
-      </div>
-    </div>
-  );
-}
-
-/* ================= PCS-BD REPORT ================= */
-function PcsReport({ r }: { r: Record<string, any> }) {
-  const domainKeys = Object.keys(r.domainResults);
-
-  return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 pb-16">
-      <div className="mt-8 mb-8 text-center bg-white border border-[#EFECE5] p-8 shadow-sm rounded-sm">
-        {r.composite !== null ? (
-          <>
-            <div className="text-6xl font-bold text-[#222222] font-mono mb-4">{r.composite}</div>
-            <div
-              className="inline-block px-5 py-2 border text-sm font-bold tracking-widest uppercase bg-[#F9F6F0] text-[#222222] border-[#EFECE5] rounded-sm"
-            >
-              {r.compositeBand?.label_en || r.compositeBand?.label_bn}
-            </div>
-          </>
-        ) : (
-          <div className="bg-amber-500/10 border border-amber-500/30 text-amber-800 p-5 text-sm rounded-sm">
-            Insufficient domain scores — overall score cannot be calculated.
-          </div>
-        )}
-
-        {r.imNote && (
-          <div className={`mt-6 text-sm p-4 border text-left leading-relaxed rounded-sm ${r.imNote.prominent ? "bg-red-500/10 text-red-700 border-red-500/30" : "bg-[#F9F6F0] text-[#4A4A4A] border-[#EFECE5]"}`}>
-            {r.imNote.note_en || r.imNote.note_bn}
-          </div>
-        )}
-      </div>
-
+      {/* Safeguarding Flags */}
       {r.flagsFired?.length > 0 && (
-        <div className="bg-red-500/10 border border-red-500/30 text-red-700 p-5 text-sm leading-relaxed mb-6 rounded-sm">
-          <b className="block mb-1">⚠ Points for Attention:</b> {r.flagsFired.join(", ")} — these item responses suggest special care or focus may be beneficial.
+        <div className="bg-rose-50 border border-rose-200 text-rose-900 p-4 rounded-sm text-xs leading-relaxed">
+          <strong>⚠️ Attention Points:</strong> Specific responses on {r.flagsFired.join(", ")} indicate areas where extra parental reflection or family balance may be particularly valuable.
         </div>
       )}
 
-      <Section title="Seven-Domain Profile">
-        <div className="flex flex-col gap-4">
+      {/* 7 Parenting Domains */}
+      <Section title="Seven-Domain Parenting Competency Profile">
+        <div className="space-y-3.5">
           {domainKeys.map((d) => {
             const dr = r.domainResults[d];
-            if (!dr.scored) {
-              return (
-                <div key={d} className="text-sm text-gray-400 bg-[#F9F6F0] p-4 border border-[#EFECE5] rounded-sm">
-                  {dr.name_en || dr.name_bn} — Not scored (insufficient responses)
-                </div>
-              );
-            }
             return (
-              <div key={d} className="bg-[#F9F6F0] p-4 border border-[#EFECE5] rounded-sm">
-                <div className="flex justify-between text-sm mb-3">
-                  <span className="font-semibold text-[#222222]">{dr.name_en || dr.name_bn}</span>
-                  <span className="font-mono text-[#A38771] font-bold">{dr.index}</span>
+              <div key={d} className="p-4 bg-[#FAF7F2] border border-[#EAEFF0] rounded-sm">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="font-serif font-bold text-sm text-[#2C3338]">
+                    {dr.name_en || dr.name_bn}
+                  </span>
+                  <span className="font-mono font-bold text-sm text-[#A38771]">
+                    {dr.index ?? "—"}%
+                  </span>
                 </div>
-                <div className="h-1.5 bg-[#EFECE5] overflow-hidden mb-3 rounded-full">
-                  <div className="h-full bg-[#A38771]" style={{ width: `${dr.index}%` }} />
+
+                <div className="h-1.5 bg-[#EAEFF0] rounded-full overflow-hidden mb-2">
+                  <div className="h-full bg-[#A38771]" style={{ width: `${dr.index || 0}%` }} />
                 </div>
-                <span className="inline-block text-[10px] font-bold px-3 py-1 uppercase tracking-widest bg-white border border-[#EFECE5] text-[#4A4A4A] rounded-sm">
-                  {dr.band?.label_en || dr.band?.label_bn}
-                </span>
+
+                <div className="flex justify-end">
+                  <span className="text-[10px] font-bold px-2 py-0.5 uppercase tracking-wider bg-white border border-[#EAEFF0] rounded-sm text-[#596573]">
+                    {dr.band?.label_en || dr.band?.label_bn}
+                  </span>
+                </div>
               </div>
             );
           })}
         </div>
       </Section>
-
-      <div className="bg-amber-500/10 border border-amber-500/30 text-amber-800 p-5 text-sm leading-relaxed mt-8 rounded-sm">
-        ⚠ This tool serves as a reflective instrument for parenting insights — it is not a diagnosis, legal, or custodial evaluation. Band cut-offs are provisional.
-        <br /><br />
-        <span className="text-[#A38771]">■</span> Detailed domain explanations, 30-day action plans, and support guides will be added soon.
-      </div>
     </div>
   );
 }
 
-/* ================= RRS-24 REPORT ================= */
+/* =========================================================================
+   4. RRS-24 REPORT (Responsibility & Reliability Scale)
+   ========================================================================= */
 function RrsReport({ r }: { r: Record<string, any> }) {
-  if (r.incomplete) {
-    return (
-      <div className="p-16 text-center text-amber-800 bg-white border border-amber-500/30 max-w-2xl mx-auto mt-10 rounded-sm">
-        {r.message_en || r.message_bn || "Incomplete submission."}
-      </div>
-    );
-  }
-
-  const domainKeys = Object.keys(r.domainResults);
-  const rankByBandCode: Record<string, string> = {
-    very_low: "bg-red-500/10 text-red-600 border border-red-500/30",
-    low: "bg-amber-500/10 text-amber-800 border border-amber-500/30",
-    average: "bg-white text-[#222222] border border-[#EFECE5]",
-    high: "bg-[#A38771]/10 text-[#A38771] border border-[#A38771]/40",
-    very_high: "bg-[#A38771]/20 text-[#222222] border border-[#A38771] font-bold",
-  };
+  const domainKeys = Object.keys(r.domainResults || {});
 
   return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 pb-16">
-      <div className="mt-8 mb-8 text-center bg-white border border-[#EFECE5] p-10 shadow-sm rounded-sm">
-        <div className="text-6xl font-bold text-[#222222] font-mono">
-          {r.total.scoreDisplay}
+    <div className="space-y-6">
+      {/* Overall Score Banner */}
+      <div className="p-6 sm:p-8 bg-[#FAF7F2] border border-[#EAEFF0] text-center rounded-sm">
+        <span className="text-xs uppercase tracking-[0.2em] text-[#A38771] font-bold block mb-2">
+          Responsibility & Reliability Index
+        </span>
+        <div className="text-5xl font-mono font-bold text-[#2C3338] mb-1">
+          {r.total?.scoreDisplay}
         </div>
-        <div className="text-sm text-gray-400 tracking-widest font-mono mt-2 mb-4 uppercase">/ 5.00</div>
-        <div className={`inline-block px-6 py-2 border text-sm font-bold tracking-widest uppercase rounded-sm ${rankByBandCode[r.total.band.code]}`}>
-          {r.total.band.label_en || r.total.band.label_bn}
-        </div>
+        <span className="text-xs font-mono text-[#7A8691] block mb-3">out of 5.00</span>
+        <span className="inline-block px-4 py-1.5 bg-white border border-[#EAEFF0] text-xs font-bold uppercase tracking-wider text-[#2C3338] rounded-sm shadow-sm">
+          {r.total?.band?.label_en || r.total?.band?.label_bn}
+        </span>
       </div>
 
-      <Section title="Three Core Domains">
-        <div className="flex flex-col gap-5">
+      {/* 3 Core Domains */}
+      <Section title="Three Core Responsibility Domains">
+        <div className="space-y-4">
           {domainKeys.map((d) => {
             const dr = r.domainResults[d];
             return (
-              <div key={d} className="bg-[#F9F6F0] p-5 border border-[#EFECE5] rounded-sm">
-                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-4 border-b border-[#EFECE5] pb-3">
-                  <span className="font-serif text-lg font-bold text-[#222222]">{dr.name_en || dr.name_bn}</span>
-                  <div className="flex items-center gap-4">
-                    <span className="font-mono font-bold text-[#A38771] text-lg">{dr.scoreDisplay}</span>
-                    <span className={`text-[10px] font-bold px-3 py-1 uppercase tracking-widest border rounded-sm ${rankByBandCode[dr.band.code]}`}>
-                      {dr.band.label_en || dr.band.label_bn}
-                    </span>
-                  </div>
+              <div key={d} className="p-5 bg-[#FAF7F2] border border-[#EAEFF0] rounded-sm">
+                <div className="flex justify-between items-center mb-2">
+                  <h4 className="font-serif font-bold text-base text-[#2C3338]">{dr.name_en || dr.name_bn}</h4>
+                  <span className="font-mono font-bold text-base text-[#A38771]">{dr.scoreDisplay}</span>
                 </div>
-                <p className="text-sm text-[#4A4A4A] leading-relaxed mb-4">{dr.measures_en || dr.measures_bn}</p>
-                <div className="h-1.5 bg-[#EFECE5] overflow-hidden rounded-full">
+                <p className="text-xs text-[#596573] leading-relaxed mb-3">{dr.measures_en || dr.measures_bn}</p>
+                <div className="h-1.5 bg-[#EAEFF0] rounded-full overflow-hidden">
                   <div className="h-full bg-[#A38771]" style={{ width: `${(dr.score / 5) * 100}%` }} />
                 </div>
               </div>
@@ -531,137 +599,81 @@ function RrsReport({ r }: { r: Record<string, any> }) {
         </div>
       </Section>
 
-      <Section title="Domain Comparison & Balance">
-        <p className="text-sm text-[#4A4A4A] leading-relaxed mb-6">{r.gap.reading_en || r.gap.reading_bn}</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="bg-[#A38771]/10 border border-[#A38771]/30 p-4 rounded-sm">
-            <span className="text-xs uppercase tracking-widest text-[#4A4A4A] block mb-1">Highest Domain</span>
-            <span className="text-base font-bold text-[#222222]">{r.domainResults[r.highestDomain]?.name_en || r.domainResults[r.highestDomain]?.name_bn}</span>
+      {/* Gap Analysis */}
+      {r.gap && (
+        <Section title="Domain Spread & Balance">
+          <p className="text-xs text-[#596573] mb-4 leading-relaxed">
+            {r.gap.reading_en || r.gap.reading_bn}
+          </p>
+          <div className="grid grid-cols-2 gap-3 text-xs">
+            <div className="p-3 bg-[#FAF7F2] border border-[#EAEFF0] rounded-sm">
+              <span className="text-[#7A8691] block text-[10px] uppercase tracking-wider">Highest Domain</span>
+              <strong className="text-[#2C3338]">{r.domainResults[r.highestDomain]?.name_en || r.highestDomain}</strong>
+            </div>
+            <div className="p-3 bg-[#FAF7F2] border border-[#EAEFF0] rounded-sm">
+              <span className="text-[#7A8691] block text-[10px] uppercase tracking-wider">Lowest Domain</span>
+              <strong className="text-[#2C3338]">{r.domainResults[r.lowestDomain]?.name_en || r.lowestDomain}</strong>
+            </div>
           </div>
-          <div className="bg-amber-500/10 border border-amber-500/30 p-4 rounded-sm">
-            <span className="text-xs uppercase tracking-widest text-[#4A4A4A] block mb-1">Lowest Domain</span>
-            <span className="text-base font-bold text-amber-800">{r.domainResults[r.lowestDomain]?.name_en || r.domainResults[r.lowestDomain]?.name_bn}</span>
-          </div>
-        </div>
-        <div className="mt-4 text-center p-3 border border-[#EFECE5] bg-white text-sm font-mono text-[#4A4A4A] rounded-sm">
-          Spread / Difference: <span className="text-[#222222] font-bold">{r.gap.display}</span>
-        </div>
-      </Section>
-
-      <div className="bg-amber-500/10 border border-amber-500/30 text-amber-800 p-5 text-sm leading-relaxed mt-8 rounded-sm">
-        ⚠ This report is designed for self-reflection. It is not a clinical diagnosis or formal evaluation, and should not be used for employment or selection decisions.
-        <br /><br />
-        <span className="text-[#A38771]">■</span> Detailed explanations and guidance for each band score will be integrated soon.
-      </div>
+        </Section>
+      )}
     </div>
   );
 }
 
-/* ================= MCRRS-BD REPORT ================= */
+/* =========================================================================
+   5. MCRRS-BD REPORT (Marriage Compatibility & Relationship Readiness)
+   ========================================================================= */
 function McrrsReport({ r }: { r: Record<string, any> }) {
-  const bandColorMap: Record<string, string> = {
-    red: "bg-red-500/10 text-red-600 border border-red-500/30",
-    orange: "bg-amber-500/10 text-amber-800 border border-amber-500/30",
-    amber: "bg-[#A38771]/10 text-[#222222] border border-[#A38771]/30",
-    lightgreen: "bg-[#A38771]/10 text-[#A38771] border border-[#A38771]/40",
-    green: "bg-[#A38771]/20 text-[#222222] border border-[#A38771] font-bold",
-  };
+  const domainKeys = Object.keys(r.domainResults || {});
 
   if (r.careFlag) {
     return (
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 pb-16 pt-10">
-        <div className="bg-red-500/10 border border-red-500/30 p-6 sm:p-8 shadow-sm mb-6 rounded-sm">
-          <h2 className="text-xl font-bold text-red-700 mb-4 flex items-center gap-3">
-            <span className="text-2xl">⚠</span> Safety First
-          </h2>
-          <p className="text-base text-red-900/80 leading-relaxed">{r.tier4Message_en || r.tier4Message_bn}</p>
-        </div>
-
-        <Section title="Support Contacts & Resources">
-          {r.referralResources.map((res: any, i: number) => (
-            <div key={i} className="flex justify-between items-center text-sm py-4 border-b border-[#EFECE5] last:border-0">
-              <div>
-                <div className="text-[#222222] font-bold mb-1">{res.need_en || res.need_bn}</div>
-                <div className="text-[#A38771] text-xs uppercase tracking-widest">{res.service}</div>
-              </div>
-              <div className="text-right">
-                <div className="font-mono font-bold text-[#222222] text-lg">{res.number}</div>
-                <div className="text-[#4A4A4A] text-xs tracking-widest mt-1">{res.hours_en || res.hours_bn}</div>
-              </div>
-            </div>
-          ))}
-        </Section>
-
-        <div className="text-sm text-[#4A4A4A] mt-10 text-center border-t border-[#EFECE5] pt-6">
-          Score displayed below objectively without celebratory language.
-        </div>
-        {r.total && (
-          <div className="text-center mt-6 bg-white p-6 border border-[#EFECE5] rounded-sm">
-            <span className="font-mono text-4xl font-bold text-[#222222]">{r.total.index}</span>
-            <span className="text-sm text-gray-400 font-mono tracking-widest block mt-2">/ 100</span>
-          </div>
-        )}
+      <div className="p-6 bg-rose-50 border border-rose-300 rounded-sm text-rose-900 space-y-4">
+        <h3 className="font-serif font-bold text-lg">⚠️ Safety & Wellbeing Notice</h3>
+        <p className="text-xs leading-relaxed">{r.tier4Message_en || r.tier4Message_bn}</p>
       </div>
     );
   }
 
   return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 pb-16">
-      <div className="mt-8 mb-8 text-center bg-white border border-[#EFECE5] p-10 shadow-sm rounded-sm">
-        {r.total ? (
-          <>
-            <div className="text-6xl font-bold text-[#222222] font-mono mb-6">
-              {r.total.index}
-            </div>
-            <div className={`inline-block px-6 py-2 border text-sm font-bold tracking-widest uppercase rounded-sm ${bandColorMap[r.total.band.color]}`}>
-              {r.total.band.label_en || r.total.band.label_bn}
-            </div>
-            {r.total.note && <p className="text-sm text-amber-800 mt-4 p-3 bg-amber-500/10 border border-amber-500/20 rounded-sm">{r.total.note}</p>}
-          </>
-        ) : (
-          <div className="bg-amber-500/10 border border-amber-500/30 text-amber-800 p-5 text-sm rounded-sm">
-            Insufficient domain scores — overall index cannot be calculated.
-          </div>
-        )}
+    <div className="space-y-6">
+      {/* Overall Score */}
+      <div className="p-6 sm:p-8 bg-[#FAF7F2] border border-[#EAEFF0] text-center rounded-sm">
+        <span className="text-xs uppercase tracking-[0.2em] text-[#A38771] font-bold block mb-2">
+          Relationship Readiness & Compatibility Index
+        </span>
+        <div className="text-5xl font-mono font-bold text-[#2C3338] mb-3">
+          {r.total?.index ?? "—"}
+        </div>
+        <span className="inline-block px-4 py-1.5 bg-white border border-[#EAEFF0] text-xs font-bold uppercase tracking-wider text-[#2C3338] rounded-sm shadow-sm">
+          {r.total?.band?.label_en || r.total?.band?.label_bn || "Evaluated"}
+        </span>
       </div>
 
-      {r.pri && (
-        <Section title="Social Pressure Resilience Index (Provisional)">
-          <div className="text-center py-4">
-            <div className="text-4xl font-bold font-mono text-[#222222] mb-4">{r.pri.index}</div>
-            <span className={`inline-block text-xs font-bold px-4 py-1.5 border uppercase tracking-widest rounded-sm ${bandColorMap[r.pri.band.color]}`}>
-              {r.pri.band.label_en || r.pri.band.label_bn}
-            </span>
-            <p className="text-sm text-[#4A4A4A] mt-6 leading-relaxed bg-[#F9F6F0] p-4 border border-[#EFECE5] rounded-sm">
-              An indicator of how effectively external societal pressures are currently managed — this is not a prediction.
-            </p>
-          </div>
-        </Section>
-      )}
-
-      <Section title="Six-Domain Profile">
-        <div className="flex flex-col gap-4">
-          {Object.keys(r.domainResults).map((d) => {
+      {/* 6 Domains Profile */}
+      <Section title="Six-Domain Relationship Dynamics">
+        <div className="space-y-3">
+          {domainKeys.map((d) => {
             const dr = r.domainResults[d];
-            if (!dr.scored) {
-              return (
-                <div key={d} className="text-sm text-gray-400 bg-[#F9F6F0] p-4 border border-[#EFECE5] rounded-sm">
-                  {dr.name_en || dr.name_bn} — Not scored (insufficient responses)
-                </div>
-              );
-            }
             return (
-              <div key={d} className="bg-[#F9F6F0] p-4 border border-[#EFECE5] rounded-sm">
-                <div className="flex justify-between text-sm mb-3">
-                  <span className="font-semibold text-[#222222]">{dr.name_en || dr.name_bn}</span>
-                  <span className="font-mono text-[#A38771] font-bold">{dr.index}</span>
+              <div key={d} className="p-4 bg-[#FAF7F2] border border-[#EAEFF0] rounded-sm">
+                <div className="flex justify-between items-center mb-1.5">
+                  <span className="font-serif font-bold text-sm text-[#2C3338]">
+                    {dr.name_en || dr.name_bn}
+                  </span>
+                  <span className="font-mono font-bold text-sm text-[#A38771]">
+                    {dr.index ?? "—"}%
+                  </span>
                 </div>
-                <div className="h-1.5 bg-[#EFECE5] overflow-hidden mb-3 rounded-full">
-                  <div className="h-full bg-[#A38771]" style={{ width: `${dr.index}%` }} />
+                <div className="h-1.5 bg-[#EAEFF0] rounded-full overflow-hidden mb-2">
+                  <div className="h-full bg-[#A38771]" style={{ width: `${dr.index || 0}%` }} />
                 </div>
-                <span className={`inline-block text-[10px] font-bold px-3 py-1 uppercase tracking-widest rounded-sm ${bandColorMap[dr.band.color]}`}>
-                  {dr.band.label_en || dr.band.label_bn}
-                </span>
+                <div className="flex justify-end">
+                  <span className="text-[10px] font-bold px-2 py-0.5 uppercase tracking-wider bg-white border border-[#EAEFF0] rounded-sm text-[#596573]">
+                    {dr.band?.label_en || dr.band?.label_bn}
+                  </span>
+                </div>
               </div>
             );
           })}

@@ -46,4 +46,38 @@ export async function fetchResult(responseId: string) {
   return res.data;
 }
 
+// ==========================================
+// Admin Dashboard API
+// ==========================================
+export async function fetchAdminStats() {
+  const res = await api.get("/admin/dashboard/stats");
+  return res.data;
+}
+
+export async function fetchAdminResponses(params?: {
+  slug?: string;
+  paymentStatus?: string;
+  search?: string;
+  page?: number;
+  limit?: number;
+}) {
+  const res = await api.get("/admin/dashboard/responses", { params });
+  return res.data;
+}
+
+export async function updateResponsePayment(id: string, paymentStatus: string) {
+  const res = await api.patch(`/admin/dashboard/responses/${id}/payment`, { paymentStatus });
+  return res.data;
+}
+
+export async function fetchAdminInstruments() {
+  const res = await api.get("/admin/dashboard/instruments");
+  return res.data;
+}
+
+export async function updateInstrumentAdmin(slug: string, data: { price?: number; isActive?: boolean }) {
+  const res = await api.patch(`/admin/dashboard/instruments/${slug}`, data);
+  return res.data;
+}
+
 export default api;
