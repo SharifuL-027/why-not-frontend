@@ -40,7 +40,9 @@ const MainLayout = () => {
       
       <Navbar />
 
-      <div className="flex-1 flex flex-col lg:pl-[320px] w-full pt-[130px] lg:pt-0">
+      <div className="flex-1 flex flex-col lg:pl-80 w-full pt-[130px] lg:pt-0">
+        
+
         
         <main className="flex-1 w-full min-h-screen relative">
           <Outlet />
