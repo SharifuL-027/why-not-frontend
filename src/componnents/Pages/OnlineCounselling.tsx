@@ -290,7 +290,7 @@ export default function OnlineCounselling() {
           <div className="mb-10">
             <div className="text-[#A38771] text-xs font-bold uppercase tracking-[0.2em] mb-2">Book a session</div>
             <h2 className="text-xl sm:text-2xl font-serif text-[#222222] border-b border-[#EFECE5] pb-4">
-              Confirmation goes to +880 1711 902441 · whynotyou.psy@gmail.com
+              Confirmation goes to +880 1355-470255 · whynotyou.psy@gmail.com
             </h2>
           </div>
 

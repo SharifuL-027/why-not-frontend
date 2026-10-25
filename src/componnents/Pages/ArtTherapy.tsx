@@ -41,7 +41,7 @@ const VIDEO = {
   neurographic: "https://res.cloudinary.com/kpuio2i4/video/upload/v1792920966/neurographic-colouring-process_y8ihrc.mp4",        // neurographic-colouring-process.mp4 (28 s)
 };
 
-const WHATSAPP_LINK = "https://wa.me/8801777403838";
+const WHATSAPP_LINK = "https://wa.me/8801355470255";
 
 const roksanaFacts = [
   { label: "Current role", value: "Psychologist and Art Therapist, Dept. of Public Health and Informatics, BRAC University" },
@@ -883,7 +883,7 @@ export default function ArtTherapy() {
         <p className="border-l-[3px] border-[#C05C44] pl-5 text-left text-[#222222] font-medium leading-relaxed">
           To reserve an individual or group session with Roksana Sultana, use the form below or message her on WhatsApp at{" "}
           <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="text-[#C05C44] underline">
-            +880 1777 403838
+            +880 1355-470255
           </a>
           .
         </p>
@@ -912,7 +912,7 @@ export default function ArtTherapy() {
             <div className="mb-10">
               <div className="text-[#A38771] text-xs font-bold uppercase tracking-[0.2em] mb-2">Book a session</div>
               <h2 className="text-xl sm:text-2xl font-medium text-[#222222] border-b border-[#EFECE5] pb-4">
-                 +880 1711 902441 · whynotyou.psy@gmail.com
+                 +880 1355-470255 · whynotyou.psy@gmail.com
               </h2>
             </div>
 
