@@ -289,7 +289,7 @@ export default function OnlineCounselling() {
         >
           <div className="mb-10">
             <div className="text-[#A38771] text-xs font-bold uppercase tracking-[0.2em] mb-2">Book a session</div>
-            <h2 className="text-xl sm:text-2xl font-serif text-[#222222] border-b border-[#EFECE5] pb-4">
+            <h2 className="text-xl sm:text-2xl text-[#222222] border-b border-[#EFECE5] pb-4">
               Confirmation goes to +880 1355-470255 · whynotyou.psy@gmail.com
             </h2>
           </div>
@@ -449,7 +449,7 @@ export default function OnlineCounselling() {
                 <span className="relative z-10">{isSubmitting ? "Sending..." : "Request this session"}</span>
               </button>
               
-              <p className="text-[#4A4A4A] text-xs mt-4 tracking-wide">
+              <p className="text-[#4A4A4A] text-sm mt-4 tracking-wide">
                 You will get a call from WNY within one working day. Nothing is charged until the time is agreed.
               </p>
             </div>
