@@ -50,6 +50,97 @@ interface Post {
 
 const postsData: Post[] = [
   {
+    id: 8,
+    category: "AWARENESS",
+    readTime: "3 MIN READ",
+    title: "Everyone Thinks They Know You. But Does Anyone Really Understand You?",
+    excerpt: "\"I'm fine.\" The most common reply when you don't feel fine at all. On loneliness, overthinking, and feeling misunderstood.",
+    fullText: (
+      <>
+        <p className="mb-4">You laugh with your friends, scroll through social media, react to memes, attend classes, meet deadlines, and keep going with your daily life. But sometimes, when everything gets quiet, your mind gets loud.</p>
+        <p className="mb-4">You may feel lonely even when you're surrounded by people. You may overthink a simple message, compare your life with someone else's highlight reel, worry about your future, or feel pressured to be successful before you've even figured out who you are.</p>
+        <p className="mb-4">Sometimes, you want to explain what's happening inside you, but you can't find the right words. And sometimes, you stay silent because you're afraid someone will say, "You're just overthinking. Stop being so sensitive."</p>
+        <p className="mb-4 border-l-2 border-[#A38771] pl-4 italic text-[#4A4A4A]">"If any of this feels familiar, take a moment. You are not weak, and you are not alone."</p>
+        <p className="mb-4"><strong>What might be happening beneath the surface?</strong> Today's young generation faces a complex mix of academic pressure, career uncertainty, family expectations, relationship challenges, social comparison, online pressure, and the struggle to feel accepted. These experiences do not automatically mean you have a psychological disorder. However, when stress becomes persistent or starts affecting your sleep, concentration, relationships, motivation, or everyday functioning, it deserves attention.</p>
+        <p className="mb-4"><strong>1. Loneliness in a hyperconnected world.</strong> Having hundreds of online contacts does not necessarily mean having someone you can trust with your real feelings. A lack of meaningful connection can affect emotional well-being.</p>
+        <p className="mb-4"><strong>2. Overthinking and constant comparison.</strong> Social media often shows other people's best moments, not their complete lives. Constant comparison may leave you feeling inadequate, behind, or unsure of your own worth.</p>
+        <p className="mb-4"><strong>3. Anxiety about the future.</strong> "What if I fail?" "What if I disappoint my parents?" "What if I never become successful?" Occasional worry is normal. But persistent, difficult-to-manage anxiety can interfere with everyday life.</p>
+        <p className="mb-4"><strong>4. Emotional exhaustion.</strong> You may keep saying yes, trying to please everyone, hiding your frustration, and expecting yourself to handle everything alone. Over time, this can leave you feeling overwhelmed or emotionally drained.</p>
+        <p className="mb-4"><strong>5. Feeling misunderstood.</strong> Sometimes, you don't need someone to lecture you, judge you, or immediately offer a solution. You need someone who will listen, help you understand your feelings, and explore what you can do next.</p>
+        <p className="mb-4"><strong>You don't have to figure everything out alone.</strong> You don't need to wait until things become unbearable before seeking psychological support. Talking with a qualified mental health professional can help you explore your emotions, understand unhelpful patterns, develop healthier coping strategies, and make more informed decisions about your life. Seeking support doesn't mean you cannot handle life. It means you are willing to take your well-being seriously.</p>
+        <p className="mb-4">At <strong>Why Not You Psychology</strong>, we believe that every person deserves a safe, respectful space to talk, reflect, and grow, without being labelled or judged. If you have been feeling overwhelmed, disconnected, anxious, or simply unsure about what is going on inside you, consider taking the first step: book an online counselling session at <a href="https://whynotyoupsy.com" target="_blank" rel="noopener noreferrer" className="underline">whynotyoupsy.com</a>.</p>
+        <p className="mb-4 italic">You don't have to have all the answers before you ask for support.</p>
+        <p className="mb-4"><strong>Why Not You?</strong> <em>Get the support. Change yourself.</em></p>
+        <p className="text-sm italic text-[#4A4A4A]">A small reminder: Feeling lonely, worried, or confused sometimes is part of being human. If these feelings persist, become overwhelming, or interfere with daily life, consider speaking with a qualified mental health professional. This post is for awareness and is not a diagnosis.</p>
+      </>
+    )
+  },
+  {
+    id: 9,
+    category: "AWARENESS",
+    readTime: "4 MIN READ",
+    title: "Always Online. But Are We Really Connected?",
+    excerpt: "You replied to 47 messages today. But did you have one real conversation? A look at scrolling, loneliness, and a small REAL CONNECTION challenge.",
+    fullText: (
+      <>
+        <p className="mb-4">You wake up and check your phone. You scroll while eating. You check notifications between classes. You watch reels when you're bored, open another app when you feel lonely, and keep scrolling even when you know it's time to sleep. Your screen time says "Just 5 more minutes." And somehow, an hour disappears.</p>
+        <p className="mb-4">Let's be honest. Our phones are not just devices anymore. They're our entertainment, our social lives, our escape from boredom, and sometimes, our way of avoiding feelings we don't know how to handle.</p>
+        <p className="mb-4 border-l-2 border-[#A38771] pl-4 italic text-[#4A4A4A]">"Are we using our devices to connect with people, or using them to avoid the discomfort of real connection?"</p>
+        <p className="mb-4"><strong>1. A thousand followers, but nobody to talk to?</strong> Online reactions can feel good, but likes and comments are not the same as having someone who listens, understands, and shows up when you need them.</p>
+        <p className="mb-4"><strong>2. Scrolling instead of socialising.</strong> Sometimes it feels easier to watch other people's lives than to make plans, start a conversation, or risk feeling awkward in person. But real relationships grow through shared experiences, not just shared posts.</p>
+        <p className="mb-4"><strong>3. The comparison trap.</strong> Someone is travelling. Someone has a new relationship. Someone else seems to have the perfect life. And suddenly, your ordinary Tuesday feels like a personal failure. Remember: you're comparing your full life with carefully selected moments from someone else's.</p>
+        <p className="mb-4"><strong>4. When your phone becomes your emotional escape.</strong> Feeling stressed? Scroll. Feeling lonely? Scroll. Feeling bored, anxious, or disappointed? Scroll again. Taking a break can be perfectly fine. But if scrolling becomes your main way of handling difficult feelings, you may miss opportunities to understand those feelings and find other ways to cope.</p>
+        <p className="mb-4"><strong>5. Less presence, fewer meaningful moments.</strong> Have you ever sat with friends while everyone looked at their own screens? You were physically together, but nobody was really there. Small moments, like sharing a joke, listening without interruption, or taking a walk together, can help build the connection we all need.</p>
+        <p className="mb-4"><strong>What does psychology tell us?</strong> The American Psychological Association explains that social media is not automatically harmful or beneficial for young people. Its effects depend on how it is used, what people experience online, and their individual circumstances. The World Health Organization also recognises social connection as an important part of well-being. Its 2025 information on social connection notes that loneliness affects people across age groups, with young people reporting particularly high levels. So the goal is not to hate technology or disappear from the digital world. It is to build a healthier relationship with it.</p>
+        <p className="mb-4"><strong>Try the REAL CONNECTION challenge.</strong> You don't need to throw your phone away. Start with a few small changes:</p>
+        <p className="mb-4"><strong>R: Reclaim one screen-free moment.</strong> Enjoy a meal, a walk, or a conversation without checking notifications.</p>
+        <p className="mb-4"><strong>E: Engage with someone in real life.</strong> Call a friend, talk to a family member, or make plans to meet someone you trust.</p>
+        <p className="mb-4"><strong>A: Ask yourself why you're scrolling.</strong> Are you enjoying it, looking for information, avoiding a task, or trying not to feel lonely?</p>
+        <p className="mb-4"><strong>L: Let yourself be present.</strong> Listen, make eye contact when comfortable, share your thoughts, and allow conversations to happen without needing to document every moment.</p>
+        <p className="mb-4">Start small. Consistency matters more than perfection.</p>
+        <p className="mb-4"><strong>And if being alone feels easier than connecting?</strong> Maybe you have been disappointed by people. Maybe you feel awkward in social situations. Maybe you worry about being judged, or you simply don't know how to explain what you're feeling. You don't have to blame yourself. Sometimes, understanding the reasons behind your habits and feelings is the first step towards changing them.</p>
+        <p className="mb-4">At <strong>Why Not You Psychology</strong>, we believe that meaningful change begins with understanding yourself, not judging yourself. If device use, loneliness, anxiety, or difficulties in relationships are affecting your everyday life, online counselling may give you a supportive space to explore what's happening and develop healthier coping strategies. Visit <a href="https://whynotyoupsy.com" target="_blank" rel="noopener noreferrer" className="underline">whynotyoupsy.com</a> to explore online counselling.</p>
+        <p className="mb-4 italic">Your phone can connect you to the world. Don't forget to connect with the people in it.</p>
+        <p className="mb-4"><strong>Why Not You?</strong> <em>Get the support. Change yourself.</em></p>
+        <p className="text-sm italic text-[#4A4A4A]">This post is for mental health awareness, not diagnosis. Using devices frequently does not automatically mean you have a psychological problem. If loneliness or emotional distress persists or affects daily life, consider speaking with a qualified mental health professional.</p>
+      </>
+    )
+  },
+  {
+    id: 10,
+    category: "WELL-BEING",
+    readTime: "4 MIN READ",
+    title: "Mentally Exhausted? Maybe It's Time to Check In With Yourself.",
+    excerpt: "You look okay on the outside. But how are things going on inside? Six everyday habits that wear us down, and five small changes to start with.",
+    fullText: (
+      <>
+        <p className="mb-4">One day, you're super motivated. You have plans, dreams, and energy to chase them. The next day, even the smallest task feels exhausting. Sometimes you stay up late scrolling, wake up tired, skip meals, avoid people, and struggle to focus. Sometimes you feel like talking to everyone. Other times, you want to be left alone.</p>
+        <p className="mb-4">You may keep changing your habits, chasing quick comfort, or trying to escape uncomfortable feelings. You might even wonder: "Why can't I just get my life together?"</p>
+        <p className="mb-4 border-l-2 border-[#A38771] pl-4 italic text-[#4A4A4A]">"You are not a failure because you're struggling. But your struggles deserve attention."</p>
+        <p className="mb-4"><strong>What could be affecting your mental well-being?</strong> Modern life offers freedom, entertainment, opportunities, and new ways to connect. But it can also bring pressures and habits that make it harder to maintain emotional balance.</p>
+        <p className="mb-4"><strong>1. The sleep-deprived lifestyle.</strong> Late-night scrolling, irregular sleep, and constantly changing routines can leave you tired, irritable, and less able to concentrate. Sleep is not wasted time; it supports your emotional and cognitive functioning.</p>
+        <p className="mb-4"><strong>2. Living for instant rewards.</strong> Endless videos, gaming, notifications, and constantly switching between activities can make it harder to protect time for focused work and meaningful offline experiences. The issue is not enjoying these activities; it is when they repeatedly interfere with sleep, responsibilities, relationships, or personal goals.</p>
+        <p className="mb-4"><strong>3. Escaping feelings instead of understanding them.</strong> When stress hits, you might avoid responsibilities, withdraw from people, or seek distractions. These strategies may provide temporary relief, but if they become your only coping methods, the original problem may remain unresolved.</p>
+        <p className="mb-4"><strong>4. Unhealthy routines and inconsistent habits.</strong> Irregular meals, little physical activity, insufficient rest, and a lack of daily structure can affect how you feel and function. Small habits may seem insignificant individually, but a sustainable routine can help support your overall well-being.</p>
+        <p className="mb-4"><strong>5. Conflicting lifestyles and social pressure.</strong> You may feel pulled between family expectations, friends, relationships, personal values, and the pressure to fit in. When your choices repeatedly conflict with what matters to you, it can become difficult to feel grounded or satisfied.</p>
+        <p className="mb-4"><strong>6. Emotional overload and feeling lost.</strong> Academic pressure, career uncertainty, relationship difficulties, financial worries, and fear of failure can accumulate. You may find yourself overwhelmed, unable to make decisions, or unsure where to begin.</p>
+        <p className="mb-4">These experiences do not automatically indicate a mental health disorder. But when emotional difficulties persist or begin interfering with everyday life, it is worth taking them seriously.</p>
+        <p className="mb-4"><strong>Mental stability isn't about being happy every day.</strong> It doesn't mean never feeling sad, angry, anxious, confused, or disappointed. Psychological well-being means developing the ability to understand your emotions, adapt to challenges, make thoughtful decisions, and seek support when you need it. You don't have to control everything in your life. You can start by taking responsibility for the small things within your control.</p>
+        <p className="mb-4"><strong>Start with five small changes.</strong></p>
+        <p className="mb-4"><strong>Protect your sleep.</strong> Build a reasonably consistent sleep and waking routine.</p>
+        <p className="mb-4"><strong>Move your body.</strong> Find enjoyable ways to include physical activity in your day.</p>
+        <p className="mb-4"><strong>Create space away from screens.</strong> Make time for rest, hobbies, and face-to-face conversations.</p>
+        <p className="mb-4"><strong>Understand your patterns.</strong> Notice what tends to happen before you feel overwhelmed, withdraw, or lose motivation.</p>
+        <p className="mb-4"><strong>Talk to someone you trust.</strong> You do not need to solve every problem alone.</p>
+        <p className="mb-4">Remember, change is not about becoming a perfect person overnight. It is about making choices that gradually support the life you want to live.</p>
+        <p className="mb-4"><strong>When self-help doesn't feel like enough.</strong> Perhaps you've already tried to change your habits, but the same patterns keep returning. Perhaps you feel emotionally overwhelmed, disconnected from others, unable to concentrate, or uncertain about yourself. You don't need to wait until everything falls apart before asking for help. Speaking with a qualified psychologist or mental health professional can help you explore the factors affecting your well-being, recognise unhelpful patterns, and develop practical strategies suited to your circumstances.</p>
+        <p className="mb-4">At <strong>Why Not You Psychology</strong>, we believe that understanding yourself is an important step towards meaningful change. Explore online counselling at <a href="https://whynotyoupsy.com" target="_blank" rel="noopener noreferrer" className="underline">whynotyoupsy.com</a>, and give yourself the opportunity to pause, reflect, and move forward with support.</p>
+        <p className="mb-4"><strong>Why Not You?</strong> <em>Get the support. Change yourself.</em></p>
+        <p className="text-sm italic text-[#4A4A4A]"><strong>A gentle reminder:</strong> Everyone experiences difficult periods. If changes in your mood, sleep, behaviour, or daily functioning persist, become severe, or make everyday life difficult, consider seeking professional assessment. This post is for awareness and is not a diagnosis.</p>
+      </>
+    )
+  },
+  {
     id: 1,
     isFeatured: true,
     category: "COMMENTARY",
@@ -82,7 +173,7 @@ const postsData: Post[] = [
   {
     id: 3,
     category: "DEVELOPMENT",
-    readTime: "7 MIN READ",
+    readTime: "2 MIN READ",
     title: "Identity at sixteen when the audience is public",
     excerpt: "Adolescent identity work has always been performed. What changes when the performance is recorded.",
     fullText: (
@@ -96,7 +187,7 @@ const postsData: Post[] = [
   {
     id: 4,
     category: "COMMENTARY",
-    readTime: "5 MIN READ",
+    readTime: "3 MIN READ",
     title: "Why Gen A children negotiate instead of obeying",
     excerpt: "A note for parents who were raised on instruction and are now raising children who ask why.",
     fullText: (
