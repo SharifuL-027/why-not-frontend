@@ -33,6 +33,7 @@ import PsychologicalAwareness from "../componnents/Pages/PsychologicalAwareness"
 import AboutUs from "../componnents/Pages/AboutUs";
 import ArtTherapy from "../componnents/Pages/ArtTherapy";
 import OpeningPost from "../componnents/Main/OpeningPost";
+import ScrollToTop from "../componnents/ScrollToTop";
 
 const MainLayout = () => {
   return (
@@ -42,8 +43,7 @@ const MainLayout = () => {
       <Navbar />
 
       <div className="flex-1 flex flex-col lg:pl-80 w-full pt-[130px] lg:pt-0">
-        
-
+        <ScrollToTop/>
         
         <main className="flex-1 w-full min-h-screen relative">
           <Outlet />
