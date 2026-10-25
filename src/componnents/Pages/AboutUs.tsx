@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 // Extracted Data (From Image) + Premium Copy
 // ==========================================
 const contactDetails = {
-  phone: "+880 1711 902441",
+  phone: "+8801355470255",
   email: "whynotyou.psy@gmail.com",
   hours: "Saturday to Thursday, 10am-8pm"
 };

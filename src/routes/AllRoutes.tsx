@@ -32,6 +32,7 @@ import YoungGeneration from "../componnents/Pages/YoungGenaration";
 import PsychologicalAwareness from "../componnents/Pages/PsychologicalAwareness";
 import AboutUs from "../componnents/Pages/AboutUs";
 import ArtTherapy from "../componnents/Pages/ArtTherapy";
+import OpeningPost from "../componnents/Main/OpeningPost";
 
 const MainLayout = () => {
   return (
@@ -64,6 +65,7 @@ const AllRoutes = () => {
           element={
             <>
               <Hero />
+              <OpeningPost/>
               <HowItWorks />
               <WhyItMatters />
               <WhatYouGet />
