@@ -45,7 +45,7 @@ const Footer = () => {
 <div className="flex gap-3">
   {/* WhatsApp */}
   <a 
-    href="https://wa.me/8801711902441" 
+    href="https://wa.me/8801355470255" 
     target="_blank"
     rel="noopener noreferrer"
     aria-label="WhatsApp"
