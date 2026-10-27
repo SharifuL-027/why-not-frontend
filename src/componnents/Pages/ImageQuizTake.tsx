@@ -24,16 +24,16 @@ const SharedBackground = () => (
         </linearGradient>
       </defs>
     </svg>
-    <div 
-      className="absolute inset-0 z-0 opacity-20 pointer-events-none"
+    <div
+      className="absolute inset-0 z-0 opacity-10 pointer-events-none"
       style={{
         backgroundImage: "url('/watermarked_img_4680048593054709329.jpg')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
       }}
     />
-    <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#FAF7F2]/90 via-[#FAF7F2]/80 to-[#FAF7F2] pointer-events-none" />
+    <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#FAF7F2]/95 via-[#FAF7F2]/85 to-[#FAF7F2] pointer-events-none" />
   </>
 );
 
@@ -49,12 +49,21 @@ export default function ImageQuizTake() {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
 
+  // Read candidateInfo from sessionStorage (set in details page)
+  const candidateInfo = (() => {
+    try {
+      const raw = sessionStorage.getItem(`candidateInfo_${slug}`);
+      return raw ? JSON.parse(raw) : {};
+    } catch {
+      return {};
+    }
+  })();
+
   useEffect(() => {
     if (!slug) return;
     fetchImageQuizForTaking(slug)
       .then((data) => {
-        // Fallback to English name if available, else Bengali
-        setQuizName(data.name?.en || data.name?.bn || "");
+        setQuizName(data.name?.bn || data.name?.en || "");
         setItems(data.items || []);
       })
       .catch((err) => setError(err.message || "This quiz could not be found."))
@@ -62,7 +71,7 @@ export default function ImageQuizTake() {
   }, [slug]);
 
   const LayoutWrapper = ({ children }: { children: React.ReactNode }) => (
-    <div className="relative w-full min-h-screen flex flex-col bg-[#FAF7F2] lg:pl-[50px] pt-32 pb-20 px-4 sm:px-6 overflow-hidden">
+    <div className="relative w-full min-h-screen flex flex-col bg-[#FAF7F2] lg:pl-[50px] pt-24 pb-20 px-4 sm:px-6 overflow-hidden">
       <SharedBackground />
       <div className="relative z-10 w-full max-w-4xl mx-auto flex-1 flex flex-col justify-center">
         {children}
@@ -70,9 +79,7 @@ export default function ImageQuizTake() {
     </div>
   );
 
-  // ==========================================
-  // Premium Leaf Loading Spinner
-  // ==========================================
+  // Loading
   if (loading) {
     return (
       <LayoutWrapper>
@@ -82,24 +89,16 @@ export default function ImageQuizTake() {
               <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M20 4C20 4 14 3 9 8C4 13 4 20 4 20C4 20 11 20 16 15C21 10 20 4 20 4ZM4 20L10 14" />
             </svg>
           </div>
-          <p className="mt-6 text-black font-bold tracking-[0.2em] uppercase text-sm">
-            Loading...
-          </p>
+          <p className="mt-6 text-black font-bold tracking-[0.2em] uppercase text-sm">লোড হচ্ছে...</p>
         </div>
       </LayoutWrapper>
     );
   }
 
-  // ==========================================
-  // Premium Sharp Error State
-  // ==========================================
   if (error) {
     return (
       <LayoutWrapper>
-        <div className="bg-white border border-[#EAEFF0] px-8 py-8 flex flex-col items-center gap-4 shadow-sm text-center max-w-md mx-auto rounded-sm">
-          <svg className="w-10 h-10 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M12 8v4m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-          </svg>
+        <div className="bg-white border border-[#EAEFF0] px-8 py-8 flex flex-col items-center gap-4 shadow-sm text-center max-w-md mx-auto rounded-xl">
           <span className="text-black font-serif text-lg tracking-wide">{error}</span>
         </div>
       </LayoutWrapper>
@@ -109,8 +108,8 @@ export default function ImageQuizTake() {
   if (items.length === 0) {
     return (
       <LayoutWrapper>
-        <div className="bg-yellow-50 border border-yellow-200 p-8 text-center shadow-sm max-w-md mx-auto rounded-sm">
-          <p className="text-yellow-800 font-serif text-lg tracking-wide">No questions have been added to this quiz yet.</p>
+        <div className="bg-yellow-50 border border-yellow-200 p-8 text-center shadow-sm max-w-md mx-auto rounded-xl">
+          <p className="text-yellow-800 font-serif text-lg tracking-wide">এই পরীক্ষায় এখনো কোনো প্রশ্ন যোগ করা হয়নি।</p>
         </div>
       </LayoutWrapper>
     );
@@ -119,6 +118,8 @@ export default function ImageQuizTake() {
   const item = items[cursor];
   const letters = LETTERS.slice(0, item.optionsCount);
   const isLast = cursor === items.length - 1;
+  const answeredCount = Object.keys(answers).length;
+  const progressPercent = Math.round((cursor / items.length) * 100);
 
   const selectAnswer = (letter: string) => {
     setAnswers((a) => ({ ...a, [item.id]: letter }));
@@ -133,7 +134,12 @@ export default function ImageQuizTake() {
     if (!slug) return;
     setSubmitting(true);
     try {
-      const res = await submitImageQuizResponse(slug, { answers });
+      const res = await submitImageQuizResponse(slug, {
+        answers,
+        candidateInfo,
+      });
+      // Clear stored candidateInfo
+      sessionStorage.removeItem(`candidateInfo_${slug}`);
       navigate(`/image-quiz/${slug}/result/${res.responseId}`);
     } catch (err: any) {
       alert(err.message || "Failed to submit. Please try again.");
@@ -145,101 +151,121 @@ export default function ImageQuizTake() {
 
   return (
     <LayoutWrapper>
-      
-      {/* =========================================
-          PROGRESS INDICATOR (Matched to Reference Image)
-          ========================================= */}
-      <div className="flex justify-start items-end mb-6">
-        <span className="text-[#D4BCA6] font-bold tracking-[0.2em] uppercase text-xs">
-          Question {cursor + 1} <span className="text-[#A0AAB2]">/ {items.length}</span>
-        </span>
+
+      {/* Quiz Header */}
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Intelligence Assessment</p>
+            <h2 className="text-lg font-bold text-gray-800 font-serif line-clamp-1">{quizName}</h2>
+          </div>
+          <div className="text-right">
+            <div className="text-2xl font-bold text-gray-800 font-mono">
+              {String(cursor + 1).padStart(2, "0")}
+              <span className="text-gray-300 text-base"> / {String(items.length).padStart(2, "0")}</span>
+            </div>
+            <p className="text-xs text-gray-400">{answeredCount} টি উত্তর দেওয়া হয়েছে</p>
+          </div>
+        </div>
+
+        {/* Progress Bar */}
+        <div className="w-full h-2 bg-[#EAEFF0] rounded-full overflow-hidden">
+          <motion.div
+            className="h-full bg-gradient-to-r from-[#2563EB] to-[#5DBB4D] rounded-full"
+            initial={{ width: 0 }}
+            animate={{ width: `${progressPercent}%` }}
+            transition={{ duration: 0.5 }}
+          />
+        </div>
       </div>
 
-      {/* =========================================
-          MAIN QUIZ AREA
-          ========================================= */}
+      {/* Main Quiz Area */}
       <AnimatePresence mode="wait">
         <motion.div
           key={cursor}
-          initial={{ opacity: 0, x: 20 }}
+          initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -20 }}
+          exit={{ opacity: 0, x: -30 }}
           transition={{ duration: 0.3 }}
-          className="bg-white border border-[#EAEFF0] p-6 sm:p-10 shadow-sm w-full rounded-sm"
+          className="bg-white border border-[#EAEFF0] shadow-[0_10px_40px_rgba(0,0,0,0.06)] w-full rounded-2xl overflow-hidden"
         >
-          {/* Main Question Text (if applicable, based on your structure it's an image quiz, but keeping layout consistent) */}
-          <div className="text-2xl sm:text-3xl md:text-4xl font-serif text-black mb-10 leading-snug">
-            Please select the correct option based on the image.
-          </div>
-
-          {/* Image Container */}
-          <div className="relative w-full mb-12 bg-white flex justify-center items-center">
+          {/* Question Image */}
+          <div className="relative w-full bg-[#F8F9FA] flex justify-center items-center p-6 md:p-10 border-b border-[#EAEFF0]">
             <img
               src={item.imageUrl}
-              alt={`Question ${item.id}`}
-              className="max-w-full max-h-[50vh] object-contain"
+              alt={`Question ${cursor + 1}`}
+              className="max-w-full max-h-[55vh] object-contain"
             />
           </div>
 
-          {/* Options Grid (Matching Reference Image styling) */}
-          <div className="grid grid-cols-4 sm:grid-cols-8 gap-3 sm:gap-4">
-            {letters.map((l) => {
-              const isSelected = answers[item.id] === l;
-              return (
-                <button
-                  key={l}
-                  onClick={() => selectAnswer(l)}
-                  className={`py-4 sm:py-5 border text-lg sm:text-xl font-bold transition-all duration-200 rounded-sm ${
-                    isSelected
-                      ? "bg-[#C8D0C0] text-black border-[#C8D0C0]"
-                      : "bg-[#FAF7F2] text-black border-[#EAEFF0] hover:border-[#C8D0C0] hover:bg-white"
-                  }`}
-                >
-                  {l}
-                </button>
-              );
-            })}
+          {/* Question Instruction */}
+          <div className="px-8 py-5 bg-gradient-to-r from-blue-50 to-green-50 border-b border-[#EAEFF0]">
+            <p className="text-sm font-semibold text-gray-600 text-center">
+              ছবির উপর ভিত্তি করে সঠিক উত্তরটি নির্বাচন করুন
+            </p>
           </div>
 
-          {/* Navigation Controls */}
-          <div className="flex justify-between items-center mt-12 pt-8 border-t border-[#EAEFF0]">
-            <button
-              disabled={cursor === 0}
-              onClick={prev}
-              className="px-4 py-2 text-sm font-bold uppercase tracking-widest text-black disabled:opacity-30 flex items-center gap-2 transition-colors"
+          {/* Options */}
+          <div className="p-6 md:p-10">
+            <div
+              className={`grid gap-3 ${
+                item.optionsCount <= 4 ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-4 sm:grid-cols-8"
+              }`}
             >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Previous
-            </button>
-            <button
-              disabled={answers[item.id] === undefined || submitting}
-              onClick={next}
-              className="bg-[#C8D0C0] disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed text-black text-sm uppercase tracking-widest font-bold transition-all flex items-center justify-center gap-2 px-8 py-3.5 rounded-sm"
-            >
-              <span>
-                {submitting
-                  ? "Submitting..."
-                  : isLast
-                  ? "Submit"
-                  : "Next"}
-              </span>
-              {answers[item.id] !== undefined && !submitting && (
+              {letters.map((l) => {
+                const isSelected = answers[item.id] === l;
+                return (
+                  <button
+                    key={l}
+                    onClick={() => selectAnswer(l)}
+                    className={`py-4 sm:py-5 text-xl font-bold transition-all duration-200 rounded-xl border-2 ${
+                      isSelected
+                        ? "bg-gradient-to-br from-[#2563EB] to-[#5DBB4D] text-white border-transparent shadow-[0_6px_20px_rgba(37,99,235,0.3)] scale-105"
+                        : "bg-[#FAF7F2] text-gray-700 border-[#EAEFF0] hover:border-[#2563EB]/40 hover:bg-blue-50"
+                    }`}
+                  >
+                    {l}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Navigation */}
+            <div className="flex justify-between items-center mt-10 pt-6 border-t border-[#EAEFF0]">
+              <button
+                disabled={cursor === 0}
+                onClick={prev}
+                className="px-6 py-3 text-sm font-bold uppercase tracking-widest text-gray-600 disabled:opacity-30 flex items-center gap-2 transition-colors hover:text-gray-900 rounded-full hover:bg-gray-100"
+              >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  {isLast ? (
-                    <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                  ) : (
-                    <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-                  )}
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
                 </svg>
-              )}
-            </button>
-          </div>
+                আগের প্রশ্ন
+              </button>
 
+              <button
+                disabled={answers[item.id] === undefined || submitting}
+                onClick={next}
+                className="bg-gradient-to-r from-[#2563EB] to-[#5DBB4D] disabled:from-gray-200 disabled:to-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed text-white text-sm uppercase tracking-widest font-bold transition-all flex items-center justify-center gap-2 px-8 py-3.5 rounded-full shadow-[0_6px_20px_rgba(37,99,235,0.25)] hover:shadow-[0_8px_30px_rgba(37,99,235,0.35)]"
+              >
+                <span>
+                  {submitting ? "জমা দেওয়া হচ্ছে..." : isLast ? "জমা দিন" : "পরের প্রশ্ন"}
+                </span>
+                {answers[item.id] !== undefined && !submitting && (
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    {isLast ? (
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                    ) : (
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                    )}
+                  </svg>
+                )}
+              </button>
+            </div>
+          </div>
         </motion.div>
       </AnimatePresence>
-      
+
     </LayoutWrapper>
   );
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { fetchResult } from "../api/instruments";
+import McrrsReportComponent from "./McrrsReport";
 
 const bandColor: Record<string, string> = {
   strong: "bg-emerald-50 text-emerald-800 border-emerald-200",
@@ -183,7 +184,13 @@ export default function Result() {
         {result.scoringType === "vector_matching" && <CfiReport r={result} />}
         {result.scoringType === "domain_pomp_composite" && <PcsReport r={result} />}
         {result.scoringType === "domain_mean_average" && <RrsReport r={result} />}
-        {result.scoringType === "mcrrs_triage" && <McrrsReport r={result} />}
+        {result.scoringType === "mcrrs_triage" && (
+          <McrrsReportComponent
+            r={result}
+            responseId={responseId}
+            submittedDate={submittedDate}
+          />
+        )}
 
         {/* Legal & Clinical Disclaimer Footer */}
         <div className="mt-12 pt-6 border-t border-[#EAEFF0] text-[11px] text-[#7A8691] leading-relaxed">
@@ -622,63 +629,5 @@ function RrsReport({ r }: { r: Record<string, any> }) {
 }
 
 /* =========================================================================
-   5. MCRRS-BD REPORT (Marriage Compatibility & Relationship Readiness)
+   5. MCRRS-BD REPORT — handled by McrrsReportComponent (imported above)
    ========================================================================= */
-function McrrsReport({ r }: { r: Record<string, any> }) {
-  const domainKeys = Object.keys(r.domainResults || {});
-
-  if (r.careFlag) {
-    return (
-      <div className="p-6 bg-rose-50 border border-rose-300 rounded-sm text-rose-900 space-y-4">
-        <h3 className="font-serif font-bold text-lg">⚠️ Safety & Wellbeing Notice</h3>
-        <p className="text-xs leading-relaxed">{r.tier4Message_en || r.tier4Message_bn}</p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="space-y-6">
-      {/* Overall Score */}
-      <div className="p-6 sm:p-8 bg-[#FAF7F2] border border-[#EAEFF0] text-center rounded-sm">
-        <span className="text-xs uppercase tracking-[0.2em] text-[#A38771] font-bold block mb-2">
-          Relationship Readiness & Compatibility Index
-        </span>
-        <div className="text-5xl font-mono font-bold text-[#2C3338] mb-3">
-          {r.total?.index ?? "—"}
-        </div>
-        <span className="inline-block px-4 py-1.5 bg-white border border-[#EAEFF0] text-xs font-bold uppercase tracking-wider text-[#2C3338] rounded-sm shadow-sm">
-          {r.total?.band?.label_en || r.total?.band?.label_bn || "Evaluated"}
-        </span>
-      </div>
-
-      {/* 6 Domains Profile */}
-      <Section title="Six-Domain Relationship Dynamics">
-        <div className="space-y-3">
-          {domainKeys.map((d) => {
-            const dr = r.domainResults[d];
-            return (
-              <div key={d} className="p-4 bg-[#FAF7F2] border border-[#EAEFF0] rounded-sm">
-                <div className="flex justify-between items-center mb-1.5">
-                  <span className="font-serif font-bold text-sm text-[#2C3338]">
-                    {dr.name_en || dr.name_bn}
-                  </span>
-                  <span className="font-mono font-bold text-sm text-[#A38771]">
-                    {dr.index ?? "—"}%
-                  </span>
-                </div>
-                <div className="h-1.5 bg-[#EAEFF0] rounded-full overflow-hidden mb-2">
-                  <div className="h-full bg-[#A38771]" style={{ width: `${dr.index || 0}%` }} />
-                </div>
-                <div className="flex justify-end">
-                  <span className="text-[10px] font-bold px-2 py-0.5 uppercase tracking-wider bg-white border border-[#EAEFF0] rounded-sm text-[#596573]">
-                    {dr.band?.label_en || dr.band?.label_bn}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </Section>
-    </div>
-  );
-}

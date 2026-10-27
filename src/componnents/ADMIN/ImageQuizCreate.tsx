@@ -10,6 +10,7 @@ export default function ImageQuizCreate() {
   const [descBn, setDescBn] = useState("");
   const [price, setPrice] = useState("0");
   const [coverImage, setCoverImage] = useState("");
+  const [ageGroup, setAgeGroup] = useState("");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
@@ -30,6 +31,7 @@ export default function ImageQuizCreate() {
         description: { bn: descBn.trim() },
         coverImage: coverImage.trim(),
         price: Number(price) || 0,
+        ageGroup: ageGroup || undefined,
       });
       navigate(`/dashboard/admin/why-not-you/image-quiz/${quiz.slug}/items`);
     } catch (err: any) {
@@ -116,6 +118,23 @@ export default function ImageQuizCreate() {
               onChange={(e) => setPrice(e.target.value)}
               className="w-full bg-[#F9F6F0] border border-[#EFECE5] text-[#222222] px-4 py-3 outline-none focus:border-[#A38771] transition-colors rounded-sm"
             />
+          </div>
+          <div>
+            <label className="block text-xs font-bold tracking-widest text-[#4A4A4A] mb-2 uppercase">
+              Age Group <span className="text-red-500">*</span>
+            </label>
+            <select
+              value={ageGroup}
+              onChange={(e) => setAgeGroup(e.target.value)}
+              className="w-full bg-[#F9F6F0] border border-[#EFECE5] text-[#222222] px-4 py-3 outline-none focus:border-[#A38771] transition-colors rounded-sm cursor-pointer"
+            >
+              <option value="">-- বয়স গ্রুপ বেছে নিন --</option>
+              <option value="5-8">৫–৮ বছর (Age 5–8)</option>
+              <option value="9-12">৯–১২ বছর (Age 9–12)</option>
+              <option value="13-17">১৩–১৭ বছর (Age 13–17)</option>
+              <option value="18-29">১৮–২৯ বছর (Age 18–29)</option>
+              <option value="30+">৩০+ বছর (Age 30+)</option>
+            </select>
           </div>
           <div>
             <label className="block text-xs font-bold tracking-widest text-[#4A4A4A] mb-2 uppercase">
