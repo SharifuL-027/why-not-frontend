@@ -13,6 +13,7 @@ interface QuizRow {
   name: { bn: string; en?: string };
   price: number;
   status: "draft" | "published";
+  ageGroup?: string;
   items: any[];
 }
 
@@ -110,7 +111,7 @@ export default function ImageQuizList() {
             <thead className="bg-[#F9F6F0] text-[#4A4A4A] text-xs uppercase tracking-widest border-b border-[#EFECE5]">
               <tr>
                 <th className="px-6 py-4 font-bold">Name</th>
-                <th className="px-6 py-4 font-bold">Slug</th>
+                <th className="px-6 py-4 font-bold">Age Group</th>
                 <th className="px-6 py-4 font-bold">Questions</th>
                 <th className="px-6 py-4 font-bold">Price (৳)</th>
                 <th className="px-6 py-4 font-bold">Status</th>
@@ -123,12 +124,41 @@ export default function ImageQuizList() {
                   
                   {/* Name */}
                   <td className="px-6 py-4 font-bold text-[#222222]">
-                    {q.name?.en || q.name?.bn}
+                    <div>{q.name?.en || q.name?.bn}</div>
+                    <div className="text-xs text-gray-400 font-mono mt-0.5">{q.slug}</div>
                   </td>
                   
-                  {/* Slug */}
-                  <td className="px-6 py-4 text-[#4A4A4A] font-mono text-xs">
-                    {q.slug}
+                  {/* Age Group — inline updater */}
+                  <td className="px-6 py-4">
+                    <select
+                      value={q.ageGroup || ""}
+                      disabled={busySlug === q.slug}
+                      onChange={async (e) => {
+                        const val = e.target.value;
+                        setBusySlug(q.slug);
+                        try {
+                          await import("../api/imageQuizAdmin").then(m =>
+                            m.setImageQuizPrice // reuse adminAxios via patch
+                          );
+                          // Direct patch via adminAxios
+                          const { default: adminAxios } = await import("../api/adminAxios");
+                          await adminAxios.patch(`/image-quiz/admin/${q.slug}`, { ageGroup: val || null });
+                          load();
+                        } catch (err: any) {
+                          alert(err.message || "Failed to update age group.");
+                        } finally {
+                          setBusySlug(null);
+                        }
+                      }}
+                      className="bg-[#F9F6F0] border border-[#EFECE5] text-[#222222] text-xs px-2 py-1.5 rounded-sm outline-none focus:border-[#A38771] cursor-pointer"
+                    >
+                      <option value="">-- ববহার সেট নাই --</option>
+                      <option value="5-8">৫–৮ বছর</option>
+                      <option value="9-12">৯–১২ বছর</option>
+                      <option value="13-17">১৩–১৭ বছর</option>
+                      <option value="18-29">১৮–২৯ বছর</option>
+                      <option value="30+">৩০+ বছর</option>
+                    </select>
                   </td>
                   
                   {/* Questions Count */}

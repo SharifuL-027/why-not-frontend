@@ -14,6 +14,7 @@ export interface ImageQuizPayload {
   description?: { bn: string };
   coverImage?: string;
   price: number;
+  ageGroup?: "5-8" | "9-12" | "13-17" | "18-29" | "30+";
 }
 
 async function unwrap<T>(promise: Promise<{ data: any; status: number }>): Promise<T> {
