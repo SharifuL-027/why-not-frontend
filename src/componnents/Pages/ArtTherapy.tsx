@@ -569,7 +569,7 @@ export default function ArtTherapy() {
           className="w-full md:w-3/5"
         >
           <span className="text-[#A38771] text-xs font-bold uppercase tracking-[0.2em] mb-2 block">Lead Specialist</span>
-          <h2 className="text-4xl font-serif text-[#222222] mb-2">Roksana Sultana, PhD</h2>
+          <h2 className="text-4xl font-serif text-[#222222] mb-2">Roksana Sultana, PhD Researcher</h2>
           <p className="text-sm text-[#C05C44] uppercase tracking-widest font-bold mb-8">Psychologist · Art Therapist</p>
           
           <p className="text-[#4A4A4A] leading-relaxed mb-6 text-justify sm:text-left hyphens-auto">

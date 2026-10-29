@@ -121,19 +121,6 @@ const Navbar = () => {
               </Link>
             </div>
 
-            {/* Desktop Top Links */}
-            <div className="hidden md:flex space-x-10 items-center">
-              <Link to="/tests" className="font-medium text-white/80 hover:text-white hover:underline underline-offset-4 decoration-[#ffba12] transition-all text-sm uppercase tracking-wider">
-                Tests
-              </Link>
-              <Link to="/image-quiz" className="font-medium text-white/80 hover:text-white hover:underline underline-offset-4 decoration-[#ffba12] transition-all text-sm uppercase tracking-wider">
-                Image Quiz
-              </Link>
-              <Link to="/selection" className="font-medium text-white/80 hover:text-white hover:underline underline-offset-4 decoration-[#ffba12] transition-all text-sm uppercase tracking-wider">
-                Selection
-              </Link>
-            </div>
-
             {/* Desktop Auth & Call to Action */}
             <div className="hidden md:flex items-center space-x-6">
               {isLoading ? (
