@@ -34,6 +34,7 @@ import AboutUs from "../componnents/Pages/AboutUs";
 import ArtTherapy from "../componnents/Pages/ArtTherapy";
 import OpeningPost from "../componnents/Main/OpeningPost";
 import ScrollToTop from "../componnents/ScrollToTop";
+import StandaloneMcrrReport from "../componnents/Pages/StandaloneMcrrReport";
 
 const MainLayout = () => {
   return (
@@ -102,7 +103,15 @@ const AllRoutes = () => {
           path="/selection/:slug/result/:responseId"
           element={<AmBatteryResult />}
         />
+
+        {/* Dedicated Standalone MCRR-BD Reporting Routes */}
+        <Route path="/mcrr-report" element={<StandaloneMcrrReport />} />
+        <Route path="/mcrr-report/:responseId" element={<StandaloneMcrrReport />} />
       </Route>
+
+      {/* Completely Isolated Fullscreen MCRR-BD Report Routes */}
+      <Route path="/report/mcrr-bd" element={<StandaloneMcrrReport />} />
+      <Route path="/report/mcrr-bd/:responseId" element={<StandaloneMcrrReport />} />
 
       {/* Admin Routes */}
       <Route path="dashboard/admin/why-not-you" element={<AdminHome />}>
