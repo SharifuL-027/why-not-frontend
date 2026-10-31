@@ -27,30 +27,12 @@ export default function McrrReportPage({
   defaultLang = "en",
 }: McrrReportPageProps) {
   const [lang, setLang] = useState<ReportLang>(defaultLang);
-  const [reportData, setReportData] = useState<McrrReportData>(() => {
-    if (initialData) return initialData;
-    return SAMPLE_MCRR_DATA;
-  });
-  const [isCustom, setIsCustom] = useState<boolean>(!!initialData);
+  const reportData: McrrReportData = initialData || SAMPLE_MCRR_DATA;
 
   const toggleLang = () => setLang((prev) => (prev === "en" ? "bn" : "en"));
 
   const handlePrint = () => {
     window.print();
-  };
-
-  const handleToggleSample = () => {
-    if (isCustom) {
-      setReportData(SAMPLE_MCRR_DATA);
-      setIsCustom(false);
-    } else {
-      if (initialData) {
-        setReportData(initialData);
-        setIsCustom(true);
-      } else {
-        setReportData(SAMPLE_MCRR_DATA);
-      }
-    }
   };
 
   // Derived calculations
@@ -152,19 +134,16 @@ export default function McrrReportPage({
 
   return (
     <div className="min-h-screen bg-[#F4F3EF] text-stone-800 font-sans antialiased py-6 px-3 sm:px-6">
-      {/* Global Interactive Header */}
-      <McrrHeader
-        lang={lang}
-        onToggleLang={toggleLang}
-        referenceCode={refCode}
-        version={version}
-        onPrint={handlePrint}
-        onLoadSample={handleToggleSample}
-        isCustomData={isCustom}
-      />
-
-      {/* Main Pages Stack Container */}
-      <div className="max-w-4xl mx-auto space-y-10 print:space-y-0">
+      {/* Main Pages Stack Container with Report Controls at the very top */}
+      <div className="max-w-4xl mx-auto space-y-8 print:space-y-0">
+        {/* Report Top Action Toolbar (Print / PDF & Bangla-English Toggle) */}
+        <McrrHeader
+          lang={lang}
+          onToggleLang={toggleLang}
+          referenceCode={refCode}
+          version={version}
+          onPrint={handlePrint}
+        />
         {/* =========================================================================
             PAGE 1: COVER & METADATA
             ========================================================================= */}

@@ -40,6 +40,9 @@ export const setImageQuizStatus = (slug: string, status: "draft" | "published") 
 export const setImageQuizPrice = (slug: string, price: number) =>
   unwrap<any>(adminAxios.patch(`/image-quiz/admin/${slug}`, { price }));
 
+export const setImageQuizAgeGroup = (slug: string, ageGroup: string | null) =>
+  unwrap<any>(adminAxios.patch(`/image-quiz/admin/${slug}`, { ageGroup: ageGroup || null }));
+
 export const deleteImageQuiz = (slug: string) =>
   unwrap<any>(adminAxios.delete(`/image-quiz/admin/${slug}`));
 

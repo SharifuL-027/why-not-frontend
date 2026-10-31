@@ -131,8 +131,14 @@ export default function ImageQuizCreate() {
               <option value="">-- বয়স গ্রুপ বেছে নিন --</option>
               <option value="5-8">৫–৮ বছর (Age 5–8)</option>
               <option value="9-12">৯–১২ বছর (Age 9–12)</option>
+              <option value="11-12">১১–১২ বছর (Band A: Age 11–12)</option>
+              <option value="13-14">১৩–১৪ বছর (Band B: Age 13–14)</option>
               <option value="13-17">১৩–১৭ বছর (Age 13–17)</option>
+              <option value="15-16">১৫–১৬ বছর (Band C: Age 15–16)</option>
+              <option value="17-18">১৭–১৮ বছর (Band D: Age 17–18)</option>
               <option value="18-29">১৮–২৯ বছর (Age 18–29)</option>
+              <option value="19-24">১৯–২৪ বছর (Band E: Age 19–24)</option>
+              <option value="25+">২৫+ বছর (Band F: Age 25+ Adults)</option>
               <option value="30+">৩০+ বছর (Age 30+)</option>
             </select>
           </div>

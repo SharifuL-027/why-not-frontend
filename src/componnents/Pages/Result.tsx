@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { fetchResult } from "../api/instruments";
 import McrrsReportComponent from "./McrrsReport";
+import RrsReportPage from "../RrsReport/RrsReportPage";
+import { SAMPLE_RRS_DATA } from "../RrsReport/sampleData";
+import MhsReportPage from "../MhsReport/MhsReportPage";
+import { sampleMhsReportData } from "../MhsReport/sampleData";
+import { MhsReportData } from "../MhsReport/types";
 
 const bandColor: Record<string, string> = {
   strong: "bg-emerald-50 text-emerald-800 border-emerald-200",
@@ -115,6 +120,70 @@ export default function Result() {
           submittedDate={submittedDate}
           personalInfo={participantInfo}
         />
+      </div>
+    );
+  }
+
+  // Completely isolated rendering for RRS-24 (Responsibility & Reliability Scale)
+  if (result.scoringType === "domain_mean_average") {
+    const rrsData = {
+      ...SAMPLE_RRS_DATA,
+      metadata: {
+        ...SAMPLE_RRS_DATA.metadata,
+        reportNumber: responseId ? `RRS-${responseId.slice(-8).toUpperCase()}` : "RRS-2026-004187",
+        name: participantInfo?.name || SAMPLE_RRS_DATA.metadata.name,
+        date: submittedDate || SAMPLE_RRS_DATA.metadata.date,
+      },
+      domainResults: {
+        PR: result.domainResults?.PR || SAMPLE_RRS_DATA.domainResults.PR,
+        MR: result.domainResults?.MR || SAMPLE_RRS_DATA.domainResults.MR,
+        SR: result.domainResults?.SR || SAMPLE_RRS_DATA.domainResults.SR,
+      },
+      total: result.total || SAMPLE_RRS_DATA.total,
+      gap: result.gap || SAMPLE_RRS_DATA.gap,
+      highestDomain: result.highestDomain || SAMPLE_RRS_DATA.highestDomain,
+      lowestDomain: result.lowestDomain || SAMPLE_RRS_DATA.lowestDomain,
+    };
+
+    return (
+      <div className="w-full">
+        <RrsReportPage
+          initialData={rrsData}
+          responseId={responseId}
+          submittedDate={submittedDate}
+          defaultLang="en"
+        />
+      </div>
+    );
+  }
+
+  // Completely isolated rendering for Mansik Shasthya Scannar - Bangladesh (MHS-BD)
+  if (
+    result.scoringType === "mhs_clinical_scan" ||
+    result.instrumentCode === "MHS-BD" ||
+    result.scaleTitle?.includes("MHS-BD") ||
+    result.scaleTitle?.includes("Mansik Shasthya")
+  ) {
+    const mhsData: MhsReportData = {
+      ...sampleMhsReportData,
+      metadata: {
+        ...sampleMhsReportData.metadata,
+        reportNumber: responseId ? `MHS-${responseId.slice(-8).toUpperCase()}` : "MHS-260927-0001",
+        name: participantInfo?.name || sampleMhsReportData.metadata.name,
+        date: submittedDate || sampleMhsReportData.metadata.date,
+        ageGender: participantInfo?.age
+          ? `${participantInfo.age} / ${participantInfo?.gender || "Not specified"}`
+          : sampleMhsReportData.metadata.ageGender,
+      },
+      overallIndex: {
+        ...sampleMhsReportData.overallIndex,
+        score: typeof result.totalScore === "number" ? result.totalScore : sampleMhsReportData.overallIndex.score,
+      },
+    };
+
+    return (
+      <div className="w-full">
+        <MhsReportPage initialData={mhsData} initialLang="bn" />
       </div>
     );
   }

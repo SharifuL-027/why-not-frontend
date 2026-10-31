@@ -4,6 +4,7 @@ import {
   fetchImageQuizzesAdmin, 
   setImageQuizStatus, 
   setImageQuizPrice, 
+  setImageQuizAgeGroup,
   deleteImageQuiz 
 } from "../api/imageQuizAdmin";
 
@@ -23,6 +24,7 @@ export default function ImageQuizList() {
   const [error, setError] = useState("");
   const [priceDrafts, setPriceDrafts] = useState<Record<string, string>>({});
   const [busySlug, setBusySlug] = useState<string | null>(null);
+  const [savedSlug, setSavedSlug] = useState<string | null>(null);
 
   const load = () => {
     setLoading(true);
@@ -44,6 +46,25 @@ export default function ImageQuizList() {
       load();
     } catch (err: any) {
       alert(err.message || "Failed to change status.");
+    } finally {
+      setBusySlug(null);
+    }
+  };
+
+  const handleAgeGroupChange = async (q: QuizRow, val: string) => {
+    setBusySlug(q.slug);
+    try {
+      await setImageQuizAgeGroup(q.slug, val || null);
+      setSavedSlug(q.slug);
+      setTimeout(() => setSavedSlug(null), 2500);
+      setQuizzes((prev) =>
+        prev.map((item) =>
+          item.slug === q.slug ? { ...item, ageGroup: val || undefined } : item
+        )
+      );
+    } catch (err: any) {
+      alert(err.message || "Failed to update age group.");
+      load();
     } finally {
       setBusySlug(null);
     }
@@ -130,35 +151,35 @@ export default function ImageQuizList() {
                   
                   {/* Age Group — inline updater */}
                   <td className="px-6 py-4">
-                    <select
-                      value={q.ageGroup || ""}
-                      disabled={busySlug === q.slug}
-                      onChange={async (e) => {
-                        const val = e.target.value;
-                        setBusySlug(q.slug);
-                        try {
-                          await import("../api/imageQuizAdmin").then(m =>
-                            m.setImageQuizPrice // reuse adminAxios via patch
-                          );
-                          // Direct patch via adminAxios
-                          const { default: adminAxios } = await import("../api/adminAxios");
-                          await adminAxios.patch(`/image-quiz/admin/${q.slug}`, { ageGroup: val || null });
-                          load();
-                        } catch (err: any) {
-                          alert(err.message || "Failed to update age group.");
-                        } finally {
-                          setBusySlug(null);
-                        }
-                      }}
-                      className="bg-[#F9F6F0] border border-[#EFECE5] text-[#222222] text-xs px-2 py-1.5 rounded-sm outline-none focus:border-[#A38771] cursor-pointer"
-                    >
-                      <option value="">-- ববহার সেট নাই --</option>
-                      <option value="5-8">৫–৮ বছর</option>
-                      <option value="9-12">৯–১২ বছর</option>
-                      <option value="13-17">১৩–১৭ বছর</option>
-                      <option value="18-29">১৮–২৯ বছর</option>
-                      <option value="30+">৩০+ বছর</option>
-                    </select>
+                    <div className="flex items-center gap-2">
+                      <select
+                        value={q.ageGroup || ""}
+                        disabled={busySlug === q.slug}
+                        onChange={(e) => handleAgeGroupChange(q, e.target.value)}
+                        className="bg-[#F9F6F0] border border-[#EFECE5] text-[#222222] text-xs px-2.5 py-1.5 rounded-sm outline-none focus:border-[#A38771] cursor-pointer transition-colors"
+                      >
+                        <option value="">-- ব্যবহার সেট নাই --</option>
+                        <option value="5-8">৫–৮ বছর (5-8)</option>
+                        <option value="9-12">৯–১২ বছর (9-12)</option>
+                        <option value="11-12">১১–১২ বছর (Band A)</option>
+                        <option value="13-14">১৩–১৪ বছর (Band B)</option>
+                        <option value="13-17">১৩–১৭ বছর (13-17)</option>
+                        <option value="15-16">১৫–১৬ বছর (Band C)</option>
+                        <option value="17-18">১৭–১৮ বছর (Band D)</option>
+                        <option value="18-29">১৮–২৯ বছর (18-29)</option>
+                        <option value="19-24">১৯–২৪ বছর (Band E)</option>
+                        <option value="25+">২৫+ বছর (Band F / Adults)</option>
+                        <option value="30+">৩০+ বছর (30+)</option>
+                      </select>
+                      {savedSlug === q.slug && (
+                        <span className="text-emerald-600 text-xs font-bold animate-pulse">
+                          ✓ সংরক্ষিত
+                        </span>
+                      )}
+                      {busySlug === q.slug && (
+                        <span className="w-3.5 h-3.5 border-2 border-[#A38771] border-t-transparent rounded-full animate-spin" />
+                      )}
+                    </div>
                   </td>
                   
                   {/* Questions Count */}

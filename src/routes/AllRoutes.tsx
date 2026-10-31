@@ -35,6 +35,8 @@ import ArtTherapy from "../componnents/Pages/ArtTherapy";
 import OpeningPost from "../componnents/Main/OpeningPost";
 import ScrollToTop from "../componnents/ScrollToTop";
 import StandaloneMcrrReport from "../componnents/Pages/StandaloneMcrrReport";
+import StandaloneRrsReport from "../componnents/Pages/StandaloneRrsReport";
+import StandaloneMhsReport from "../componnents/Pages/StandaloneMhsReport";
 
 const MainLayout = () => {
   return (
@@ -107,11 +109,27 @@ const AllRoutes = () => {
         {/* Dedicated Standalone MCRR-BD Reporting Routes */}
         <Route path="/mcrr-report" element={<StandaloneMcrrReport />} />
         <Route path="/mcrr-report/:responseId" element={<StandaloneMcrrReport />} />
+
+        {/* Dedicated Standalone RRS-24 Reporting Routes */}
+        <Route path="/rrs-report" element={<StandaloneRrsReport />} />
+        <Route path="/rrs-report/:responseId" element={<StandaloneRrsReport />} />
+
+        {/* Dedicated Standalone MHS-BD Reporting Routes */}
+        <Route path="/mhs-report" element={<StandaloneMhsReport />} />
+        <Route path="/mhs-report/:responseId" element={<StandaloneMhsReport />} />
       </Route>
 
       {/* Completely Isolated Fullscreen MCRR-BD Report Routes */}
       <Route path="/report/mcrr-bd" element={<StandaloneMcrrReport />} />
       <Route path="/report/mcrr-bd/:responseId" element={<StandaloneMcrrReport />} />
+
+      {/* Completely Isolated Fullscreen RRS-24 Report Routes */}
+      <Route path="/report/rrs-24" element={<StandaloneRrsReport />} />
+      <Route path="/report/rrs-24/:responseId" element={<StandaloneRrsReport />} />
+
+      {/* Completely Isolated Fullscreen MHS-BD Report Routes */}
+      <Route path="/report/mhs-bd" element={<StandaloneMhsReport />} />
+      <Route path="/report/mhs-bd/:responseId" element={<StandaloneMhsReport />} />
 
       {/* Admin Routes */}
       <Route path="dashboard/admin/why-not-you" element={<AdminHome />}>
